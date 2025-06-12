@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ángel Valdés, artista emocional con ansiedad y sin filtros, presenta su sitio oficial con podcast, reflexiones, contenido honesto y mucho más." />
+  <meta name="keywords" content="Ángel Valdés, artista con ansiedad, podcast emocional, salud mental, artista latino, superación emocional, contenido crudo" />
+  <meta name="author" content="Ángel Valdés" />
+  <title>Ángel Valdés | Artista emocional</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #111;
+      color: #fff;
+      padding: 0;
+    }
+    header {
+      background: #222;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-style: italic;
+    }
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    .ad-box, .banner, .side-panel {
+      background: #333;
+      padding: 1rem;
+      margin-top: 2rem;
+      border: 2px solid #444;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #222;
+      padding: 2rem;
+      border: 2px solid #fff;
+      z-index: 9999;
+    }
+    .popup.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ángel Valdés</h1>
+    <p>Artista emocional. Crudo. Real. Sin filtros.</p>
+  </header>
+  <main>
+    <section>
+      <h2>🎙️ Podcast: "Lo que me salvó fue una perrita y un saco de croquetas"</h2>
+      <p>Un espacio para hablar desde el trauma, la ansiedad, el abandono y la vida sin máscaras. Cada episodio es una historia real contada por alguien que no se rindió.</p>
+      <a href="https://open.spotify.com/show/xxxxx" target="_blank">Escúchalo en Spotify</a>
+    </section>
+
+    <section class="ad-box">
+      <h3>🔥 Recomendado:</h3>
+      <ul>
+        <li><a href="https://www.tiktokshop.com/producto123">Compra en TikTok Shop</a></li>
+        <li><a href="https://amzn.to/afiliado">Ofertas en Amazon</a></li>
+        <li><a href="https://mercadolibre.com.mx/perfilangel">Lo más vendido en ML</a></li>
+        <li><a href="https://worldapp.link/angelvaldes">Gana dinero con WorldApp</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>📩 Suscríbete</h2>
+      <p>Recibe reflexiones, recursos emocionales y contenido exclusivo:</p>
+      <iframe src="https://docs.google.com/forms/d/e/tu_formulario/embed" width="100%" height="600" frameborder="0">Cargando…</iframe>
+    </section>
+  </main>
+
+  <div class="popup" id="alertaCorreo">
+    <h3>💌 ¡No te vayas sin suscribirte!</h3>
+    <p>Únete a la lista y recibe reflexiones desde lo más crudo y humano. Gratis.</p>
+    <a href="#suscripcion">Suscribirme</a>
+  </div>
+
+  <script>
+    // Mostrar popup luego de 15 segundos
+    setTimeout(() => {
+      document.getElementById('alertaCorreo').classList.add('show');
+    }, 15000);
+
+    // Medir clics en enlaces
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        console.log(`Click en: ${link.href}`);
+      });
+    });
+  </script>
+</body>
+</html>
