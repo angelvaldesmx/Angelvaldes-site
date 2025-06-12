@@ -1,111 +1,226 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ángel Valdés, artista emocional con ansiedad y sin filtros, presenta su sitio oficial con podcast, reflexiones, contenido honesto y mucho más." />
-  <meta name="keywords" content="Ángel Valdés, artista con ansiedad, podcast emocional, salud mental, artista latino, superación emocional, contenido crudo" />
-  <meta name="author" content="Ángel Valdés" />
-  <title>Ángel Valdés | Artista emocional</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sitio oficial de Ángel Valdes (Angel Gabriel Rojas Valdes). Artista emocional, creador de podcast, música, libros y reflexiones auténticas.">
+  <meta name="keywords" content="Ángel Valdes, Angel Gabriel Rojas Valdes, podcast, artista, reflexiones, música, libros, apoyo emocional">
+  <meta name="author" content="Ángel Valdes">
+  <title>Ángel Valdes - Sitio Oficial</title>
   <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: #111;
+      background-color: #111;
       color: #fff;
-      padding: 0;
     }
     header {
-      background: #222;
-      padding: 2rem;
+      position: relative;
+      height: 100vh;
+      background: url('ruta/a/tu-imagen.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      cursor: pointer;
+    }
+    header .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    header .content {
+      position: relative;
+      z-index: 2;
     }
     header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 3em;
+      margin-bottom: 0.3em;
     }
     header p {
-      font-style: italic;
+      font-size: 1.2em;
+      opacity: 0.8;
     }
     main {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
+      padding: 2em;
     }
-    section {
-      margin-bottom: 3rem;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
     }
-    .ad-box, .banner, .side-panel {
-      background: #333;
-      padding: 1rem;
-      margin-top: 2rem;
-      border: 2px solid #444;
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
     }
-    .popup {
-      display: none;
-      position: fixed;
-      top: 20%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #222;
-      padding: 2rem;
-      border: 2px solid #fff;
-      z-index: 9999;
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
     }
-    .popup.show {
-      display: block;
+    .card:hover img {
+      transform: scale(1.1);
+    }
+    .card .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+    .card:hover .overlay {
+      opacity: 1;
+    }
+    .card .overlay h2 {
+      color: white;
+      font-size: 1.5em;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Ángel Valdés</h1>
-    <p>Artista emocional. Crudo. Real. Sin filtros.</p>
+  <header onclick="window.location.href='sobre-mi.html'">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>Ángel Valdes</h1>
+      <p>Artista emocional. Crudo. Real. Sin filtros.</p>
+    </div>
   </header>
   <main>
-    <section>
-      <h2>🎙️ Podcast: "Lo que me salvó fue una perrita y un saco de croquetas"</h2>
-      <p>Un espacio para hablar desde el trauma, la ansiedad, el abandono y la vida sin máscaras. Cada episodio es una historia real contada por alguien que no se rindió.</p>
-      <a href="https://open.spotify.com/show/xxxxx" target="_blank">Escúchalo en Spotify</a>
+    <section class="grid">
+      <div class="card" onclick="location.href='podcast.html'">
+        <img src="ruta/podcast.jpg" alt="Podcast">
+        <div class="overlay"><h2>Podcast</h2></div>
+      </div>
+      <div class="card" onclick="location.href='libros.html'">
+        <img src="ruta/libros.jpg" alt="Libros">
+        <div class="overlay"><h2>Libros</h2></div>
+      </div>
+      <div class="card" onclick="location.href='musica.html'">
+        <img src="ruta/musica.jpg" alt="Música">
+        <div class="overlay"><h2>Música</h2></div>
+      </div>
+      <div class="card" onclick="location.href='reflexiones.html'">
+        <img src="ruta/reflexiones.jpg" alt="Reflexiones">
+        <div class="overlay"><h2>Reflexiones</h2></div>
+      </div>
+      <div class="card" onclick="location.href='contacto.html'">
+        <img src="ruta/contacto.jpg" alt="Contacto">
+        <div class="overlay"><h2>Contacto</h2></div>
+      </div>
     </section>
-
-    <section class="ad-box">
-      <h3>🔥 Recomendado:</h3>
-      <ul>
-        <li><a href="https://www.tiktokshop.com/producto123">Compra en TikTok Shop</a></li>
-        <li><a href="https://amzn.to/afiliado">Ofertas en Amazon</a></li>
-        <li><a href="https://mercadolibre.com.mx/perfilangel">Lo más vendido en ML</a></li>
-        <li><a href="https://worldapp.link/angelvaldes">Gana dinero con WorldApp</a></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>📩 Suscríbete</h2>
-      <p>Recibe reflexiones, recursos emocionales y contenido exclusivo:</p>
-      <iframe src="https://docs.google.com/forms/d/e/tu_formulario/embed" width="100%" height="600" frameborder="0">Cargando…</iframe>
-    </section>
-  </main>
-
-  <div class="popup" id="alertaCorreo">
-    <h3>💌 ¡No te vayas sin suscribirte!</h3>
-    <p>Únete a la lista y recibe reflexiones desde lo más crudo y humano. Gratis.</p>
-    <a href="#suscripcion">Suscribirme</a>
+  </main>  <!-- Schema.org Datos estructurados -->  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ángel Valdes",
+      "alternateName": "Angel Gabriel Rojas Valdes",
+      "jobTitle": "Artista emocional, podcaster, autor, músico",
+      "url": "https://www.tusitio.com",
+      "sameAs": [
+        "https://www.instagram.com/tuusuario",
+        "https://www.spotify.com/tuusuario",
+        "https://www.youtube.com/tuusuario"
+      ]
+    }
+  </script><!-- POPUP de bienvenida -->
+<div id="popup-bienvenida" class="popup-overlay">
+  <div class="popup-content">
+    <h2>💭 Bienvenido</h2>
+    <p>
+      "A veces, sobrevivir se siente como un logro. Bienvenido a este rincón donde se celebra cada paso, incluso los más pequeños." <br><br> — Ángel Valdes
+    </p>
+    <button onclick="cerrarPopup()">Entrar al sitio</button>
   </div>
+</div>
 
-  <script>
-    // Mostrar popup luego de 15 segundos
-    setTimeout(() => {
-      document.getElementById('alertaCorreo').classList.add('show');
-    }, 15000);
+<!-- SCRIPTS JS -->
+<script>
+  // Mostrar popup solo una vez por sesión
+  window.addEventListener('DOMContentLoaded', () => {
+    if (!sessionStorage.getItem('popupShown')) {
+      document.getElementById('popup-bienvenida').classList.add('visible');
+      sessionStorage.setItem('popupShown', 'true');
+    }
+  });
 
-    // Medir clics en enlaces
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        console.log(`Click en: ${link.href}`);
-      });
+  function cerrarPopup() {
+    document.getElementById('popup-bienvenida').classList.remove('visible');
+  }
+
+  // También cerrar si se hace clic fuera del contenido
+  document.getElementById('popup-bienvenida').addEventListener('click', (e) => {
+    if (e.target.id === 'popup-bienvenida') cerrarPopup();
+  });
+
+  // Navegación suave
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const destino = document.querySelector(this.getAttribute('href'));
+      if (destino) {
+        destino.scrollIntoView({ behavior: 'smooth' });
+      }
     });
-  </script>
-</body>
+  });
+
+  // Consola de branding
+  console.log("🌐 Ángel Valdes | Sitio oficial cargado.");
+</script>
+
+<!-- ESTILOS del popup -->
+<style>
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popup-overlay.visible {
+    display: flex;
+  }
+
+  .popup-content {
+    background: #222;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 500px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+    box-shadow: 0 0 10px #fff2;
+  }
+
+  .popup-content h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .popup-content button {
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  </style></body>
 </html>
