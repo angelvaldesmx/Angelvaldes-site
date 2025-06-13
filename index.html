@@ -271,11 +271,12 @@
   import { auth } from './firebase-config.js';
   import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
-  function cerrarPopup() {
+  // Exponer cerrarPopup al ámbito global
+  window.cerrarPopup = function () {
     const popup = document.getElementById('popup-bienvenida');
     popup.classList.add('oculto');
     localStorage.setItem('bienvenidaMostrada', 'true');
-  }
+  };
 
   window.addEventListener('DOMContentLoaded', () => {
     const yaMostrada = localStorage.getItem('bienvenidaMostrada');
