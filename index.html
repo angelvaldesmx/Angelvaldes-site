@@ -11,6 +11,28 @@
 </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2002820447462286"
      crossorigin="anonymous"></script>
+    <!-- Canonical URL -->
+<link rel="canonical" href="https://angelvaldesmx.qzz.io/">
+
+<!-- Favicon -->
+<link rel="icon" href="ruta/favicon.png" type="image/png">
+
+<!-- Open Graph para compartir en redes -->
+<meta property="og:title" content="Ángel Valdes - Sitio Oficial">
+<meta property="og:description" content="Artista emocional, creador de podcast, música y libros. Bienvenido a un refugio real y sin filtros.">
+<meta property="og:image" content="ruta/a/imagen-og.jpg">
+<meta property="og:url" content="https://angelvaldesmx.qzz.io/">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ángel Valdes - Sitio Oficial">
+<meta name="twitter:description" content="Refugio emocional a través de podcast, libros y música.">
+<meta name="twitter:image" content="ruta/a/imagen-twitter.jpg">
+
+<!-- Robots -->
+<meta name="robots" content="index, follow">
+  <meta name="keywords" content="Ángel Valdes, Angel Gabriel Rojas Valdes, artista emocional, podcast, libros, música independiente, apoyo emocional, reflexiones profundas, salud mental, contenido real, superación">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Sitio oficial de Ángel Valdes (Angel Gabriel Rojas Valdes). Artista emocional, creador de podcast, música, libros y reflexiones auténticas.">
@@ -155,29 +177,6 @@
     <button onclick="cerrarPopup()">Entrar al sitio</button>
   </div>
 </div>
-
-<!-- SCRIPTS JS -->
-<script type="module">
-    import { auth } from './firebase-config.js';
-    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-
-    const spanNombre = document.getElementById("usuario-nombre");
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const nombre = user.displayName || user.email;
-        spanNombre.innerText = `Bienvenido, ${nombre}`;
-      } else {
-        spanNombre.innerHTML = `<a href="login.html" style="color: #00ffab; text-decoration: none;">Inicia sesión aquí</a>`;
-      }
-    });
-
-    window.cerrarSesion = () => {
-      signOut(auth).then(() => {
-        location.reload();
-      });
-    };
-  </script>
 <script>
   // Mostrar popup solo una vez por sesión
   window.addEventListener('DOMContentLoaded', () => {
@@ -210,7 +209,28 @@
   // Consola de branding
   console.log("🌐 Ángel Valdes | Sitio oficial cargado.");
 </script>
+<!-- SCRIPTS JS -->
+<script type="module">
+    import { auth, signOut } from './firebase-config.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
+onAuthStateChanged(auth, (user) => {
+  const spanNombre = document.getElementById("usuario-nombre");
+  const btnFlotante = document.getElementById("boton-flotante");
+
+  if (user) {
+    const nombre = user.displayName || user.email;
+    if (spanNombre) spanNombre.innerText = `Bienvenido, ${nombre}`;
+    if (btnFlotante) btnFlotante.style.display = "none";
+  } else {
+    if (spanNombre) spanNombre.innerHTML = `<a href="login.html" style="color: #00ffab; text-decoration: none;">Inicia sesión aquí</a>`;
+  }
+});
+
+window.cerrarSesion = () => {
+  signOut(auth).then(() => location.reload());
+};
+  </script>
 <!-- ESTILOS del popup -->
 <style>
   .popup-overlay {
@@ -259,5 +279,54 @@
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  </style></body>
+  </style>
+  <script>
+  // Evento al hacer clic en una tarjeta
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      gtag('event', 'click_card', {
+        'event_category': 'Navegación',
+        'event_label': card.querySelector('h2').textContent
+      });
+    });
+  });
+
+  // Evento al hacer scroll
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 300) {
+      gtag('event', 'scroll', {
+        'event_category': 'Interacción',
+        'event_label': 'Scroll a 300px'
+      });
+    }
+  });
+</script>
+<a href="registro.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo" 
+  style="#boton-flotante:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #00ffab;
+  color: #000;
+  padding: 14px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  z-index: 1000;
+">
+  👤 Únete
+</div>
+<script>
+  document.getElementById('boton-flotante').addEventListener('click', () => {
+    gtag('event', 'click_cta_flotante', {
+      'event_category': 'Conversión',
+      'event_label': 'Botón Únete flotante'
+    });
+  });
+</script>
+</body>
 </html>
