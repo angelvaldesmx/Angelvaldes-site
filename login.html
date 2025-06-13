@@ -70,13 +70,27 @@
     </form>
   </div>
 
-  <script type="module">
-    import { auth } from './firebase-config.js';
-    import {
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      updateProfile
-    } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics.js"></script>
+
+  <script>
+    // 🔐 Configuración real de tu Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyCYG9zCf9NYasMQvwGZ8xS2hVPV2u8eRVA",
+      authDomain: "angelvaldessitio.firebaseapp.com",
+      projectId: "angelvaldessitio",
+      storageBucket: "angelvaldessitio.appspot.com",
+      messagingSenderId: "383933947961",
+      appId: "1:383933947961:web:499ffec0f2fdf67bccede8",
+      measurementId: "G-5VD2H57PKX"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const auth = firebase.auth();
 
     // Tabs
     const tabLogin = document.getElementById('tab-login');
@@ -106,12 +120,12 @@
       const pass = document.getElementById('pass').value;
 
       try {
-        const userCred = await createUserWithEmailAndPassword(auth, email, pass);
-        await updateProfile(userCred.user, { displayName: nombre });
+        const userCred = await auth.createUserWithEmailAndPassword(email, pass);
+        await userCred.user.updateProfile({ displayName: nombre });
         alert("Cuenta creada. ¡Bienvenido!");
         window.location.href = "index.html";
       } catch (err) {
-        alert(err.message);
+        alert("Error: " + err.message);
       }
     });
 
@@ -122,11 +136,11 @@
       const pass = document.getElementById('pass-login').value;
 
       try {
-        await signInWithEmailAndPassword(auth, email, pass);
+        await auth.signInWithEmailAndPassword(email, pass);
         alert("Inicio de sesión exitoso");
         window.location.href = "index.html";
       } catch (err) {
-        alert("Credenciales inválidas");
+        alert("Credenciales inválidas: " + err.message);
       }
     });
   </script>
