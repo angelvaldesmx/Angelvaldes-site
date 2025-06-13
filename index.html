@@ -228,9 +228,8 @@
 </script>
 <!-- SCRIPTS JS -->
 <script type="module">
-    import { auth, signOut } from './firebase-config.js';
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-
+    import { auth } from './firebase-config.js';
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 onAuthStateChanged(auth, (user) => {
   const spanNombre = document.getElementById("usuario-nombre");
   const btnFlotante = document.getElementById("boton-flotante");
