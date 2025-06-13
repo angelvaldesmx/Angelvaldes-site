@@ -20,3 +20,5 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 export { auth, db, storage };
+export { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+export { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
