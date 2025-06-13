@@ -119,6 +119,23 @@
   </style>
 </head>
 <body>
+  <a href="registro.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo"
+  style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #00ffab;
+    color: #000;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    z-index: 1000;
+    text-decoration: none;
+    display: inline-block;">
+  👤 Únete
+</a>
    <div id="usuario-panel" style="position: fixed; top: 0; width: 100%; background: #222; color: #fff; padding: 10px; display: flex; justify-content: space-between; align-items: center; z-index: 999;">
     <span id="usuario-nombre">Cargando usuario...</span>
     <button onclick="cerrarSesion()" style="background: crimson; border: none; color: white; padding: 5px 10px; cursor: pointer; border-radius: 5px;">Cerrar sesión</button>
@@ -301,23 +318,6 @@ window.cerrarSesion = () => {
     }
   });
 </script>
-<a href="registro.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo"
-  style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #00ffab;
-    color: #000;
-    padding: 14px 20px;
-    border-radius: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    z-index: 1000;
-    text-decoration: none;
-    display: inline-block;">
-  👤 Únete
-</a>
 <script>
   document.getElementById('boton-flotante').addEventListener('click', () => {
     gtag('event', 'click_cta_flotante', {
