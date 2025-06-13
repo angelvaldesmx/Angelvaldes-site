@@ -158,14 +158,21 @@
 </head>
 <body>
 
-  <!-- Botón flotante -->
-  <a href="login.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo">👤 Únete</a>
+<!-- Botón flotante "Únete" -->
+<a href="login.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo">
+  👤 Únete
+</a>
 
   <!-- Encabezado -->
   <header onclick="window.location.href='sobre-mi.html'">
     <div class="barra-top">
-      <span id="usuario-nombre"></span>
-      <div>
+    <!-- Dentro del header, cuando el usuario no está logueado -->
+<span id="usuario-nombre">
+  <a href="login.html" style="color: #00ffab; text-decoration: none;">
+    Inicia sesión aquí
+  </a>
+</span>
+     <div>
         <a href="perfil.html" id="btn-perfil" style="display: none;">👤 Mi perfil</a>
         <button id="cerrar-sesion" onclick="cerrarSesion()" style="display: none;">Cerrar sesión</button>
       </div>
