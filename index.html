@@ -97,6 +97,10 @@
   </style>
 </head>
 <body>
+   <div id="usuario-panel" style="position: fixed; top: 0; width: 100%; background: #222; color: #fff; padding: 10px; display: flex; justify-content: space-between; align-items: center; z-index: 999;">
+    <span id="usuario-nombre">Cargando usuario...</span>
+    <button onclick="cerrarSesion()" style="background: crimson; border: none; color: white; padding: 5px 10px; cursor: pointer; border-radius: 5px;">Cerrar sesión</button>
+  </div>
   <header onclick="window.location.href='sobre-mi.html'">
     <div class="overlay"></div>
     <div class="content">
@@ -153,6 +157,27 @@
 </div>
 
 <!-- SCRIPTS JS -->
+<script type="module">
+    import { auth } from './firebase-config.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+    const spanNombre = document.getElementById("usuario-nombre");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const nombre = user.displayName || user.email;
+        spanNombre.innerText = `Bienvenido, ${nombre}`;
+      } else {
+        spanNombre.innerHTML = `<a href="login.html" style="color: #00ffab; text-decoration: none;">Inicia sesión aquí</a>`;
+      }
+    });
+
+    window.cerrarSesion = () => {
+      signOut(auth).then(() => {
+        location.reload();
+      });
+    };
+  </script>
 <script>
   // Mostrar popup solo una vez por sesión
   window.addEventListener('DOMContentLoaded', () => {
