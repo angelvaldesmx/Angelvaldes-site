@@ -301,25 +301,23 @@ window.cerrarSesion = () => {
     }
   });
 </script>
-<a href="registro.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo" 
-  style="#boton-flotante:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s ease-in-out;
-}
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #00ffab;
-  color: #000;
-  padding: 14px 20px;
-  border-radius: 50px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-  z-index: 1000;
-">
+<a href="registro.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo"
+  style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #00ffab;
+    color: #000;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    z-index: 1000;
+    text-decoration: none;
+    display: inline-block;">
   👤 Únete
-</div>
+</a>
 <script>
   document.getElementById('boton-flotante').addEventListener('click', () => {
     gtag('event', 'click_cta_flotante', {
