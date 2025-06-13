@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Perfil | Rotos en Construcción</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0; font-family: sans-serif; color: #fff;
+      transition: background-color 0.5s ease;
+    }
+    .contenedor {
+      max-width: 600px; margin: auto; padding: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    .bienvenida {
+      margin-bottom: 2rem;
+    }
+    .estado-emocional {
+      margin: 2rem 0;
+    }
+    .estado-emocional select, .estado-emocional textarea {
+      width: 100%; padding: 1rem; border-radius: 8px; border: none; margin-bottom: 1rem;
+    }
+    .historia-circular {
+      width: 180px; height: 180px; border-radius: 50%; border: 3px dashed #aaa;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      cursor: pointer; margin: auto; background-color: #333;
+    }
+    .publicar-btn {
+      background: #00ffab; color: #111; padding: 1rem 2rem; border: none;
+      border-radius: 8px; cursor: pointer; font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <div class="bienvenida">
+      <h1 id="saludo">Bienvenido,</h1>
+    </div>
+
+    <div class="estado-emocional">
+      <label for="estado">¿Cómo te sientes hoy?</label>
+      <select id="estado">
+        <option value="triste">De la chingada 😞</option>
+        <option value="feliz">A toda madre 😄</option>
+        <option value="duda">Quisquilloso 🤨</option>
+        <option value="agotado">En la lona 😩</option>
+        <option value="esperanza">Con ganas de cambiar ✨</option>
+      </select>
+      <textarea id="textoEstado" rows="3" placeholder="Cuéntanos más sobre cómo te sientes..."></textarea>
+      <button class="publicar-btn" onclick="publicarEstado()">Compartir Estado</button>
+    </div>
+
+    <div class="historia">
+      <p>Hoy pusiste un ladrillo más, ¿quieres mostrarlo?</p>
+      <div class="historia-circular" onclick="document.getElementById('archivo').click()">
+        +
+      </div>
+      <input type="file" id="archivo" style="display: none" accept="image/*,video/*">
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth, db, storage } from './firebase-config.js';
+    import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+    import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
+
+    // Personalización bienvenida
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('saludo').textContent = `Bienvenido, ${user.displayName}`;
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    // Cambio de color según estado
+    const colorFondo = {
+      triste: '#2c2c2c', feliz: '#f4d35e', duda: '#b497d6', agotado: '#3a3a3a', esperanza: '#98f5e1'
+    };
+
+    document.getElementById('estado').addEventListener('change', (e) => {
+      const estado = e.target.value;
+      document.body.style.backgroundColor = colorFondo[estado] || '#111';
+    });
+
+    // Subir estado con texto
+    async function publicarEstado() {
+      const estado = document.getElementById('estado').value;
+      const texto = document.getElementById('textoEstado').value;
+      const user = auth.currentUser;
+      if (!user) return;
+
+      try {
+        await setDoc(doc(db, "estados", user.uid), {
+          uid: user.uid,
+          nombre: user.displayName,
+          estado: estado,
+          texto: texto,
+          timestamp: serverTimestamp()
+        });
+        alert("Estado compartido exitosamente");
+      } catch (err) {
+        alert("Error al guardar el estado: " + err.message);
+      }
+    }
+
+    // Subir historia (ladrillo)
+    document.getElementById('archivo').addEventListener('change', async (e) => {
+      const archivo = e.target.files[0];
+      const user = auth.currentUser;
+      if (!archivo || !user) return;
+
+      const storageRef = ref(storage, `historias/${user.uid}/${Date.now()}_${archivo.name}`);
+
+      try {
+        await uploadBytes(storageRef, archivo);
+        const url = await getDownloadURL(storageRef);
+
+        await setDoc(doc(db, "historias", `${user.uid}_${Date.now()}`), {
+          uid: user.uid,
+          nombre: user.displayName,
+          tipo: archivo.type,
+          url: url,
+          timestamp: serverTimestamp()
+        });
+
+        alert("Tu ladrillo fue puesto hoy ✨");
+      } catch (err) {
+        alert("Error al subir: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
