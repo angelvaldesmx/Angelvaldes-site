@@ -136,10 +136,15 @@
       display: none;">
     👤 Únete
   </a>
-   <div id="usuario-panel" style="position: fixed; top: 0; width: 100%; background: #222; color: #fff; padding: 10px; display: flex; justify-content: space-between; align-items: center; z-index: 999;">
-     <span id="usuario-nombre"></span>
-    <button id="cerrar-sesion" onclick="cerrarSesion()" style="display: none;">Cerrar sesión</button>
+   <header>
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
+    <span id="usuario-nombre" style="color: #fff;"></span>
+    <div>
+      <a href="perfil.html" id="btn-perfil" style="display: none; margin-right: 1rem; color: #00ffab; text-decoration: none;">👤 Mi perfil</a>
+      <button id="cerrar-sesion" onclick="cerrarSesion()" style="display: none;">Cerrar sesión</button>
+    </div>
   </div>
+</header>
   <header onclick="window.location.href='sobre-mi.html'">
     <div class="overlay"></div>
     <div class="content">
@@ -230,28 +235,30 @@
 <script type="module">
     import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-onAuthStateChanged(auth, (user) => {
-     const spanNombre = document.getElementById("usuario-nombre");
-    const btnFlotante = document.getElementById("boton-flotante");
-    const btnCerrar = document.getElementById("cerrar-sesion");
+const spanNombre = document.getElementById("usuario-nombre");
+  const btnFlotante = document.getElementById("boton-flotante");
+  const btnCerrar = document.getElementById("cerrar-sesion");
+  const btnPerfil = document.getElementById("btn-perfil");
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const nombre = user.displayName || user.email;
-        if (spanNombre) spanNombre.innerText = `Bienvenido, ${nombre}`;
-        if (btnFlotante) btnFlotante.style.display = "none";
-        if (btnCerrar) btnCerrar.style.display = "inline-block";
-      } else {
-        if (spanNombre) spanNombre.innerHTML = `<a href="login.html" style="color: #00ffab; text-decoration: none;">Inicia sesión aquí</a>`;
-        if (btnFlotante) btnFlotante.style.display = "inline-block";
-        if (btnCerrar) btnCerrar.style.display = "none";
-      }
-    });
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const nombre = user.displayName || user.email;
+      if (spanNombre) spanNombre.innerText = `Bienvenido, ${nombre}`;
+      if (btnFlotante) btnFlotante.style.display = "none";
+      if (btnCerrar) btnCerrar.style.display = "inline-block";
+      if (btnPerfil) btnPerfil.style.display = "inline-block";
+    } else {
+      if (spanNombre) spanNombre.innerHTML = `<a href="login.html" style="color: #00ffab; text-decoration: none;">Inicia sesión aquí</a>`;
+      if (btnFlotante) btnFlotante.style.display = "inline-block";
+      if (btnCerrar) btnCerrar.style.display = "none";
+      if (btnPerfil) btnPerfil.style.display = "none";
+    }
+  });
 
-    window.cerrarSesion = () => {
-      signOut(auth).then(() => location.reload());
-    };
-  </script>
+  window.cerrarSesion = () => {
+    signOut(auth).then(() => location.reload());
+  };
+</script>
 <!-- ESTILOS del popup -->
 <style>
   .popup-overlay {
