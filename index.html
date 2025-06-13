@@ -1,126 +1,97 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZC09S32WVD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZC09S32WVD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZC09S32WVD');
+  </script>
 
-  gtag('config', 'G-ZC09S32WVD');
-</script>
+  <!-- AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2002820447462286"
      crossorigin="anonymous"></script>
-    <!-- Canonical URL -->
-<link rel="canonical" href="https://angelvaldesmx.qzz.io/">
 
-<!-- Favicon -->
-<link rel="icon" href="ruta/favicon.png" type="image/png">
-
-<!-- Open Graph para compartir en redes -->
-<meta property="og:title" content="Ángel Valdes - Sitio Oficial">
-<meta property="og:description" content="Artista emocional, creador de podcast, música y libros. Bienvenido a un refugio real y sin filtros.">
-<meta property="og:image" content="ruta/a/imagen-og.jpg">
-<meta property="og:url" content="https://angelvaldesmx.qzz.io/">
-<meta property="og:type" content="website">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ángel Valdes - Sitio Oficial">
-<meta name="twitter:description" content="Refugio emocional a través de podcast, libros y música.">
-<meta name="twitter:image" content="ruta/a/imagen-twitter.jpg">
-
-<!-- Robots -->
-<meta name="robots" content="index, follow">
-  <meta name="keywords" content="Ángel Valdes, Angel Gabriel Rojas Valdes, artista emocional, podcast, libros, música independiente, apoyo emocional, reflexiones profundas, salud mental, contenido real, superación">
+  <!-- Meta -->
+  <link rel="canonical" href="https://angelvaldesmx.qzz.io/">
+  <link rel="icon" href="ruta/favicon.png" type="image/png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Sitio oficial de Ángel Valdes (Angel Gabriel Rojas Valdes). Artista emocional, creador de podcast, música, libros y reflexiones auténticas.">
   <meta name="keywords" content="Ángel Valdes, Angel Gabriel Rojas Valdes, podcast, artista, reflexiones, música, libros, apoyo emocional">
   <meta name="author" content="Ángel Valdes">
   <meta name="google-adsense-account" content="ca-pub-2002820447462286">
+  <meta name="robots" content="index, follow">
+
   <title>Ángel Valdes - Sitio Oficial</title>
+
+  <!-- Estilos -->
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #111;
       color: #fff;
     }
+
     header {
       position: relative;
       height: 100vh;
       background: url('ruta/a/tu-imagen.jpg') no-repeat center center/cover;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .barra-top {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    #usuario-nombre {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    #cerrar-sesion {
+      background-color: #ff5e5e;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #btn-perfil {
+      color: #00ffab;
+      text-decoration: none;
+      margin-right: 1rem;
+    }
+
+    .header-content {
       text-align: center;
+      z-index: 2;
+      padding: 2rem;
       cursor: pointer;
     }
-    header .overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    header .content {
-      position: relative;
-      z-index: 2;
-    }
-    header h1 {
+
+    .header-content h1 {
       font-size: 3em;
       margin-bottom: 0.3em;
     }
-    header p {
+
+    .header-content p {
       font-size: 1.2em;
       opacity: 0.8;
     }
-    main {
-      padding: 2em;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5em;
-    }
-    .card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      cursor: pointer;
-    }
-    .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    .card:hover img {
-      transform: scale(1.1);
-    }
-    .card .overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.3s ease;
-    }
-    .card:hover .overlay {
-      opacity: 1;
-    }
-    .card .overlay h2 {
-      color: white;
-      font-size: 1.5em;
-    }
-  </style>
-</head>
-<body>
-  <a href="login.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo"
-    style="
+
+    #boton-flotante {
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -133,25 +104,79 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.5);
       z-index: 1000;
       text-decoration: none;
-      display: none;">
-    👤 Únete
-  </a>
-   <header>
-  <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
-    <span id="usuario-nombre" style="color: #fff;"></span>
-    <div>
-      <a href="perfil.html" id="btn-perfil" style="display: none; margin-right: 1rem; color: #00ffab; text-decoration: none;">👤 Mi perfil</a>
-      <button id="cerrar-sesion" onclick="cerrarSesion()" style="display: none;">Cerrar sesión</button>
-    </div>
-  </div>
-</header>
+      display: none;
+    }
+
+    main {
+      padding: 2em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+
+    .card .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover .overlay {
+      opacity: 1;
+    }
+
+    .card .overlay h2 {
+      color: white;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botón flotante -->
+  <a href="login.html" id="boton-flotante" role="button" title="Accede a contenido exclusivo">👤 Únete</a>
+
+  <!-- Encabezado -->
   <header onclick="window.location.href='sobre-mi.html'">
-    <div class="overlay"></div>
-    <div class="content">
+    <div class="barra-top">
+      <span id="usuario-nombre"></span>
+      <div>
+        <a href="perfil.html" id="btn-perfil" style="display: none;">👤 Mi perfil</a>
+        <button id="cerrar-sesion" onclick="cerrarSesion()" style="display: none;">Cerrar sesión</button>
+      </div>
+    </div>
+    <div class="header-content">
       <h1>Ángel Valdes</h1>
       <p>Artista emocional. Crudo. Real. Sin filtros.</p>
     </div>
   </header>
+
+  <!-- Contenido principal -->
   <main>
     <section class="grid">
       <div class="card" onclick="location.href='podcast.html'">
@@ -175,167 +200,121 @@
         <div class="overlay"><h2>Contacto</h2></div>
       </div>
     </section>
-  </main>  <!-- Schema.org Datos estructurados -->  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Ángel Valdes",
-      "alternateName": "Angel Gabriel Rojas Valdes",
-      "jobTitle": "Artista emocional, podcaster, autor, músico",
-      "url": "https://www.tusitio.com",
-      "sameAs": [
-        "https://www.instagram.com/tuusuario",
-        "https://www.spotify.com/tuusuario",
-        "https://www.youtube.com/tuusuario"
-      ]
-    }
-  </script><!-- POPUP de bienvenida -->
-<div id="popup-bienvenida" class="popup-overlay">
-  <div class="popup-content">
-    <h2>💭 Bienvenido</h2>
-    <p>
-      "A veces, sobrevivir se siente como un logro. Bienvenido a este rincón donde se celebra cada paso, incluso los más pequeños." <br><br> — Ángel Valdes
-    </p>
-    <button onclick="cerrarPopup()">Entrar al sitio</button>
+  </main>
+<!-- POPUP DE BIENVENIDA -->
+<div id="popup-bienvenida" class="popup oculto">
+  <div class="popup-contenido">
+    <h2 id="titulo-popup">¡Bienvenido!</h2>
+    <p>Este es el mundo de Ángel Valdes: música, libros, reflexiones y autenticidad cruda. 💥</p>
+    <button onclick="cerrarPopup()">Entrar</button>
   </div>
 </div>
-<script>
-  // Mostrar popup solo una vez por sesión
-  window.addEventListener('DOMContentLoaded', () => {
-    if (!sessionStorage.getItem('popupShown')) {
-      document.getElementById('popup-bienvenida').classList.add('visible');
-      sessionStorage.setItem('popupShown', 'true');
-    }
-  });
 
-  function cerrarPopup() {
-    document.getElementById('popup-bienvenida').classList.remove('visible');
-  }
-
-  // También cerrar si se hace clic fuera del contenido
-  document.getElementById('popup-bienvenida').addEventListener('click', (e) => {
-    if (e.target.id === 'popup-bienvenida') cerrarPopup();
-  });
-
-  // Navegación suave
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const destino = document.querySelector(this.getAttribute('href'));
-      if (destino) {
-        destino.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-
-  // Consola de branding
-  console.log("🌐 Ángel Valdes | Sitio oficial cargado.");
-</script>
-<!-- SCRIPTS JS -->
-<script type="module">
-    import { auth } from './firebase-config.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-const spanNombre = document.getElementById("usuario-nombre");
-  const btnFlotante = document.getElementById("boton-flotante");
-  const btnCerrar = document.getElementById("cerrar-sesion");
-  const btnPerfil = document.getElementById("btn-perfil");
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const nombre = user.displayName || user.email;
-      if (spanNombre) spanNombre.innerText = `Bienvenido, ${nombre}`;
-      if (btnFlotante) btnFlotante.style.display = "none";
-      if (btnCerrar) btnCerrar.style.display = "inline-block";
-      if (btnPerfil) btnPerfil.style.display = "inline-block";
-    } else {
-      if (spanNombre) spanNombre.innerHTML = `<a href="login.html" style="color: #00ffab; text-decoration: none;">Inicia sesión aquí</a>`;
-      if (btnFlotante) btnFlotante.style.display = "inline-block";
-      if (btnCerrar) btnCerrar.style.display = "none";
-      if (btnPerfil) btnPerfil.style.display = "none";
-    }
-  });
-
-  window.cerrarSesion = () => {
-    signOut(auth).then(() => location.reload());
-  };
-</script>
-<!-- ESTILOS del popup -->
 <style>
-  .popup-overlay {
-    display: none;
+  .popup {
     position: fixed;
     top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    z-index: 9999;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
   }
 
-  .popup-overlay.visible {
-    display: flex;
-  }
-
-  .popup-content {
-    background: #222;
+  .popup-contenido {
+    background-color: #1a1a1a;
     color: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    max-width: 500px;
+    padding: 2em;
+    border-radius: 12px;
     text-align: center;
-    animation: fadeIn 0.5s ease-in-out;
-    box-shadow: 0 0 10px #fff2;
+    max-width: 90%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   }
 
-  .popup-content h2 {
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
+  .popup-contenido h2 {
+    margin-bottom: 0.5em;
+    font-size: 1.8em;
+    color: #00ffab;
   }
 
-  .popup-content button {
-    margin-top: 1rem;
-    padding: 0.8rem 1.5rem;
-    background: #fff;
+  .popup-contenido p {
+    margin-bottom: 1.5em;
+    font-size: 1em;
+    opacity: 0.9;
+  }
+
+  .popup-contenido button {
+    background-color: #00ffab;
     color: #000;
-    font-weight: bold;
+    padding: 0.7em 1.5em;
     border: none;
     border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+  .popup.oculto {
+    display: none;
   }
-  </style>
-  <script>
-  // Evento al hacer clic en una tarjeta
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-      gtag('event', 'click_card', {
-        'event_category': 'Navegación',
-        'event_label': card.querySelector('h2').textContent
-      });
-    });
-  });
+</style>
 
-  // Evento al hacer scroll
-  window.addEventListener('scroll', function () {
-    if (window.scrollY > 300) {
-      gtag('event', 'scroll', {
-        'event_category': 'Interacción',
-        'event_label': 'Scroll a 300px'
+<script type="module">
+  import { auth } from './firebase-config.js';
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+  function cerrarPopup() {
+    const popup = document.getElementById('popup-bienvenida');
+    popup.classList.add('oculto');
+    localStorage.setItem('bienvenidaMostrada', 'true');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const yaMostrada = localStorage.getItem('bienvenidaMostrada');
+    if (!yaMostrada) {
+      onAuthStateChanged(auth, (user) => {
+        const titulo = document.getElementById('titulo-popup');
+        if (user) {
+          const nombre = user.displayName || user.email;
+          titulo.textContent = `¡Bienvenido, ${nombre}!`;
+        }
+        document.getElementById('popup-bienvenida').classList.remove('oculto');
       });
     }
   });
 </script>
-<script>
-  document.getElementById('boton-flotante').addEventListener('click', () => {
-    gtag('event', 'click_cta_flotante', {
-      'event_category': 'Conversión',
-      'event_label': 'Botón Únete flotante'
+
+  <!-- Firebase Auth -->
+  <script type="module">
+    import { auth } from './firebase-config.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+    const spanNombre = document.getElementById("usuario-nombre");
+    const btnFlotante = document.getElementById("boton-flotante");
+    const btnCerrar = document.getElementById("cerrar-sesion");
+    const btnPerfil = document.getElementById("btn-perfil");
+
+    onAuthStateChanged(auth, (user) => {
+      console.log("Usuario autenticado:", user);
+      if (user) {
+        const nombre = user.displayName || user.email;
+        if (spanNombre) spanNombre.innerText = `Bienvenido, ${nombre}`;
+        btnFlotante.style.display = "none";
+        btnCerrar.style.display = "inline-block";
+        btnPerfil.style.display = "inline-block";
+      } else {
+        if (spanNombre) spanNombre.innerHTML = `<a href="login.html" style="color: #00ffab; text-decoration: none;">Inicia sesión aquí</a>`;
+        btnFlotante.style.display = "inline-block";
+        btnCerrar.style.display = "none";
+        btnPerfil.style.display = "none";
+      }
     });
-  });
-</script>
+
+    window.cerrarSesion = () => {
+      signOut(auth).then(() => location.reload());
+    };
+  </script>
+
 </body>
 </html>
