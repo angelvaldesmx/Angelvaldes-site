@@ -58,12 +58,19 @@
   </a>
 </div>
 
-    <section id="amazon-afiliados">
-      <h2>🛍️ Encuentra productos en Amazon</h2>
-      <input type="text" id="termino" placeholder="Ej: auriculares bluetooth">
-      <button onclick="buscar()">Buscar</button>
-      <div id="resultado"></div>
-    </section>
+<section id="amazon-afiliados">
+  <h2>🛍️ Encuentra productos en Amazon</h2>
+  <input type="text" id="termino" placeholder="Ej: auriculares bluetooth" aria-label="Buscar productos en Amazon">
+  <button id="buscarBtn">Buscar</button>
+  <div id="resultado"></div>
+</section>
+
+<!-- Vincular el JS externo -->
+<script src="amazon.js"></script>
+
+<!-- Vincular CSS externo -->
+<link rel="stylesheet" href="amazon.css">
+  
   </main>
 
   <!-- Popup Bienvenida -->
