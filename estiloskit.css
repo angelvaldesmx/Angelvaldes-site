@@ -5,14 +5,7 @@ body {
   margin: 0;
   padding: 0;
 }
-.sobre-kit-wrapper {
-  max-width: 600px;
-  margin: 2rem auto;
-  background-color: #1b1b1b;
-  padding: 2rem;
-  border-radius: 15px;
-  text-align: center;
-}
+
 .boton-kit {
   background: linear-gradient(90deg, #00ffab, #00cca8);
   color: #111;
