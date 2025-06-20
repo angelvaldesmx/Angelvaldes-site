@@ -1,0 +1,53 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #111;
+  color: #eee;
+  margin: 0;
+  padding: 0;
+}
+.sobre-kit-wrapper {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #1b1b1b;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+}
+.boton-kit {
+  background: linear-gradient(90deg, #00ffab, #00cca8);
+  color: #111;
+  font-weight: bold;
+  padding: 0.7rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+}
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.popup-contenido {
+  background-color: #1a1a1a;
+  color: #00ffab;
+  padding: 2em;
+  border-radius: 12px;
+  text-align: center;
+}
+.oculto {
+  display: none;
+}
+.cerrar-popup {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 1.6rem;
+  color: #00ffabdd;
+  cursor: pointer;
+  font-weight: 900;
+  user-select: none;
+}
