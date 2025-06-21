@@ -79,39 +79,6 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
-const productosSimulados = [
-  {
-    titulo: "Auriculares Bluetooth XYZ",
-    precio: "$499",
-    imagen: "https://via.placeholder.com/180x140?text=Auriculares",
-    enlace: "https://www.amazon.com.mx/dp/PRODUCT_ID_1"
-  },
-  {
-    titulo: "Smartwatch Deportivo ABC",
-    precio: "$1299",
-    imagen: "https://via.placeholder.com/180x140?text=Smartwatch",
-    enlace: "https://www.amazon.com.mx/dp/PRODUCT_ID_2"
-  },
-  {
-    titulo: "Cargador USB-C Rápido",
-    precio: "$199",
-    imagen: "https://via.placeholder.com/180x140?text=Cargador",
-    enlace: "https://www.amazon.com.mx/dp/PRODUCT_ID_3"
-  },
-  {
-    titulo: "Altavoz Portátil BassBoom",
-    precio: "$899",
-    imagen: "https://via.placeholder.com/180x140?text=Altavoz",
-    enlace: "https://www.amazon.com.mx/dp/PRODUCT_ID_4"
-  },
-  {
-    titulo: "Lámpara LED Escritorio Pro",
-    precio: "$349",
-    imagen: "https://via.placeholder.com/180x140?text=Lampara",
-    enlace: "https://www.amazon.com.mx/dp/PRODUCT_ID_5"
-  }
-];
-
 document.getElementById("buscarBtn").addEventListener("click", buscar);
 
 async function buscar() {
