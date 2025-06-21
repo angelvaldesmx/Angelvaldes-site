@@ -1,4 +1,3 @@
-
 // --- Funciones globales ---
 window.cerrarPopup = () => {
   const popup = document.getElementById('popup-bienvenida');
@@ -22,62 +21,50 @@ window.irAlKit = () => {
 };
 
 window.cerrarPopupSalida = () => {
-  document.getElementById('popup-salida').classList.add('oculto');
-  localStorage.setItem('popupSalidaMostrado', 'true');
+  const salida = document.getElementById('popup-salida');
+  if (salida) {
+    salida.classList.add('oculto');
+    localStorage.setItem('popupSalidaMostrado', 'true');
+  }
 };
-
-window.addEventListener('DOMContentLoaded', () => {
-  // Mostrar banner después de 25s
-  setTimeout(() => {
-    if (!localStorage.getItem('bannerCerrado')) {
-      const banner = document.getElementById('banner-vertical');
-      if (banner) {
-        banner.classList.remove('oculto');
-        banner.style.display = 'flex';
-      }
-    }
-  }, 25000);
 
 // --- Al cargarse la página ---
 window.addEventListener('DOMContentLoaded', () => {
+  // Bienvenida
   const bienvenida = document.getElementById('popup-bienvenida');
-  const kit = document.getElementById('popup-kit');
-  const banner = document.getElementById('banner-vertical');
-  const cerrarBannerBtn = document.getElementById('cerrar-banner-vertical');
-  const buscarBtn = document.getElementById("buscarBtn");
-
   if (!localStorage.getItem('bienvenidaMostrada') && bienvenida) {
     bienvenida.classList.remove('oculto');
   }
 
+  // Popup Kit (después de 10s)
+  const kit = document.getElementById('popup-kit');
   if (!localStorage.getItem('kitMostrado') && kit) {
-    setTimeout(() => kit.classList.remove('oculto'), 10000);
+    setTimeout(() => {
+      kit.classList.remove('oculto');
+    }, 10000);
   }
 
+  // Banner (después de 25s)
+  const banner = document.getElementById('banner-vertical');
   if (!localStorage.getItem('bannerCerrado') && banner) {
-    setTimeout(() => banner.style.display = 'flex', 25000);
+    setTimeout(() => {
+      banner.classList.remove('oculto');
+      banner.style.display = 'flex';
+    }, 25000);
   }
-  
-  // Cerrar banner
-  const cerrarBanner = document.getElementById('cerrar-banner-vertical');
-  if (cerrarBanner) {
-    cerrarBanner.addEventListener('click', () => {
-      const banner = document.getElementById('banner-vertical');
-      if (banner) {
-        banner.classList.add('oculto');
-        localStorage.setItem('bannerCerrado', 'true');
-      }
-    });
-  }
-});
 
+  // Botón cerrar banner
+  const cerrarBannerBtn = document.getElementById('cerrar-banner-vertical');
   if (cerrarBannerBtn && banner) {
     cerrarBannerBtn.addEventListener('click', () => {
+      banner.classList.add('oculto');
       banner.style.display = 'none';
       localStorage.setItem('bannerCerrado', 'true');
     });
   }
 
+  // Búsqueda Amazon
+  const buscarBtn = document.getElementById("buscarBtn");
   if (buscarBtn) {
     buscarBtn.addEventListener("click", buscar);
   }
@@ -103,8 +90,6 @@ document.addEventListener('visibilitychange', () => {
     }
   }
 });
-
-document.getElementById("buscarBtn").addEventListener("click", buscar);
 
 async function buscar() {
   const termino = document.getElementById("termino").value.trim().toLowerCase();
