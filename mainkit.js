@@ -50,9 +50,20 @@ window.addEventListener('load', () => {
   }, 10000);
 });
 
-// --- Detectar intención de salida y mostrar popup de salida
+// Detectar salida con mouse
 document.addEventListener('mouseleave', (e) => {
   if (e.clientY <= 0 && !localStorage.getItem('popupSalidaMostrado')) {
+    const popupSalida = document.getElementById('popup-salida');
+    if (popupSalida) {
+      popupSalida.classList.remove('oculto');
+      localStorage.setItem('popupSalidaMostrado', 'true');
+    }
+  }
+});
+
+// Detectar salida en móviles (cambio de pestaña o app)
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden' && !localStorage.getItem('popupSalidaMostrado')) {
     const popupSalida = document.getElementById('popup-salida');
     if (popupSalida) {
       popupSalida.classList.remove('oculto');
