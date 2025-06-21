@@ -1,52 +1,62 @@
+// --- Función para cerrar el popup de bienvenida
 window.cerrarPopup = () => {
   document.getElementById('popup-bienvenida').classList.add('oculto');
   localStorage.setItem('bienvenidaMostrada', 'true');
 };
 
+// --- Función para cerrar el popup del kit emocional
 window.cerrarPopupKit = () => {
   document.getElementById('popup-kit').classList.add('oculto');
   localStorage.setItem('kitMostrado', 'true');
 };
 
+// --- Función para ir al kit emocional
 window.irAlKit = () => {
   localStorage.setItem('kitMostrado', 'true');
   window.location.href = 'kit.html';
 };
 
-// Mostrar popup bienvenida al cargar si no ha sido mostrado
-window.addEventListener('DOMContentLoaded', () => {
+// --- Mostrar el popup de bienvenida si no ha sido mostrado
+window.addEventListener('load', () => {
   const yaMostrada = localStorage.getItem('bienvenidaMostrada');
   if (!yaMostrada) {
-    document.getElementById('popup-bienvenida').classList.remove('oculto');
+    const popup = document.getElementById('popup-bienvenida');
+    if (popup) popup.classList.remove('oculto');
   }
 
-  
-
-// Mostrar popup del Kit a los 10 segundos si no ha sido visto
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    if (!localStorage.getItem('kitMostrado')) {
-      document.getElementById('popup-kit').classList.remove('oculto');
-    }
-  }, 10000);
-});
-// Mostrar banner lateral a los 25 segundos
+  // Mostrar banner lateral después de 25 segundos si no ha sido cerrado
   setTimeout(() => {
     const banner = document.getElementById('banner-vertical');
-    if (banner) banner.style.display = 'flex';
+    const cerrado = localStorage.getItem('bannerCerrado');
+    if (banner && !cerrado) banner.style.display = 'flex';
   }, 25000);
 
+  // Escuchar click para cerrar banner y guardar preferencia
   const cerrarBtn = document.getElementById('cerrar-banner-vertical');
   if (cerrarBtn) {
     cerrarBtn.addEventListener('click', () => {
-      document.getElementById('banner-vertical').style.display = 'none';
+      const banner = document.getElementById('banner-vertical');
+      if (banner) banner.style.display = 'none';
+      localStorage.setItem('bannerCerrado', 'true');
     });
   }
+
+  // Mostrar popup del Kit emocional a los 10 segundos si no se ha visto
+  setTimeout(() => {
+    if (!localStorage.getItem('kitMostrado')) {
+      const popupKit = document.getElementById('popup-kit');
+      if (popupKit) popupKit.classList.remove('oculto');
+    }
+  }, 10000);
 });
-// Mostrar popup de salida si intenta abandonar la pestaña
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden' && !localStorage.getItem('popupSalidaMostrado')) {
-    document.getElementById('popup-salida').classList.remove('oculto');
-    localStorage.setItem('popupSalidaMostrado', 'true');
+
+// --- Detectar intención de salida y mostrar popup de salida
+document.addEventListener('mouseleave', (e) => {
+  if (e.clientY <= 0 && !localStorage.getItem('popupSalidaMostrado')) {
+    const popupSalida = document.getElementById('popup-salida');
+    if (popupSalida) {
+      popupSalida.classList.remove('oculto');
+      localStorage.setItem('popupSalidaMostrado', 'true');
+    }
   }
 });
