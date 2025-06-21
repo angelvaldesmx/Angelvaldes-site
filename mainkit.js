@@ -26,6 +26,18 @@ window.cerrarPopupSalida = () => {
   localStorage.setItem('popupSalidaMostrado', 'true');
 };
 
+window.addEventListener('DOMContentLoaded', () => {
+  // Mostrar banner después de 25s
+  setTimeout(() => {
+    if (!localStorage.getItem('bannerCerrado')) {
+      const banner = document.getElementById('banner-vertical');
+      if (banner) {
+        banner.classList.remove('oculto');
+        banner.style.display = 'flex';
+      }
+    }
+  }, 25000);
+
 // --- Al cargarse la página ---
 window.addEventListener('DOMContentLoaded', () => {
   const bienvenida = document.getElementById('popup-bienvenida');
@@ -45,6 +57,19 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!localStorage.getItem('bannerCerrado') && banner) {
     setTimeout(() => banner.style.display = 'flex', 25000);
   }
+  
+  // Cerrar banner
+  const cerrarBanner = document.getElementById('cerrar-banner-vertical');
+  if (cerrarBanner) {
+    cerrarBanner.addEventListener('click', () => {
+      const banner = document.getElementById('banner-vertical');
+      if (banner) {
+        banner.classList.add('oculto');
+        localStorage.setItem('bannerCerrado', 'true');
+      }
+    });
+  }
+});
 
   if (cerrarBannerBtn && banner) {
     cerrarBannerBtn.addEventListener('click', () => {
