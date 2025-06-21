@@ -72,7 +72,7 @@ const productosSimulados = [
   }
 ];
  
-async function buscar() { document.getElementById("buscarBtn").addEventListener("click", buscar);
+async function buscar() {
   const termino = document.getElementById("termino").value.trim();
   if (!termino) return;
   const resDiv = document.getElementById("resultado");
@@ -102,3 +102,6 @@ async function buscar() { document.getElementById("buscarBtn").addEventListener(
     resDiv.innerHTML = `<p style="color:#ff5e5e;">Error al buscar productos.</p>`;
   }
 }
+
+// Fuera de la función, después de declararla:
+document.getElementById("buscarBtn").addEventListener("click", buscar);
