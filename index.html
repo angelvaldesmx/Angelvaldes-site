@@ -156,10 +156,10 @@
         ¡Regístrate y gana dinero!
       </a>
     </div>
-<!-- Buscador Amazon Afiliados -->
+    <!--- Amazon afiliados -->
 <section id="amazon-afiliados" aria-label="Buscador de productos afiliados de Amazon" style="margin-top: 3rem; color: #eee;">
   <h2 style="font-size: 1.6rem; margin-bottom: 1rem;">🛍️ Encuentra productos en Amazon</h2>
-  
+
   <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
     <input type="text" id="termino" placeholder="Ej: auriculares bluetooth" aria-label="Buscar productos en Amazon" 
       style="padding: 0.5rem; flex: 1 1 250px; border-radius: 6px; border: none; max-width: 300px;" />
@@ -169,10 +169,23 @@
       Buscar
     </button>
   </div>
-
-  <div id="resultado" style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-    <!-- Aquí se mostrarán los resultados dinámicamente -->
+<p style="font-size: 0.9rem; color: #aaa; margin-top: 1rem;">
+  <em>Como afiliado de Amazon, puedo obtener ingresos por compras elegibles realizadas desde los enlaces en esta página.</em>
+</p>
+  <div id="resultado" style="
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+  ">
+    <!-- Productos se generan aquí -->
   </div>
+  <div style="text-align:center; margin-top: 0.5rem; font-size: 0.85rem; color: #888;">
+  <span style="animation: desliza 2s infinite; display: inline-block;">⬅️ Desliza para ver más ➡️</span>
+</div>
 </section>
 
     <!-- Contenedor anuncios Google AdSense -->
@@ -229,6 +242,17 @@
     <div class="popup-contenido">
       <h2 id="titulo-popup-salida">¡Espera! 💌</h2>
       <p>No te vayas sin descargar tu Kit Emocional gratuito. Es un regalo hecho para ti.</p>
+      <button onclick="cerrarPopupSalida()" aria-label="Cerrar popup de salida" style="
+  margin-top: 1rem;
+  background: transparent;
+  border: 2px solid #00ffab;
+  color: #00ffab;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+">
+  Cerrar
+</button>
       <button onclick="window.location.href='kit.html'" aria-label="Ir al Kit">Ir al Kit</button>
     </div>
   </div>
