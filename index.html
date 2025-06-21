@@ -158,14 +158,24 @@
         ¡Regístrate y gana dinero!
       </a>
     </div>
+<!-- Buscador Amazon Afiliados -->
+<section id="amazon-afiliados" aria-label="Buscador de productos afiliados de Amazon" style="margin-top: 3rem; color: #eee;">
+  <h2 style="font-size: 1.6rem; margin-bottom: 1rem;">🛍️ Encuentra productos en Amazon</h2>
+  
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
+    <input type="text" id="termino" placeholder="Ej: auriculares bluetooth" aria-label="Buscar productos en Amazon" 
+      style="padding: 0.5rem; flex: 1 1 250px; border-radius: 6px; border: none; max-width: 300px;" />
+    
+    <button id="buscarBtn" 
+      style="padding: 0.5rem 1rem; border-radius: 6px; background: #00ffab; border: none; cursor: pointer; font-weight: bold; color: #121212;">
+      Buscar
+    </button>
+  </div>
 
-    <!-- Buscador Amazon -->
-    <section id="amazon-afiliados" aria-label="Buscador de productos afiliados de Amazon" style="margin-top: 3rem; color: #eee;">
-      <h2>🛍️ Encuentra productos en Amazon</h2>
-      <input type="text" id="termino" placeholder="Ej: auriculares bluetooth" aria-label="Buscar productos en Amazon" style="padding: 0.5rem; width: 60%; max-width: 300px; border-radius: 6px; border: none; margin-right: 0.5rem;"/>
-      <button id="buscarBtn" style="padding: 0.5rem 1rem; border-radius: 6px; background: #00ffab; border: none; cursor: pointer; font-weight: bold; color: #121212;">Buscar</button>
-      <div id="resultado" style="margin-top: 1rem;"></div>
-    </section>
+  <div id="resultado" style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+    <!-- Aquí se mostrarán los resultados dinámicamente -->
+  </div>
+</section>
 
     <!-- Contenedor anuncios Google AdSense -->
     <div style="max-width: 100%; margin: 2rem auto; padding: 0 1rem; box-sizing: border-box; display: flex; justify-content: center;">
@@ -229,66 +239,6 @@
   <script src="amazon.js" defer></script>
   <script type="module" src="mainkit.js" defer></script>
 
-  <script>
-    // Funciones para popups (ejemplo)
-    function cerrarPopup() {
-      document.getElementById('popup-bienvenida').classList.add('oculto');
-    }
-    function cerrarPopupKit() {
-      document.getElementById('popup-kit').classList.add('oculto');
-    }
-    function irAlKit() {
-      window.location.href = 'kit.html';
-    }
-  </script>
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const banner = document.getElementById('banner-vertical');
-      if (banner) banner.style.display = 'flex';
-    }, 25000);
-
-    const cerrarBtn = document.getElementById('cerrar-banner-vertical');
-    if (cerrarBtn) {
-      cerrarBtn.addEventListener('click', () => {
-        document.getElementById('banner-vertical').style.display = 'none';
-      });
-    }
-  });
-</script>
-  <style>
-    /* Popup básico y oculto */
-    .popup {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
-    .popup.oculto {
-      display: none;
-    }
-    .popup-contenido {
-      background: #222;
-      color: #eee;
-      padding: 2rem;
-      border-radius: 14px;
-      max-width: 400px;
-      width: 90%;
-      box-sizing: border-box;
-      text-align: center;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .cerrar-popup {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      cursor: pointer;
-      font-size: 1.8rem;
-      color: #eee;
-    }
-  </style>
+  
 </body>
 </html>
