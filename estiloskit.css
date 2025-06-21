@@ -27,9 +27,7 @@ body {
       align-items: center;
       z-index: 10000;
     }
-    .popup.oculto {
-      display: none;
-    }
+    
     .popup-contenido {
       background: #222;
       color: #eee;
