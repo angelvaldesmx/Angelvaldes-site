@@ -16,6 +16,11 @@ window.cerrarPopupKit = () => {
   }
 };
 
+window.cerrarPopupSalida = () => {
+  document.getElementById('popup-salida').classList.add('oculto');
+  localStorage.setItem('popupSalidaMostrado', 'true');
+};
+
 window.irAlKit = () => {
   localStorage.setItem('kitMostrado', 'true');
   window.location.href = 'kit.html';
