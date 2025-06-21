@@ -16,14 +16,14 @@ window.cerrarPopupKit = () => {
   }
 };
 
-window.cerrarPopupSalida = () => {
-  document.getElementById('popup-salida').classList.add('oculto');
-  localStorage.setItem('popupSalidaMostrado', 'true');
-};
-
 window.irAlKit = () => {
   localStorage.setItem('kitMostrado', 'true');
   window.location.href = 'kit.html';
+};
+
+window.cerrarPopupSalida = () => {
+  document.getElementById('popup-salida').classList.add('oculto');
+  localStorage.setItem('popupSalidaMostrado', 'true');
 };
 
 // --- Al cargarse la página ---
@@ -109,9 +109,6 @@ async function buscar() {
             <p style="color:#ccc; font-weight:bold;">${p.price?.raw || '—'}</p>
           </div>
         `).join("")}
-      </div>
-      <div style="text-align:center; font-size:0.85rem; color:#888; margin-top:0.5rem;">
-        ⬅️ Desliza para ver más ➡️
       </div>
     `;
 
