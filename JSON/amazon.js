@@ -49,8 +49,8 @@ function buscar() {
     resultadoDiv.appendChild(card);
   });
 }
-<!-- document.getElementById("buscarBtn").addEventListener("click", buscar);
-async function buscar() {
+document.getElementById("buscarBtn").addEventListener("click", buscar);
+(function() { async function buscar() {
   const termino = document.getElementById("termino").value.trim();
   if (!termino) return;
   const resDiv = document.getElementById("resultado");
@@ -79,4 +79,4 @@ async function buscar() {
     console.error(err);
     resDiv.innerHTML = `<p style="color:#ff5e5e;">Error al buscar productos.</p>`;
   }
-}-->
+})(); 
