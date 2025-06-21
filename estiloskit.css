@@ -92,12 +92,22 @@ body {
 #amazon-afiliados button:hover {
   background: #00d298;
 }
-
 #resultado {
   margin-top: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  display: flex;
+  overflow-x: auto;
   gap: 1rem;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  scroll-padding: 1rem;
+}
+
+#resultado::-webkit-scrollbar {
+  height: 6px;
+}
+#resultado::-webkit-scrollbar-thumb {
+  background: #00ffab;
+  border-radius: 3px;
 }
 
 .producto-card {
