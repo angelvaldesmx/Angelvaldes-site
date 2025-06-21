@@ -230,16 +230,6 @@
   <script type="module" src="mainkit.js" defer></script>
 
   <script>
-    // Mostrar banner vertical después de 25 segundos
-    setTimeout(() => {
-      document.getElementById('banner-vertical').style.display = 'flex';
-    }, 25000);
-
-    // Cerrar banner vertical
-    document.getElementById('cerrar-banner-vertical').addEventListener('click', () => {
-      document.getElementById('banner-vertical').style.display = 'none';
-    });
-
     // Funciones para popups (ejemplo)
     function cerrarPopup() {
       document.getElementById('popup-bienvenida').classList.add('oculto');
@@ -251,7 +241,21 @@
       window.location.href = 'kit.html';
     }
   </script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const banner = document.getElementById('banner-vertical');
+      if (banner) banner.style.display = 'flex';
+    }, 25000);
 
+    const cerrarBtn = document.getElementById('cerrar-banner-vertical');
+    if (cerrarBtn) {
+      cerrarBtn.addEventListener('click', () => {
+        document.getElementById('banner-vertical').style.display = 'none';
+      });
+    }
+  });
+</script>
   <style>
     /* Popup básico y oculto */
     .popup {
