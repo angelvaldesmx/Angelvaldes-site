@@ -71,10 +71,8 @@ const productosSimulados = [
     enlace: "https://www.amazon.com.mx/dp/PRODUCT_ID_3"
   }
 ];
-
-document.getElementById("buscarBtn").addEventListener("click", buscar);
  
-async function buscar() {
+async function buscar() { document.getElementById("buscarBtn").addEventListener("click", buscar);
   const termino = document.getElementById("termino").value.trim();
   if (!termino) return;
   const resDiv = document.getElementById("resultado");
