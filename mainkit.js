@@ -20,7 +20,17 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('popup-bienvenida').classList.remove('oculto');
   }
 
-  // Mostrar banner lateral a los 25 segundos
+  
+
+// Mostrar popup del Kit a los 10 segundos si no ha sido visto
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (!localStorage.getItem('kitMostrado')) {
+      document.getElementById('popup-kit').classList.remove('oculto');
+    }
+  }, 10000);
+});
+// Mostrar banner lateral a los 25 segundos
   setTimeout(() => {
     const banner = document.getElementById('banner-vertical');
     if (banner) banner.style.display = 'flex';
@@ -33,16 +43,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
-// Mostrar popup del Kit a los 10 segundos si no ha sido visto
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    if (!localStorage.getItem('kitMostrado')) {
-      document.getElementById('popup-kit').classList.remove('oculto');
-    }
-  }, 10000);
-});
-
 // Mostrar popup de salida si intenta abandonar la pestaña
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden' && !localStorage.getItem('popupSalidaMostrado')) {
