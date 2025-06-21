@@ -72,6 +72,7 @@ const productosSimulados = [
   }
 ];
  
+// Función para buscar productos reales
 async function buscar() {
   const termino = document.getElementById("termino").value.trim();
   if (!termino) return;
@@ -103,5 +104,5 @@ async function buscar() {
   }
 }
 
-// Fuera de la función, después de declararla:
-document.getElementById("buscarBtn").addEventListener("click", buscar);
+// Evento para el botón de búsqueda
+document.getElementById("buscarBtn")?.addEventListener("click", buscar);
