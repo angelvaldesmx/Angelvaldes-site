@@ -12,6 +12,10 @@ body {
   transition: opacity 1s ease-in;
 }
 
+.fade-in.visible {
+  opacity: 1;
+}
+
 /* Banner vertical básico */
 #banner-vertical {
   position: fixed;
