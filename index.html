@@ -245,6 +245,13 @@
 
   <script src="mainkit.js" defer></script>
 
-  
+  <script>
+  // Muestra todos los elementos con la clase fade-in
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.classList.add('visible');
+    });
+  });
+</script>
 </body>
 </html>
