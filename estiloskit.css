@@ -11,7 +11,7 @@ body {
   opacity: 0;
   transition: opacity 1s ease-in;
 }
-}
+
 /* Banner vertical básico */
 #banner-vertical {
   position: fixed;
