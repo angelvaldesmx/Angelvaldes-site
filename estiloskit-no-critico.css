@@ -1,0 +1,116 @@
+/* Transiciones y efectos */
+.boton-kit:hover {
+  background: linear-gradient(90deg, #00cca8, #00ffab);
+}
+
+#banner-vertical {
+  box-shadow: 2px 0 10px rgba(0,0,0,0.7);
+  transition: transform 0.3s ease;
+}
+
+#amazon-afiliados {
+  box-shadow: 0 0 10px rgba(0,255,171,0.15);
+}
+
+#amazon-afiliados button:hover {
+  background: #00d298;
+}
+
+/* Scroll y tarjetas productos */
+#resultado {
+  margin-top: 1.5rem;
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  scroll-padding: 1rem;
+}
+
+#resultado::-webkit-scrollbar {
+  height: 6px;
+}
+
+#resultado::-webkit-scrollbar-thumb {
+  background: #00ffab;
+  border-radius: 3px;
+}
+
+.producto-card {
+  flex: 0 0 auto;
+  width: 180px;
+  background: #292929;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  scroll-snap-align: start;
+  box-shadow: 0 0 6px rgba(0,255,171,0.3);
+  transition: transform 0.2s ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-5px);
+}
+
+.producto-card img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  height: 140px;
+  object-fit: cover;
+}
+
+.producto-card h3 {
+  font-size: 1rem;
+  color: #00ffab;
+  margin-bottom: 0.3rem;
+}
+
+.precio {
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+  color: #ccc;
+}
+
+.btn-comprar {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: #00ffab;
+  color: #000;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-comprar:hover {
+  background: #00d298;
+}
+
+/* Mensajes */
+.mensaje {
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
+  grid-column: 1/-1;
+}
+
+/* Animación texto */
+@keyframes desliza {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(5px); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  #amazon-afiliados input[type="text"],
+  #amazon-afiliados button {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+  }
+
+  #resultado {
+    grid-template-columns: 1fr;
+  }
+}
