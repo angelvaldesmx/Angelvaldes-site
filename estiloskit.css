@@ -8,8 +8,9 @@ body {
   line-height: 1.6;
 }
 .fade-in {
-  opacity: 1 !important;
-  transition: none !important;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
 }
 /* Banner vertical básico */
 #banner-vertical {
