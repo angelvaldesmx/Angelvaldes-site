@@ -1,0 +1,314 @@
+/* ==== Reset y base ==== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #2c2c2c;
+}
+
+body {
+  background: #f6f4f8; /* gris humo muy suave */
+  line-height: 1.6;
+  font-size: 1rem;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  color: #3b3b4f;
+}
+
+/* ==== Fullscreen Intro Overlay ==== */
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(240, 237, 250, 0.95); /* azul lavanda con opacidad */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+  flex-direction: column;
+  animation: fadeOutIntro 1s ease forwards;
+  animation-delay: 3.5s;
+}
+
+#intro-overlay.visible {
+  animation-play-state: running;
+}
+
+#intro-overlay img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(102, 84, 183, 0.4);
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));
+  transform: scale(1);
+  transition: transform 0.4s ease;
+}
+
+#intro-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.6rem;
+  background: rgba(102, 84, 183, 0.15);
+  border: none;
+  color: #6654b7;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: default; /* tenue, no interactivo */
+  pointer-events: none; /* no se puede clicar */
+  user-select: none;
+  filter: blur(1px);
+  transition: none;
+}
+
+/* ==== Header ==== */
+header {
+  text-align: center;
+  max-width: 700px;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: #6654b7; /* azul lavanda */
+  margin-bottom: 0.3rem;
+}
+
+header p {
+  font-weight: 600;
+  color: #7e7e93;
+  font-size: 1.1rem;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* ==== Sections ==== */
+section {
+  background: #fff;
+  max-width: 720px;
+  margin-bottom: 2rem;
+  padding: 1.8rem 2rem;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(102, 84, 183, 0.12);
+  border: 1px solid #dbdbdf;
+  position: relative;
+}
+
+/* ==== Manifiesto con marco ==== */
+#manifiesto {
+  border: 3px solid #a59fbc; /* lavanda claro */
+  padding: 1.6rem 2rem;
+  background: #f5f3fa;
+  font-style: italic;
+  color: #4b4873;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  box-shadow: inset 0 0 10px #d6d2f1;
+  border-radius: 12px;
+  white-space: pre-line;
+}
+
+/* ==== Titulos ==== */
+h2 {
+  font-family: 'Poppins', sans-serif;
+  color: #5b5499;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  font-size: 1.8rem;
+}
+
+/* ==== Listas ==== */
+ul {
+  list-style: none;
+  margin-left: 1rem;
+}
+
+ul li {
+  padding-left: 1.4rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  color: #3e3c61;
+  position: relative;
+}
+
+ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #7b72b2;
+  font-weight: 900;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* ==== Formulario ==== */
+form#kit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 1rem auto 0 auto;
+}
+
+form input[type="text"],
+form input[type="email"] {
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1.8px solid #a59fbc;
+  background: #faf9ff;
+  color: #524f6d;
+  transition: border-color 0.3s ease;
+  font-weight: 600;
+  outline-offset: 2px;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus {
+  border-color: #6654b7;
+  background: #f0edff;
+}
+
+form button {
+  background: #6654b7;
+  color: white;
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(102, 84, 183, 0.4);
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+form button:hover,
+form button:focus {
+  background: #7b6acb;
+  outline: none;
+}
+
+/* ==== Estado formulario ==== */
+#status {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6654b7;
+  min-height: 1.3rem;
+  text-align: center;
+  margin-top: -0.5rem;
+}
+
+/* ==== Botón de café ==== */
+.btn-donate {
+  display: inline-block;
+  background: #a59fbc;
+  color: #3b3761;
+  padding: 0.65rem 1.25rem;
+  font-weight: 700;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(161, 154, 204, 0.6);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.btn-donate:hover,
+.btn-donate:focus {
+  background: #6654b7;
+  color: #f0eaff;
+  outline: none;
+}
+
+/* ==== Testimonios en vivo ==== */
+#testimonios {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1.4rem 1.8rem;
+  border-radius: 14px;
+  background: #edeef9;
+  border: 1.5px solid #b8b9d9;
+  box-shadow: inset 0 0 15px #c3c4f5;
+  color: #4b4a7e;
+  font-style: italic;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonio-item {
+  padding: 0.8rem 1.2rem;
+  background: #e6e7ffcc;
+  border-radius: 14px;
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 10px rgba(98, 99, 199, 0.3);
+  animation: fadeInUp 1.3s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.testimonio-item.nombre {
+  font-weight: 700;
+  color: #6654b7;
+  margin-bottom: 0.2rem;
+  font-style: normal;
+}
+
+.testimonio-item.anonimo {
+  color: #8a89af;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.testimonio-item:last-child {
+  margin-bottom: 0;
+}
+
+/* ==== Animaciones ==== */
+@keyframes fadeOutIntro {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== Responsive ==== */
+@media (max-width: 720px) {
+  body {
+    padding: 1rem 0.5rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  section {
+    padding: 1.4rem 1rem;
+    margin-bottom: 1.6rem;
+  }
+
+  #manifiesto {
+    font-size: 1rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  form#kit-form {
+    max-width: 100%;
+  }
+  }
