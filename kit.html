@@ -63,7 +63,14 @@
       <li>🔐 Un sistema de clave única para proteger tu descarga</li>
     </ul>
   </section>
-
+  
+<section id="compartir-kit">
+  <h2>📤 ¿Te ayudó este kit?</h2>
+  <p>Compártelo con alguien que también esté buscando un refugio emocional.</p>
+  <button id="btn-compartir">🔗 Compartir este kit</button>
+  <p id="compartir-status"></p>
+</section>
+  
   <section>
     <h2>¿Cómo descargarlo?</h2>
     <p>Por lanzamiento, los primeros kits son gratuitos. Llena este pequeño formulario y recibe tu clave personalizada por correo.</p>
@@ -75,7 +82,21 @@
       <p id="status"></p>
     </form>
   </section>
+  
+<section id="comentarios-emocionales">
+  <h2>🫂 Comparte lo que sientes</h2>
+  <p>Este espacio es anónimo. Escribe lo que estás viviendo, aunque no sepas cómo explicarlo.</p>
 
+  <form id="form-comentario">
+    <textarea id="comentario" name="comentario" rows="4" placeholder="Aquí puedes escribir lo que sientes..." required></textarea>
+    <button type="submit">💬 Publicar sentimiento</button>
+    <p id="comentario-status"></p>
+  </form>
+
+  <div id="comentarios-lista">
+    <!-- Aquí se mostrarán los comentarios recibidos -->
+  </div>
+  </section>
   <section class="testimonios">
     <h2>Lo que dicen quienes ya lo descargaron</h2>
     <div class="comentario vivo">
@@ -100,10 +121,14 @@
     <p>Este volumen tocó la tristeza. El siguiente tocará la ira. Después vendrá la ansiedad. Y quizás… hasta el narcisismo.</p>
   </section>
 
-  <footer>
-    <p>&copy; 2025 Angel Valdes. Todos los derechos reservados.</p>
-  </footer>
-
+  
+<footer>
+  <p>&copy; 2025 Ángel Valdés. Todos los derechos reservados.</p>
+  <p class="consent-note">
+    Al enviar tu comentario emocional, autorizas su uso anónimo para fines de inspiración, retroalimentación y visibilidad en este sitio. 
+    Nunca se mostrará tu correo ni se compartirá tu identidad sin tu consentimiento explícito.  
+  </p>
+</footer>
   <script src="script.js"></script>
 </body>
   </html>
