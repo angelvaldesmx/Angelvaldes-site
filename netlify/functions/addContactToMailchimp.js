@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const mandrill = require("mandrill-api/mandrill");
 const admin = require("firebase-admin");
-const serviceAccount = require("netlify/functions/angelvaldes-nueva.json"); // Ajusta ruta según tu estructura
+const serviceAccount = require("./angelvaldes-nueva.json"); // Ruta relativa correcta
 
 if (!admin.apps.length) {
   admin.initializeApp({
