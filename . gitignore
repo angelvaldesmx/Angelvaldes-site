@@ -1,0 +1,48 @@
+# ============ NODE =============
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============ NETLIFY FUNCTIONS =============
+/netlify/functions/node_modules/
+/netlify/functions/.netlify/
+/netlify/functions/service-account.json
+/netlify/functions/.env
+/netlify/functions/.env.*
+
+
+# ============ ENV VARIABLES ============
+.env
+.env.local
+.env.production
+.env.development
+*.env
+
+# ============ FIREBASE =============
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# En caso de usar emuladores
+firebase.json
+firestore.indexes.json
+firestore.rules
+
+# ============ BUILD / DIST ============
+dist/
+build/
+out/
+.cache/
+
+# ============ IDE / SISTEMA ============
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ============ OTRAS CONFIG GENERADAS ============
+*.log
+*.bak
+*.swp
+*.tmp
