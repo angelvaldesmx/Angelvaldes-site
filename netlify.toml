@@ -8,4 +8,4 @@
   status = 200
 
 [functions."addContactToMailchimp"]
-  included_files = ["angelvaldes-nueva.json"]
+  included_files = ["netlify/functions/angelvaldes-nueva.json"]
