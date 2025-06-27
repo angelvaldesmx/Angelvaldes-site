@@ -47,4 +47,4 @@ Thumbs.db
 
 # ============ EXCEPCIONES MANUALES ============
 # Permitimos explícitamente el archivo JSON de credenciales
-!netlify/functions/angelvaldes-nueva.json
+!netlify/functions/angelvaldessitio-nueva.json
