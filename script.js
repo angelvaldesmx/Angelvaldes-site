@@ -1,20 +1,19 @@
-// script.js
+// === FIREBASE CONFIG ===
+import { db } from './firebase-config.js';
+import { collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
+// === Esperar a que cargue el DOM ===
 document.addEventListener('DOMContentLoaded', () => {
   const introOverlay = document.getElementById('intro-overlay');
   const testimonios = document.querySelectorAll('.testimonio-item');
-  const statusMsg = document.getElementById('status');
   const form = document.getElementById('kit-form');
+  const statusMsg = document.getElementById('status');
 
-  // === Manejo overlay intro ===
+  // === Intro animado ===
   if (introOverlay) {
-    // Mostrar overlay con clase visible (controla animación)
     introOverlay.classList.add('visible');
-
-    // Desaparece automáticamente después de 3.5 segundos + 1s animación
     setTimeout(() => {
       introOverlay.classList.remove('visible');
-      // Opcional: ocultar del DOM para liberar recursos
       setTimeout(() => {
         introOverlay.style.display = 'none';
       }, 1000);
@@ -23,128 +22,120 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === Rotador de testimonios ===
   let currentTestimonio = 0;
-
   if (testimonios.length > 0) {
-    // Mostrar solo el primero al inicio
-    testimonios.forEach((el, i) => {
-      if (i !== 0) el.style.opacity = 0;
-      else el.style.opacity = 1;
-    });
-
+    testimonios.forEach((el, i) => el.style.opacity = i === 0 ? 1 : 0);
     setInterval(() => {
-      // Ocultar el actual
-      testimonios[currentTestimonio].style.transition = 'opacity 1s ease';
       testimonios[currentTestimonio].style.opacity = 0;
-
-      // Calcular siguiente índice
       currentTestimonio = (currentTestimonio + 1) % testimonios.length;
-
-      // Mostrar el siguiente
-      testimonios[currentTestimonio].style.transition = 'opacity 1s ease';
       testimonios[currentTestimonio].style.opacity = 1;
     }, 6000);
   }
 
-  // === Formulario con espacio para Firebase y validación básica ===
-
+  // === FORMULARIO: Enviar a Netlify y Mailchimp ===
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const email = form.email.value.trim();
-    const nombre = form.nombre ? form.nombre.value.trim() : '';
-    const status = statusMsg;
+    const nombre = form.nombre.value.trim();
 
-    // Validación básica
-    if (!email) {
-      status.textContent = 'Por favor, ingresa tu correo electrónico.';
-      status.style.color = 'red';
-      return;
-    }
-    if (nombre === '') {
-      status.textContent = 'Por favor, ingresa tu nombre.';
-      status.style.color = 'red';
+    if (!email || nombre === '') {
+      statusMsg.textContent = 'Por favor, completa ambos campos.';
+      statusMsg.style.color = 'red';
       return;
     }
 
-    status.textContent = 'Enviando...';
-    status.style.color = '#6654b7';
+    statusMsg.textContent = 'Enviando...';
+    statusMsg.style.color = '#6654b7';
 
     try {
-      // --- Aquí va el código para conectar con Firebase ---
-      // Ejemplo ficticio (debes reemplazarlo con tu config y función):
-
-      /*
-      await firebase.firestore().collection('kit-requests').add({
-        nombre: nombre,
-        email: email,
-        fecha: new Date().toISOString()
+      const response = await fetch('/.netlify/functions/addContactToMailchimp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, firstName: nombre, lastName: '' })
       });
-      */
 
-      // Luego llamar backend en Termux para enviar PDF con clave única (por implementar)
+      const result = await response.json();
 
-      // Simulando éxito:
-      setTimeout(() => {
-        status.textContent = `¡Gracias, ${nombre}! Revisa tu correo para la clave.`;
-        status.style.color = 'green';
+      if (response.ok) {
+        statusMsg.textContent = `¡Gracias, ${nombre}! Revisa tu correo para la clave: ${result.clave}`;
+        statusMsg.style.color = 'green';
         form.reset();
-      }, 1500);
+      } else {
+        statusMsg.textContent = `Error: ${result.detail || 'Intenta de nuevo'}`;
+        statusMsg.style.color = 'red';
+      }
     } catch (error) {
       console.error(error);
-      status.textContent = 'Error al enviar la solicitud. Intenta de nuevo más tarde.';
-      status.style.color = 'red';
+      statusMsg.textContent = 'Error al enviar. Intenta de nuevo más tarde.';
+      statusMsg.style.color = 'red';
     }
   });
-});
-// === Comentarios emocionales ===
-const comentarioForm = document.getElementById('form-comentario');
-const comentarioTextarea = document.getElementById('comentario');
-const comentarioStatus = document.getElementById('comentario-status');
-const comentariosLista = document.getElementById('comentarios-lista');
 
-// Reemplaza esto con conexión a Firebase si lo deseas
-comentarioForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const texto = comentarioTextarea.value.trim();
+  // === COMENTARIOS EMOCIONALES ===
+  const comentarioForm = document.getElementById('form-comentario');
+  const comentarioTextarea = document.getElementById('comentario');
+  const comentarioStatus = document.getElementById('comentario-status');
+  const comentariosLista = document.getElementById('comentarios-lista');
 
-  if (texto === '') {
-    comentarioStatus.textContent = 'Por favor, escribe algo antes de enviar.';
-    comentarioStatus.style.color = 'red';
-    return;
-  }
+  comentarioForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const texto = comentarioTextarea.value.trim();
 
-  // Simulación de envío y renderizado
-  const nuevoComentario = document.createElement('div');
-  nuevoComentario.className = 'comentario-visible';
-  nuevoComentario.innerHTML = `<p>“${texto}”</p><small>— Anónimo</small>`;
-  comentariosLista.prepend(nuevoComentario);
-
-  comentarioTextarea.value = '';
-  comentarioStatus.textContent = 'Gracias por compartir 💜';
-  comentarioStatus.style.color = 'green';
-});
-
-// === Botón de compartir ===
-const btnCompartir = document.getElementById('btn-compartir');
-const compartirStatus = document.getElementById('compartir-status');
-const mensajeCompartir = {
-  title: 'Kit Emocional Vol. 1',
-  text: 'No estás solo. Este kit emocional puede ayudarte o acompañarte. Hecho desde el alma. Descárgalo aquí:',
-  url: window.location.href
-};
-
-btnCompartir.addEventListener('click', async () => {
-  try {
-    if (navigator.share) {
-      await navigator.share(mensajeCompartir);
-      compartirStatus.textContent = '¡Gracias por compartir! 🤍';
-    } else {
-      await navigator.clipboard.writeText(`${mensajeCompartir.text} ${mensajeCompartir.url}`);
-      compartirStatus.textContent = 'Enlace copiado al portapapeles. ¡Gracias por compartir! 🫂';
+    if (texto === '') {
+      comentarioStatus.textContent = 'Por favor, escribe algo antes de enviar.';
+      comentarioStatus.style.color = 'red';
+      return;
     }
-    compartirStatus.style.color = 'green';
-  } catch (err) {
-    compartirStatus.textContent = 'No se pudo compartir. Intenta copiar el enlace manualmente.';
-    compartirStatus.style.color = 'red';
-  }
+
+    try {
+      await addDoc(collection(db, "comentarios"), {
+        texto,
+        fecha: new Date()
+      });
+      comentarioTextarea.value = '';
+      comentarioStatus.textContent = 'Gracias por compartir 💜';
+      comentarioStatus.style.color = 'green';
+    } catch (error) {
+      console.error(error);
+      comentarioStatus.textContent = 'Error al enviar el comentario.';
+      comentarioStatus.style.color = 'red';
+    }
+  });
+
+  const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
+  onSnapshot(q, (querySnapshot) => {
+    comentariosLista.innerHTML = "";
+    querySnapshot.forEach((doc) => {
+      const c = doc.data();
+      const nuevoComentario = document.createElement('div');
+      nuevoComentario.className = 'comentario vivo';
+      nuevoComentario.innerHTML = `<p>“${c.texto}”</p><small>— Anónimo</small>`;
+      comentariosLista.appendChild(nuevoComentario);
+    });
+  });
+
+  // === BOTÓN DE COMPARTIR ===
+  const btnCompartir = document.getElementById('btn-compartir');
+  const compartirStatus = document.getElementById('compartir-status');
+
+  const mensajeCompartir = {
+    title: 'Kit Emocional Vol. 1',
+    text: 'No estás solo. Este kit emocional puede ayudarte o acompañarte. Hecho desde el alma. Descárgalo aquí:',
+    url: window.location.href
+  };
+
+  btnCompartir.addEventListener('click', async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share(mensajeCompartir);
+        compartirStatus.textContent = '¡Gracias por compartir! 🤍';
+      } else {
+        await navigator.clipboard.writeText(`${mensajeCompartir.text} ${mensajeCompartir.url}`);
+        compartirStatus.textContent = 'Enlace copiado al portapapeles. ¡Gracias por compartir! 🫂';
+      }
+      compartirStatus.style.color = 'green';
+    } catch (err) {
+      compartirStatus.textContent = 'No se pudo compartir. Intenta copiar el enlace manualmente.';
+      compartirStatus.style.color = 'red';
+    }
+  });
 });
