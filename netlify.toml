@@ -1,6 +1,6 @@
 [build]
   functions = "netlify/functions"
-  publish = "dist"  # O "public", o tu carpeta de salida si usas algún generador
+  publish = "."  # O "public", o tu carpeta de salida si usas algún generador
 
 [[redirects]]
   from = "/api/*"
