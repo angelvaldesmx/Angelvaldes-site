@@ -84,6 +84,13 @@ exports.handler = async (event) => {
       statusCode: 500,
       body: JSON.stringify({ error: "Error interno del servidor", detalle: error.message })
     };
+    
+    if (!process.env.MAILCHIMP_API_KEY || !process.env.MAILCHIMP_AUDIENCE_ID || !process.env.MANDRILL_API_KEY) {
+  return {
+    statusCode: 500,
+    body: JSON.stringify({ error: "Faltan variables de entorno necesarias" })
+  };
+    }
   }
 };
 
