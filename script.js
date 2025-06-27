@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
       if (response.ok) {
-        statusMsg.textContent = `¡Gracias, ${nombre}! Revisa tu correo para la clave: ${result.clave}`;
+        statusMsg.textContent = `¡Gracias, ${nombre}! Revisa tu correo 📩`;
         statusMsg.style.color = 'green';
         form.reset();
       } else {
