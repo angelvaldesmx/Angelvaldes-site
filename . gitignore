@@ -44,3 +44,7 @@ Thumbs.db
 *.bak
 *.swp
 *.tmp
+
+# ============ EXCEPCIONES MANUALES ============
+# Permitimos explícitamente el archivo JSON de credenciales
+!netlify/functions/angelvaldes-nueva.json
