@@ -9,7 +9,6 @@ yarn-error.log*
 /netlify/functions/.netlify/
 /netlify/functions/.env
 /netlify/functions/.env.*
-/netlify/functions/angelvaldessitio-nueva.json
 
 # ============ ENV VARIABLES ============
 .env
