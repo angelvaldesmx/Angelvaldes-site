@@ -1,0 +1,13 @@
+{
+  "name": "kit-emocional-functions",
+  "version": "1.0.0",
+  "description": "Funciones Netlify para Mailchimp, Firebase y Mandrill",
+  "scripts": {
+    "start": "netlify dev"
+  },
+  "dependencies": {
+    "firebase-admin": "^11.10.1",
+    "mandrill-api": "^1.0.45",
+    "node-fetch": "^2.6.7"
+  }
+}
