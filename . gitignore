@@ -7,10 +7,9 @@ yarn-error.log*
 # ============ NETLIFY FUNCTIONS =============
 /netlify/functions/node_modules/
 /netlify/functions/.netlify/
-/netlify/functions/service-account.json
 /netlify/functions/.env
 /netlify/functions/.env.*
-
+/netlify/functions/angelvaldessitio-nueva.json
 
 # ============ ENV VARIABLES ============
 .env
