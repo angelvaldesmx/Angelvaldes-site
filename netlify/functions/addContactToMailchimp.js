@@ -1,5 +1,6 @@
-const fetch = require('node-fetch');
-const admin = require('firebase-admin');
+const fetch = require("node-fetch");
+const mandrill = require("mandrill-api/mandrill");
+const admin = require("firebase-admin");
 
 // === Inicializar Firebase Admin con credenciales desde ENV ===
 if (!admin.apps.length) {
@@ -15,7 +16,7 @@ exports.handler = async (event) => {
   const { email, firstName, lastName } = JSON.parse(event.body);
   const clave = generarClaveUnica();
 
-  // === Enviar a Mailchimp ===
+  // === Preparar datos para Mailchimp ===
   const data = {
     email_address: email,
     status: "subscribed",
@@ -27,7 +28,8 @@ exports.handler = async (event) => {
   };
 
   try {
-    const response = await fetch("https://<dc>.api.mailchimp.com/3.0/lists/<list-id>/members", {
+    const dc = process.env.MAILCHIMP_API_KEY.split("-")[1]; // extrae el datacenter del API key
+    const mcResponse = await fetch(`https://${dc}.api.mailchimp.com/3.0/lists/${process.env.MAILCHIMP_AUDIENCE_ID}/members`, {
       method: "POST",
       headers: {
         Authorization: `apikey ${process.env.MAILCHIMP_API_KEY}`,
@@ -36,11 +38,11 @@ exports.handler = async (event) => {
       body: JSON.stringify(data)
     });
 
-    const json = await response.json();
+    const json = await mcResponse.json();
 
-    if (response.status >= 400) {
+    if (mcResponse.status >= 400) {
       return {
-        statusCode: response.status,
+        statusCode: mcResponse.status,
         body: JSON.stringify(json)
       };
     }
@@ -52,13 +54,33 @@ exports.handler = async (event) => {
       timestamp: new Date().toISOString()
     });
 
+    // === Enviar correo con Mandrill ===
+    const mandrillClient = new mandrill.Mandrill(process.env.MANDRILL_API_KEY);
+    const message = {
+      to: [{ email, name: firstName }],
+      from_email: "noreply@angelvaldesmx.qzz.io",
+      subject: "Tu clave para el Kit Emocional",
+      html: `
+        <p>Hola ${firstName},</p>
+        <p>Gracias por abrir este espacio con nosotros. Aquí tienes tu clave única:</p>
+        <h2 style="color:#6654b7;">${clave}</h2>
+        <p>Ingresa tu clave en esta página para descargar el Kit Emocional:</p>
+        <p><a href="https://angelvaldesmx.qzz.io/descarga-kit">https://angelvaldesmx.qzz.io/descarga-kit</a></p>
+        <p>Con cariño,<br>— Ángel Valdés</p>
+      `
+    };
+
+    await new Promise((resolve, reject) => {
+      mandrillClient.messages.send({ message, async: false }, resolve, reject);
+    });
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Suscripción exitosa", clave })
+      body: JSON.stringify({ message: "Suscripción completa y correo enviado", clave })
     };
 
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error interno:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Error interno del servidor", detalle: error.message })
@@ -74,4 +96,4 @@ function generarClaveUnica() {
     clave += chars[Math.floor(Math.random() * chars.length)];
   }
   return clave;
-    }
+}
