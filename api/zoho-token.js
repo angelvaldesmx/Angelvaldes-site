@@ -17,13 +17,14 @@ export default async function handler(req, res) {
     client_secret: process.env.ZOHO_CLIENT_SECRET,
     redirect_uri: process.env.ZOHO_REDIRECT_URI || 'https://angelvaldesmx.qzz.io/kit',
     code,
+    access_type: 'offline', // clave para obtener refresh_token
   });
 
   try {
     const response = await fetch('https://accounts.zoho.com/oauth/v2/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString(), // CORRECCIÓN CLAVE: Debe ser un string
+      body: params.toString(),
     });
 
     const result = await response.json();
@@ -32,6 +33,7 @@ export default async function handler(req, res) {
       return res.status(response.status).json({ error: result });
     }
 
+    // Aquí ya debería venir el refresh_token
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ error: 'Error interno del servidor', detalle: error.message });
