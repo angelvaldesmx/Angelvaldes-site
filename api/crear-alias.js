@@ -1,23 +1,20 @@
-// /pages/api/crear-alias.js
-
+// /api/crear-alias.js
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método no permitido' });
   }
 
-  const { aliasPrefix = '' } = req.body; // prefijo opcional
+  const { aliasPrefix = '' } = req.body;
 
   try {
-    const response = await fetch('https://app.simplelogin.io/api/v2/aliases', {
+    const response = await fetch('https://app.simplelogin.io/api/aliases', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.SIMPLELOGIN_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        domain_id: 256857,               // ID correcto de tu subdominio
-        mailbox_ids: [6672639],         // ID correcto del mailbox (noreply@)
-        name: aliasPrefix || undefined  // Evita null, SimpleLogin prefiere undefined
+        name: aliasPrefix || null
       })
     });
 
