@@ -1,31 +1,47 @@
 const fetch = require("node-fetch");
 const mandrill = require("mandrill-api/mandrill");
 const admin = require("firebase-admin");
-const serviceAccount = JSON.parse(process.env.FIREBASE_JSON);
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-}
+let db;
+
+const initializeFirebase = async () => {
+  if (!admin.apps.length) {
+    const response = await fetch("https://angelvaldes-site.vercel.app/api/firebase-json");
+    
+    if (!response.ok) {
+      throw new Error("No se pudo obtener el JSON de Firebase desde Vercel.");
+    }
+
+    const firebaseJson = await response.json();
+
+    admin.initializeApp({
+      credential: admin.credential.cert(firebaseJson),
+    });
+
+    db = admin.firestore();
+  }
+};
 
 exports.handler = async (event) => {
-  const { email, firstName, lastName } = JSON.parse(event.body);
-  const clave = generarClaveUnica();
-
-  // === Preparar datos para Mailchimp ===
-  const data = {
-    email_address: email,
-    status: "subscribed",
-    merge_fields: {
-      FNAME: firstName,
-      LNAME: lastName || '',
-      CLAVE: clave
-    }
-  };
-
   try {
-    const dc = process.env.MAILCHIMP_API_KEY.split("-")[1]; // extrae el datacenter del API key
+    await initializeFirebase();
+
+    const { email, firstName, lastName } = JSON.parse(event.body);
+    const clave = generarClaveUnica();
+
+    // === Preparar Mailchimp ===
+    const data = {
+      email_address: email,
+      status: "subscribed",
+      merge_fields: {
+        FNAME: firstName,
+        LNAME: lastName || '',
+        CLAVE: clave
+      }
+    };
+
+    const dc = process.env.MAILCHIMP_API_KEY.split("-")[1];
+
     const mcResponse = await fetch(`https://${dc}.api.mailchimp.com/3.0/lists/${process.env.MAILCHIMP_AUDIENCE_ID}/members`, {
       method: "POST",
       headers: {
@@ -82,22 +98,10 @@ exports.handler = async (event) => {
       statusCode: 500,
       body: JSON.stringify({ error: "Error interno del servidor", detalle: error.message })
     };
-    
-    if (!process.env.MAILCHIMP_API_KEY || !process.env.MAILCHIMP_AUDIENCE_ID || !process.env.MANDRILL_API_KEY) {
-  return {
-    statusCode: 500,
-    body: JSON.stringify({ error: "Faltan variables de entorno necesarias" })
-  };
-    }
   }
 };
 
-// === Generador de clave única ===
 function generarClaveUnica() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let clave = '';
-  for (let i = 0; i < 6; i++) {
-    clave += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return clave;
+  return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
 }
