@@ -1,14 +1,13 @@
 const fetch = require("node-fetch");
 const mandrill = require("mandrill-api/mandrill");
 const admin = require("firebase-admin");
-const serviceAccount = require("./angelvaldessitio-nueva.json");
+const serviceAccount = JSON.parse(process.env.FIREBASE_JSON);
+
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
 }
-
-const db = admin.firestore();
 
 exports.handler = async (event) => {
   const { email, firstName, lastName } = JSON.parse(event.body);
