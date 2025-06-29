@@ -4840,7 +4840,7 @@ svg.active .svg-elem-480 {
 }
 </style>
  <!-- Fondo oscuro -->
-  <rect width="100%" height="100%" fill="#0e0e0e" />
+
 
   <!-- Grupo principal con todo lo que quieras animar -->
   <g stroke-width="2" stroke="none" fill="none" fill-rule="evenodd">
