@@ -1,3 +1,10 @@
+<script>
+  if (!localStorage.getItem('introVisto')) {
+    // Redirige a la intro antes de mostrar esta página
+    window.location.href = 'intro.html';
+  }
+</script>
+
 // --- Funciones globales ---
 window.cerrarPopup = () => {
   const popup = document.getElementById('popup-bienvenida');
