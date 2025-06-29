@@ -20,6 +20,7 @@
       background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
       background-size: 40px 40px;
       animation: shimmer 10s linear infinite;
+      cursor: url('cursor-heart.cur'), auto;
     }
 
     @keyframes shimmer {
@@ -73,6 +74,38 @@
       overflow-y: auto;
     }
 
+    .cta-message {
+      text-align: center;
+      color: #fff;
+      font-size: 1.4rem;
+      max-width: 90%;
+      margin: 2rem auto 1.5rem;
+      line-height: 1.4;
+      font-weight: 300;
+      font-style: italic;
+      background: linear-gradient(to right, #fff2, #fff4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .audio-control {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .swiper {
       width: 100%;
       padding-top: 0.5rem;
@@ -88,14 +121,18 @@
       overflow: hidden;
       position: relative;
       filter: blur(4px);
-      transition: filter 0.5s, transform 0.5s;
+      transition: filter 0.5s, transform 0.5s, box-shadow 0.3s;
       cursor: pointer;
     }
 
     .swiper-slide-active {
       filter: blur(0);
       transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+    }
+
+    .swiper-slide:hover {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
     }
 
     .slide-overlay {
@@ -110,7 +147,7 @@
 
     .slide-overlay h3 {
       margin: 0;
-      font-size: 1.5rem;
+      font-size: 2rem;
       animation: pulseTitle 2s infinite alternate;
     }
 
@@ -127,14 +164,6 @@
       to { color: #f0f0f0; text-shadow: 0 0 10px #fff5; }
     }
 
-    .cta-message {
-      text-align: center;
-      color: #fff;
-      font-size: 1.2rem;
-      max-width: 90%;
-      margin: 1rem auto 0.5rem;
-    }
-
     footer {
       text-align: center;
       color: white;
@@ -142,11 +171,16 @@
       line-height: 1.5;
       background: linear-gradient(to top, #000, transparent);
       padding: 2rem 1rem;
+      animation: revealText 4s ease forwards;
+    }
+
+    @keyframes revealText {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media screen and (max-width: 600px) {
       footer {
-        position: relative;
         display: block;
       }
     }
@@ -154,6 +188,7 @@
 </head>
 <body>
   <audio id="bgAudio" src="suave.mp3" loop></audio>
+  <button class="audio-control" onclick="toggleAudio()">🎧</button>
 
   <!-- INTRO -->
   <div class="intro-container" id="introContainer">
@@ -163,7 +198,9 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="main-content" id="mainContent">
-    <div class="cta-message">Estás aquí por una razón, y aquí hay espacio para cada parte de ti.</div>
+    <div class="cta-message">
+      Este sitio es un refugio. No necesitas estar bien para estar aquí. Solo estar.
+    </div>
 
     <div class="swiper">
       <div class="swiper-wrapper">
@@ -222,6 +259,14 @@
       audio.play().catch(() => {
         console.warn("El navegador bloqueó el audio hasta interacción.");
       });
+    }
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
     }
 
     function cerrarIntro() {
