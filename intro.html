@@ -8,20 +8,18 @@
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" />
 
-  <!-- Open Graph -->
+  <!-- Metadatos -->
   <meta property="og:title" content="Ángel Valdés – Comienza a sanar" />
   <meta property="og:description" content="Descubre herramientas emocionales únicas. Descarga tu kit de sanación hoy." />
   <meta property="og:image" content="/opengraph.jpg" />
   <meta property="og:url" content="https://angelvaldesmx.qzz.io" />
   <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ángel Valdés – Comienza a sanar" />
   <meta name="twitter:description" content="Descubre herramientas emocionales únicas. Descarga tu kit de sanación hoy." />
   <meta name="twitter:image" content="/opengraph.jpg" />
 
-  <!-- Schema.org -->
+  <!-- JSON-LD -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -37,48 +35,63 @@
 
   <!-- Estilos -->
   <link rel="stylesheet" href="intro.css" />
-
-  <!-- Redirección si ya vio la intro -->
-  <script>
-    if (localStorage.getItem('introVisto')) {
-      window.location.href = "index.html";
-    }
-  </script>
 </head>
+
 <body>
   <div class="intro-container">
     <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
 
     <div class="svg-animation">
-      <object type="image/svg+xml" data="intro.svg" id="svgIntro" aria-label="Intro animado Ángel Valdés"></object>
+      <object type="image/svg+xml" data="intro.svg" id="svgIntro" aria-label="Intro Ángel Valdés"></object>
     </div>
 
     <div class="frase">Estás aquí, y eso ya es un paso hacia ti.</div>
 
-    <div class="window-grid" role="navigation" aria-label="Secciones del sitio">
-      <div class="window" tabindex="0" onclick="redirigir('index')" onkeypress="if(event.key==='Enter')redirigir('index')">
+    <div class="window-grid" role="navigation">
+      <div class="window" onclick="redirigir('index')">
         <h3>Inicio</h3>
         <button>Explorar</button>
       </div>
-      <div class="window" tabindex="0" onclick="redirigir('kit')" onkeypress="if(event.key==='Enter')redirigir('kit')">
+      <div class="window" onclick="redirigir('kit')">
         <h3>Kit</h3>
         <button>Empieza a sanar</button>
       </div>
-      <div class="window" tabindex="0" onclick="redirigir('descarga')" onkeypress="if(event.key==='Enter')redirigir('descarga')">
+      <div class="window" onclick="redirigir('descarga')">
         <h3>Descarga</h3>
         <button>Ya tengo mi código</button>
       </div>
-      <div class="window" tabindex="0" onclick="redirigir('contacto')" onkeypress="if(event.key==='Enter')redirigir('contacto')">
+      <div class="window" onclick="redirigir('contacto')">
         <h3>Contacto</h3>
         <button>Escríbeme</button>
       </div>
-      <div class="window" tabindex="0" onclick="redirigir('tienda')" onkeypress="if(event.key==='Enter')redirigir('tienda')">
+      <div class="window" onclick="redirigir('tienda')">
         <h3>Tienda</h3>
         <button>Ver productos</button>
       </div>
     </div>
   </div>
 
-  <script src="intro.js"></script>
+  <script>
+    function redirigir(destino) {
+      localStorage.setItem('introVisto', 'true');
+      window.location.href = destino + ".html";
+    }
+
+    document.getElementById("cerrarIntro").addEventListener("click", () => {
+      document.querySelector(".intro-container").classList.add("ocultar");
+    });
+
+    window.onload = () => {
+      const obj = document.getElementById("svgIntro");
+      if (!obj) return;
+      obj.addEventListener("load", () => {
+        const svgDoc = obj.contentDocument;
+        if (svgDoc) {
+          const svg = svgDoc.querySelector("svg");
+          if (svg) svg.classList.add("active");
+        }
+      });
+    };
+  </script>
 </body>
 </html>
