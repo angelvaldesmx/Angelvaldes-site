@@ -1,29 +1,33 @@
 body {
   margin: 0;
-  background-color: #000;
+  padding: 0;
+  background: #000;
   color: white;
   font-family: "Segoe UI", sans-serif;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .intro-container {
-  min-height: 100vh;
-  padding: 2rem 1rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.5s ease;
+  position: relative;
 }
 
-.intro-container.ocultar {
-  opacity: 0;
-  pointer-events: none;
-  display: none;
+.svg-animation {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .svg-animation object {
   width: 90vw;
-  height: auto;
+  height: 90vh;
   max-width: 600px;
   max-height: 600px;
   display: block;
@@ -31,7 +35,7 @@ body {
 
 .frase {
   font-size: 1.2rem;
-  margin: 1.5rem 0;
+  margin: 1rem auto;
   text-align: center;
   animation: fadeIn 2s ease-in-out 1s forwards;
   opacity: 0;
@@ -40,25 +44,27 @@ body {
 .window-grid {
   display: grid;
   gap: 1rem;
-  margin-top: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  margin: 1.5rem auto;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  max-width: 90vw;
   width: 100%;
-  max-width: 600px;
+  padding: 1rem;
 }
 
 .window {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 1rem;
   text-align: center;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
 }
 
 .window:hover {
-  transform: scale(1.05);
-  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.03);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .window h3 {
@@ -73,6 +79,7 @@ body {
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
+  margin-top: 0.5rem;
 }
 
 .cerrar-intro {
@@ -87,6 +94,11 @@ body {
   font-weight: bold;
   border-radius: 20px;
   cursor: pointer;
+}
+
+/* Clase para ocultar intro si se cierra */
+.ocultar {
+  display: none;
 }
 
 @keyframes fadeIn {
