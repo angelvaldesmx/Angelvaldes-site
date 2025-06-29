@@ -137,10 +137,14 @@
     const mainContent = document.getElementById("mainContent");
     const yaVisto = localStorage.getItem("introVisto");
 
-    if (yaVisto === "true") {
-      introContainer.style.display = "none";
-      mainContent.style.display = "block";
-    }
+if (yaVisto === "true") {
+  introContainer.style.display = "none";
+  mainContent.style.display = "block";
+} else {
+  // Recargar el SVG forzadamente para reiniciar la animación
+  const svgObject = document.getElementById("svgIntro");
+  svgObject.data = svgObject.data;
+}
 
     document.getElementById("cerrarIntro").addEventListener("click", cerrarIntro);
 
