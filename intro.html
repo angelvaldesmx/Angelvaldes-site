@@ -2,41 +2,86 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intro Ángel Valdés</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ángel Valdés – Comienza a sanar</title>
 
-    object {
-      width: 90vw;
-      height: 90vh;
-      max-width: 600px;
-      max-height: 600px;
-      display: block;
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ángel Valdés – Comienza a sanar" />
+  <meta property="og:description" content="Descubre herramientas emocionales únicas. Descarga tu kit de sanación hoy." />
+  <meta property="og:image" content="/opengraph.jpg" />
+  <meta property="og:url" content="https://angelvaldesmx.qzz.io" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ángel Valdés – Comienza a sanar" />
+  <meta name="twitter:description" content="Descubre herramientas emocionales únicas. Descarga tu kit de sanación hoy." />
+  <meta name="twitter:image" content="/opengraph.jpg" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ángel Valdés",
+      "url": "https://angelvaldesmx.qzz.io",
+      "sameAs": [
+        "https://instagram.com/angelvaldesmx",
+        "https://tiktok.com/@angelvaldesmx"
+      ]
     }
-  </style>
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="intro.css" />
+
+  <!-- Redirige si ya vio la intro -->
+  <script>
+    if (localStorage.getItem('introVisto')) {
+      window.location.href = "index.html";
+    }
+  </script>
 </head>
 <body>
-  <object type="image/svg+xml" data="intro.svg" id="svgIntro"></object>
 
-  <script>
-    window.onload = () => {
-      const obj = document.getElementById("svgIntro");
-      obj.addEventListener("load", () => {
-        const svgDoc = obj.contentDocument;
-        if (svgDoc) {
-          const svg = svgDoc.querySelector("svg");
-          if (svg) svg.classList.add("active");
-        }
-      });
-    };
-  </script>
+  <div class="intro-container">
+    <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
+
+    <div class="svg-animation">
+      <img src="/intro.svg" alt="Intro animada Ángel Valdés" />
+    </div>
+
+    <div class="frase" aria-live="polite">
+      Estás aquí, y eso ya es un paso hacia ti.
+    </div>
+
+    <div class="window-grid" role="navigation" aria-label="Secciones principales">
+      <div class="window" tabindex="0" onclick="redirigir('index')" onkeypress="if(event.key==='Enter')redirigir('index')">
+        <h3>Inicio</h3>
+        <button>Explorar</button>
+      </div>
+      <div class="window" tabindex="0" onclick="redirigir('kit')" onkeypress="if(event.key==='Enter')redirigir('kit')">
+        <h3>Kit</h3>
+        <button>Empieza a sanar</button>
+      </div>
+      <div class="window" tabindex="0" onclick="redirigir('descarga')" onkeypress="if(event.key==='Enter')redirigir('descarga')">
+        <h3>Descarga</h3>
+        <button>Ya tengo mi código</button>
+      </div>
+      <div class="window" tabindex="0" onclick="redirigir('contacto')" onkeypress="if(event.key==='Enter')redirigir('contacto')">
+        <h3>Contacto</h3>
+        <button>Escríbeme</button>
+      </div>
+      <div class="window" tabindex="0" onclick="redirigir('tienda')" onkeypress="if(event.key==='Enter')redirigir('tienda')">
+        <h3>Tienda</h3>
+        <button>Ver productos</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="intro.js"></script>
 </body>
 </html>
