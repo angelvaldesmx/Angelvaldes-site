@@ -2,27 +2,23 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Intro Ángel Valdés</title>
-  <!-- Swiper CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-  />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <style>
     * {
       box-sizing: border-box;
     }
-    body,
-    html {
+
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: "Segoe UI", sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #000;
-      overflow: hidden;
-      color: white;
+      overflow-x: hidden;
     }
+
     .intro-container {
       position: fixed;
       inset: 0;
@@ -34,10 +30,12 @@
       flex-direction: column;
       transition: opacity 1s ease;
     }
+
     .intro-container.oculto {
       opacity: 0;
       pointer-events: none;
     }
+
     object {
       width: 90vw;
       height: 90vh;
@@ -45,6 +43,7 @@
       max-height: 600px;
       display: block;
     }
+
     .cerrar-intro {
       position: absolute;
       top: 1rem;
@@ -57,311 +56,151 @@
       cursor: pointer;
       z-index: 10000;
     }
+
     .main-content {
       display: none;
       min-height: 100vh;
       background: #0a0a0a;
-      padding: 2rem 1rem 4rem;
+      padding: 2rem 1rem 5rem;
       overflow-y: auto;
     }
-    .cta-header {
-      text-align: center;
-      color: white;
-      max-width: 800px;
-      margin: 0 auto 2rem;
-      padding: 0 1rem;
-    }
-    .cta-header h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    .cta-header p {
-      font-size: 1rem;
-      font-weight: 300;
-      opacity: 0.85;
-    }
-    /* Swiper */
+
     .swiper {
-      width: 90vw;
-      max-width: 650px;
-      height: 320px;
-      margin: 0 auto;
+      width: 100%;
+      padding-top: 2rem;
       padding-bottom: 3rem;
     }
+
     .swiper-slide {
-      background: #111;
+      background-position: center;
+      background-size: cover;
+      width: 250px;
+      height: 400px;
       border-radius: 20px;
       overflow: hidden;
-      cursor: pointer;
       position: relative;
-      box-shadow: 0 0 15px rgba(255 255 255 / 0.1);
-      transition: transform 0.4s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      filter: blur(4px);
+      transition: filter 0.5s;
+      cursor: pointer;
     }
+
     .swiper-slide-active {
-      box-shadow: 0 0 40px #fff;
-      transform: scale(1.1);
-      z-index: 10;
+      filter: blur(0);
     }
-    .preview-simulated {
+
+    .slide-overlay {
       position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      background-size: cover;
-      background-position: center;
-      filter: blur(12px) brightness(0.5);
-      transition: filter 0.3s ease;
-      z-index: 1;
-    }
-    .swiper-slide:hover .preview-simulated,
-    .swiper-slide-active .preview-simulated {
-      filter: blur(8px) brightness(0.65);
-    }
-    .overlay {
-      position: relative;
-      z-index: 2;
-      height: 100%;
+      bottom: 0;
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
       padding: 1rem;
-      background: rgba(0, 0, 0, 0.25);
-      transition: background 0.3s ease;
-      user-select: none;
-      text-align: center;
-    }
-    .overlay h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.4rem;
-    }
-    .overlay p {
-      font-size: 1rem;
-      font-weight: 300;
-    }
-    .final-cta {
-      text-align: center;
-      margin-top: 3rem;
-      padding: 0 1rem;
-    }
-    .final-cta p {
-      font-size: 1.1rem;
-      font-weight: 500;
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto;
-      background: linear-gradient(90deg, #f6c0c0, #f7d9ff, #c4f0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: latir 4s ease-in-out infinite;
-    }
-    @keyframes latir {
-      0%,
-      100% {
-        opacity: 0.8;
-      }
-      50% {
-        opacity: 1;
-      }
-    }
-    /* Audio control button */
-    #audioToggle {
-      position: fixed;
-      bottom: 1.2rem;
-      right: 1.2rem;
-      background: rgba(255 255 255 / 0.2);
-      border: 1px solid white;
+      background: rgba(0, 0, 0, 0.5);
       color: white;
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      cursor: pointer;
-      z-index: 10001;
-      font-size: 0.9rem;
-      user-select: none;
-      transition: background 0.3s ease;
+      text-align: center;
     }
-    #audioToggle:hover {
-      background: rgba(255 255 255 / 0.4);
+
+    .cta-message {
+      text-align: center;
+      color: #fff;
+      font-size: 1.3rem;
+      max-width: 90%;
+      margin: 1rem auto 2rem;
+    }
+
+    footer {
+      text-align: center;
+      color: white;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      background: linear-gradient(to top, #000, transparent);
+      padding: 2rem 1rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      footer {
+        position: relative;
+        display: block;
+      }
     }
   </style>
 </head>
 <body>
+  <audio id="bgAudio" src="suave.mp3" loop></audio>
 
   <!-- INTRO -->
   <div class="intro-container" id="introContainer">
     <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
-    <object
-      type="image/svg+xml"
-      data="intro.svg"
-      id="svgIntro"
-      aria-label="Intro animado Ángel Valdés"
-    ></object>
+    <object type="image/svg+xml" data="intro.svg" id="svgIntro"></object>
   </div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="main-content" id="mainContent">
-    <header class="cta-header">
-      <h2>No sé por qué llegaste aquí, pero me alegra que lo hayas hecho.</h2>
-      <p>Todo lo que encuentres aquí fue hecho para recordarte que mereces sanar, a tu ritmo, a tu manera.</p>
-    </header>
+    <div class="cta-message">Estás aquí por una razón, y aquí hay espacio para cada parte de ti.</div>
 
-    <!-- Swiper -->
     <div class="swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" onclick="redirigir('index')" tabindex="0" role="button" aria-label="Ir a Inicio">
-          <div
-            class="preview-simulated"
-            style="background-image: url('previews/index-blur.jpg');"
-          ></div>
-          <div class="overlay">
-            <h3>Inicio</h3>
-            <p>Aquí comienza todo.</p>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('index')" style="background-image:url('previews/index-blur.jpg')">
+          <div class="slide-overlay">Inicio - Explora quién eres</div>
         </div>
-        <div class="swiper-slide" onclick="redirigir('kit')" tabindex="0" role="button" aria-label="Ir a Kit">
-          <div
-            class="preview-simulated"
-            style="background-image: url('previews/kit-blur.jpg');"
-          ></div>
-          <div class="overlay">
-            <h3>Kit</h3>
-            <p>Te estaba esperando para verte sanar.</p>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('kit')" style="background-image:url('previews/kit-blur.jpg')">
+          <div class="slide-overlay">Kit - Te estaba esperando</div>
         </div>
-        <div class="swiper-slide" onclick="redirigir('descarga')" tabindex="0" role="button" aria-label="Ir a Descarga">
-          <div
-            class="preview-simulated"
-            style="background-image: url('previews/descarga-blur.jpg');"
-          ></div>
-          <div class="overlay">
-            <h3>Descarga</h3>
-            <p>Recibe lo que ya es tuyo.</p>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('descarga')" style="background-image:url('previews/descarga-blur.jpg')">
+          <div class="slide-overlay">Descarga - Ya tengo mi código</div>
         </div>
-        <div class="swiper-slide" onclick="redirigir('contacto')" tabindex="0" role="button" aria-label="Ir a Contacto">
-          <div
-            class="preview-simulated"
-            style="background-image: url('previews/contacto-blur.jpg');"
-          ></div>
-          <div class="overlay">
-            <h3>Contacto</h3>
-            <p>Estoy aquí si me necesitas.</p>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('contacto')" style="background-image:url('previews/contacto-blur.jpg')">
+          <div class="slide-overlay">Contacto - Estoy para ti</div>
         </div>
-        <div class="swiper-slide" onclick="redirigir('tienda')" tabindex="0" role="button" aria-label="Ir a Tienda">
-          <div
-            class="preview-simulated"
-            style="background-image: url('previews/tienda-blur.jpg');"
-          ></div>
-          <div class="overlay">
-            <h3>Tienda</h3>
-            <p>Encuentra lo que hicimos con amor.</p>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('tienda')" style="background-image:url('previews/tienda-blur.jpg')">
+          <div class="slide-overlay">Tienda - Encuentra lo que resuena</div>
         </div>
       </div>
     </div>
 
-    <div class="final-cta">
-      <p>
-        Si estás pensando en irte, quédate.<br />
-        No por mí, no por esta página… quédate en el mundo.<br />
-        Porque incluso rota, tu vida sigue siendo valiosa.
-      </p>
-    </div>
+    <footer>
+      No tienes que hacer todo ahora. Si te cuesta, respira. Quédate. Aquí en este mundo. Porque tu historia todavía tiene más que contar.
+    </footer>
   </div>
 
-  <!-- Botón para pausar/reanudar audio -->
-  <button id="audioToggle" aria-label="Pausar audio ambiental">🔈 Sonido ON</button>
-
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script>
     const introContainer = document.getElementById("introContainer");
     const mainContent = document.getElementById("mainContent");
+    const svgObject = document.getElementById("svgIntro");
+    const audio = document.getElementById("bgAudio");
     const yaVisto = localStorage.getItem("introVisto");
-    const audioToggle = document.getElementById("audioToggle");
 
-    // Audio ambiente suave (pad etéreo)
-    const audio = new Audio("https://cdn.pixabay.com/download/audio/2021/09/20/audio_c29d5dba39.mp3?filename=ambient-pad-11374.mp3");
-    audio.loop = true;
-    audio.volume = 0;
-    let audioFadingIn = false;
-    let audioPlaying = false;
-
-    function fadeInAudio() {
-      if (audioFadingIn) return;
-      audioFadingIn = true;
-      audio.play();
-      audioPlaying = true;
-      audioToggle.textContent = "🔊 Sonido ON";
-      let vol = 0;
-      const interval = setInterval(() => {
-        if (vol < 0.2) {
-          vol += 0.01;
-          audio.volume = vol;
-        } else {
-          clearInterval(interval);
-        }
-      }, 100);
-    }
-
-    function fadeOutAudio() {
-      if (!audioPlaying) return;
-      let vol = audio.volume;
-      const interval = setInterval(() => {
-        if (vol > 0) {
-          vol -= 0.02;
-          audio.volume = Math.max(vol, 0);
-        } else {
-          audio.pause();
-          audioPlaying = false;
-          audioFadingIn = false;
-          clearInterval(interval);
-          audioToggle.textContent = "🔈 Sonido OFF";
-        }
-      }, 100);
-    }
-
-    audioToggle.addEventListener("click", () => {
-      if (audioPlaying) {
-        fadeOutAudio();
-      } else {
-        fadeInAudio();
-      }
-    });
-
-    if (yaVisto === "true") {
-      introContainer.style.display = "none";
-      mainContent.style.display = "block";
-      fadeInAudio();
-    } else {
-      // Forzar recarga del SVG para animación
-      const svgObject = document.getElementById("svgIntro");
+    function reproducirAnimacionSVG() {
       svgObject.data = svgObject.data;
-      fadeInAudio();
     }
 
-    document.getElementById("cerrarIntro").addEventListener("click", () => {
+    function iniciarAudio() {
+      audio.volume = 0.4;
+      audio.play().catch(() => {
+        console.warn("El navegador bloqueó el audio hasta interacción.");
+      });
+    }
+
+    function cerrarIntro() {
       introContainer.classList.add("oculto");
       setTimeout(() => {
         introContainer.style.display = "none";
         mainContent.style.display = "block";
-        fadeInAudio();
+        iniciarAudio();
       }, 1000);
       localStorage.setItem("introVisto", "true");
-    });
+    }
 
-    window.onload = () => {
-      const obj = document.getElementById("svgIntro");
-      obj.addEventListener("load", () => {
-        const svgDoc = obj.contentDocument;
+    document.addEventListener("DOMContentLoaded", () => {
+      if (yaVisto === "true") {
+        introContainer.style.display = "none";
+        mainContent.style.display = "block";
+        iniciarAudio();
+      } else {
+        reproducirAnimacionSVG();
+      }
+
+      svgObject.addEventListener("load", () => {
+        const svgDoc = svgObject.contentDocument;
         if (svgDoc) {
           const svg = svgDoc.querySelector("svg");
           if (svg) svg.classList.add("active");
@@ -370,17 +209,18 @@
 
       setTimeout(() => {
         if (introContainer.style.display !== "none") {
-          document.getElementById("cerrarIntro").click();
+          cerrarIntro();
         }
       }, 7000);
-    };
+
+      document.getElementById("cerrarIntro").addEventListener("click", cerrarIntro);
+    });
 
     function redirigir(destino) {
       localStorage.setItem("introVisto", "true");
       window.location.href = destino + ".html";
     }
 
-    // Inicializar swiper
     const swiper = new Swiper(".swiper", {
       effect: "coverflow",
       grabCursor: true,
