@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toque con Flama</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background-color: #000;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+
+    .flame {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/14/Animated_fire_by_angeloska.gif');
+      background-size: cover;
+      pointer-events: none;
+      animation: fadeOut 1s ease forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.5); }
+    }
+
+    .mensaje {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 18px;
+      text-align: center;
+      padding: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mensaje">Toca cualquier parte de la pantalla para ver la flama ✨🔥</div>
+  <script>
+    document.addEventListener("touchstart", function(e) {
+      for (let touch of e.touches) {
+        const flame = document.createElement("div");
+        flame.className = "flame";
+        flame.style.left = (touch.clientX - 30) + "px";
+        flame.style.top = (touch.clientY - 30) + "px";
+        document.body.appendChild(flame);
+
+        setTimeout(() => {
+          flame.remove();
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>
