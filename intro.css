@@ -1,7 +1,6 @@
 body {
   margin: 0;
-  padding: 0;
-  background: #000;
+  background-color: #000;
   color: white;
   font-family: "Segoe UI", sans-serif;
 }
@@ -13,18 +12,26 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.intro-container.ocultar {
+  opacity: 0;
+  pointer-events: none;
+  display: none;
 }
 
 .svg-animation object {
   width: 90vw;
-  max-width: 600px;
   height: auto;
-  margin-bottom: 1.5rem;
+  max-width: 600px;
+  max-height: 600px;
+  display: block;
 }
 
 .frase {
   font-size: 1.2rem;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   text-align: center;
   animation: fadeIn 2s ease-in-out 1s forwards;
   opacity: 0;
@@ -40,19 +47,18 @@ body {
 }
 
 .window {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 1rem;
   text-align: center;
   transition: all 0.3s ease;
-  cursor: pointer;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .window:hover {
-  transform: scale(1.03);
-  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .window h3 {
@@ -67,7 +73,6 @@ body {
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 0.5rem;
 }
 
 .cerrar-intro {
@@ -88,9 +93,4 @@ body {
   to {
     opacity: 1;
   }
-}
-
-/* Ocultar con transición opcional */
-.ocultar {
-  display: none;
 }
