@@ -4,27 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Intro Ángel Valdés</title>
-  <link rel="icon" href="/favicon.ico" />
   <style>
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
     body, html {
+      margin: 0;
+      padding: 0;
       height: 100%;
-      width: 100%;
-      background: #000;
       font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
+      overflow: hidden;
     }
 
-    /* Intro */
     .intro-container {
       position: fixed;
       inset: 0;
       background-color: #000;
-      z-index: 1000;
+      z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -37,11 +35,12 @@
       pointer-events: none;
     }
 
-    .svg-animation embed {
+    object {
       width: 90vw;
       height: 90vh;
       max-width: 600px;
       max-height: 600px;
+      display: block;
     }
 
     .cerrar-intro {
@@ -54,16 +53,15 @@
       padding: 0.5rem 1rem;
       border-radius: 20px;
       cursor: pointer;
-      z-index: 1001;
+      z-index: 10000;
     }
 
-    /* Contenido principal oculto al inicio */
     .main-content {
       display: none;
-      padding: 2rem;
-      background: #0a0a0a;
-      color: white;
       min-height: 100vh;
+      background: #0a0a0a;
+      padding: 2rem;
+      overflow-y: auto;
     }
 
     .window-grid {
@@ -82,6 +80,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: white;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .window:hover {
@@ -100,12 +99,11 @@
   </style>
 </head>
 <body>
+
   <!-- INTRO -->
   <div class="intro-container" id="introContainer">
     <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
-    <div class="svg-animation">
-      <embed src="prueba.html" type="image/svg+xml" />
-    </div>
+    <object type="image/svg+xml" data="intro.svg" id="svgIntro"></object>
   </div>
 
   <!-- CONTENIDO PRINCIPAL -->
@@ -135,37 +133,47 @@
   </div>
 
   <script>
-    const introContainer = document.getElementById('introContainer');
-    const mainContent = document.getElementById('mainContent');
-    const yaVisto = localStorage.getItem('introVisto');
+    const introContainer = document.getElementById("introContainer");
+    const mainContent = document.getElementById("mainContent");
+    const yaVisto = localStorage.getItem("introVisto");
 
-    if (yaVisto === 'true') {
-      introContainer.style.display = 'none';
-      mainContent.style.display = 'block';
+    if (yaVisto === "true") {
+      introContainer.style.display = "none";
+      mainContent.style.display = "block";
     }
 
-    document.getElementById('cerrarIntro').addEventListener('click', cerrarIntro);
+    document.getElementById("cerrarIntro").addEventListener("click", cerrarIntro);
 
     function cerrarIntro() {
-      introContainer.classList.add('oculto');
+      introContainer.classList.add("oculto");
       setTimeout(() => {
-        introContainer.style.display = 'none';
-        mainContent.style.display = 'block';
+        introContainer.style.display = "none";
+        mainContent.style.display = "block";
       }, 1000);
-      localStorage.setItem('introVisto', 'true');
+      localStorage.setItem("introVisto", "true");
     }
 
+    // Reproducir animación y luego desaparecer (si no salta antes)
     window.onload = () => {
+      const obj = document.getElementById("svgIntro");
+      obj.addEventListener("load", () => {
+        const svgDoc = obj.contentDocument;
+        if (svgDoc) {
+          const svg = svgDoc.querySelector("svg");
+          if (svg) svg.classList.add("active");
+        }
+      });
+
       setTimeout(() => {
-        if (introContainer.style.display !== 'none') {
+        if (introContainer.style.display !== "none") {
           cerrarIntro();
         }
-      }, 5000); // Auto-cierre tras 5 segundos
+      }, 5000); // duración estimada
     };
 
     function redirigir(destino) {
-      localStorage.setItem('introVisto', 'true');
-      window.location.href = destino + '.html';
+      localStorage.setItem("introVisto", "true");
+      window.location.href = destino + ".html";
     }
   </script>
 </body>
