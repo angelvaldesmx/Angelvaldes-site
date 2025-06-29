@@ -3,76 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Intro Ángel Valdés</title>
+  <title>Ángel Valdés – Comienza a sanar</title>
 
-  <style>
-    body {
-      margin: 0;
-      background-color: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-    }
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" />
 
-    #svgIntro {
-      width: 90vw;
-      height: 90vh;
-      max-width: 600px;
-      max-height: 600px;
-      display: block;
-      border: none;
-    }
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ángel Valdés – Comienza a sanar" />
+  <meta property="og:description" content="Descubre herramientas emocionales únicas. Descarga tu kit de sanación hoy." />
+  <meta property="og:image" content="/opengraph.jpg" />
+  <meta property="og:url" content="https://angelvaldesmx.qzz.io" />
+  <meta property="og:type" content="website" />
 
-    .cerrar-intro {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #00ccae;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ángel Valdés – Comienza a sanar" />
+  <meta name="twitter:description" content="Descubre herramientas emocionales únicas. Descarga tu kit de sanación hoy." />
+  <meta name="twitter:image" content="/opengraph.jpg" />
 
-    .cerrar-intro:hover {
-      background-color: #00b49c;
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ángel Valdés",
+      "url": "https://angelvaldesmx.qzz.io",
+      "sameAs": [
+        "https://instagram.com/angelvaldesmx",
+        "https://tiktok.com/@angelvaldesmx"
+      ]
     }
+  </script>
 
-    .oculto {
-      display: none;
-    }
-  </style>
+  <!-- Estilos -->
+  <link rel="stylesheet" href="intro.css" />
 </head>
+
 <body>
-  <div id="introContainer">
-    <object type="image/svg+xml" data="intro.svg" id="svgIntro" aria-label="Intro animado Ángel Valdés"></object>
+  <div class="intro-container" id="introContainer">
+    <!-- Botón para cerrar -->
     <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
+
+    <!-- Animación SVG -->
+    <div class="svg-animation">
+      <object type="image/svg+xml" data="intro.svg" id="svgIntro" aria-label="Intro animado Ángel Valdés"></object>
+    </div>
+
+    <!-- Frase emocional -->
+    <div class="frase">Estás aquí, y eso ya es un paso hacia ti.</div>
+
+    <!-- Ventanas -->
+    <div class="window-grid" role="navigation">
+      <div class="window" onclick="redirigir('index')">
+        <h3>Inicio</h3>
+        <button>Explorar</button>
+      </div>
+      <div class="window" onclick="redirigir('kit')">
+        <h3>Kit</h3>
+        <button>Empieza a sanar</button>
+      </div>
+      <div class="window" onclick="redirigir('descarga')">
+        <h3>Descarga</h3>
+        <button>Ya tengo mi código</button>
+      </div>
+      <div class="window" onclick="redirigir('contacto')">
+        <h3>Contacto</h3>
+        <button>Escríbeme</button>
+      </div>
+      <div class="window" onclick="redirigir('tienda')">
+        <h3>Tienda</h3>
+        <button>Ver productos</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Añadir clase .active al SVG interno cuando cargue
-    window.addEventListener("load", () => {
-      const obj = document.getElementById("svgIntro");
-      obj.addEventListener("load", () => {
-        try {
-          const svgDoc = obj.contentDocument;
-          const svg = svgDoc && svgDoc.querySelector("svg");
-          if (svg) {
-            svg.classList.add("active");
-          }
-        } catch (e) {
-          console.warn("No se pudo acceder al contenido SVG interno.");
-        }
-      });
+    // Guardar elección y redirigir
+    function redirigir(destino) {
+      localStorage.setItem('introVisto', 'true');
+      window.location.href = destino + ".html";
+    }
+
+    // Cerrar intro visualmente
+    document.getElementById("cerrarIntro").addEventListener("click", () => {
+      document.getElementById("introContainer").style.display = "none";
     });
 
-    // Botón para cerrar intro sin redirección
-    document.getElementById("cerrarIntro").addEventListener("click", () => {
-      document.getElementById("introContainer").classList.add("oculto");
-    });
+    // Activar SVG cuando cargue
+    window.onload = () => {
+      const obj = document.getElementById("svgIntro");
+      obj.addEventListener("load", () => {
+        const svgDoc = obj.contentDocument;
+        if (svgDoc) {
+          const svg = svgDoc.querySelector("svg");
+          if (svg) svg.classList.add("active");
+        }
+      });
+    };
   </script>
 </body>
 </html>
