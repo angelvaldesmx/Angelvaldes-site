@@ -35,10 +35,10 @@
     }
   </script>
 
-  <!-- CSS -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="intro.css" />
 
-  <!-- Redirige si ya vio la intro -->
+  <!-- Redirección si ya vio la intro -->
   <script>
     if (localStorage.getItem('introVisto')) {
       window.location.href = "index.html";
@@ -46,19 +46,16 @@
   </script>
 </head>
 <body>
-
   <div class="intro-container">
     <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
 
     <div class="svg-animation">
-      <img src="/intro.svg" alt="Intro animada Ángel Valdés" />
+      <object type="image/svg+xml" data="intro.svg" id="svgIntro" aria-label="Intro animado Ángel Valdés"></object>
     </div>
 
-    <div class="frase" aria-live="polite">
-      Estás aquí, y eso ya es un paso hacia ti.
-    </div>
+    <div class="frase">Estás aquí, y eso ya es un paso hacia ti.</div>
 
-    <div class="window-grid" role="navigation" aria-label="Secciones principales">
+    <div class="window-grid" role="navigation" aria-label="Secciones del sitio">
       <div class="window" tabindex="0" onclick="redirigir('index')" onkeypress="if(event.key==='Enter')redirigir('index')">
         <h3>Inicio</h3>
         <button>Explorar</button>
