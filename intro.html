@@ -38,15 +38,19 @@
 </head>
 
 <body>
-  <div class="intro-container">
+  <div class="intro-container" id="introContainer">
+    <!-- Botón de cerrar -->
     <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
 
+    <!-- Animación SVG -->
     <div class="svg-animation">
       <object type="image/svg+xml" data="intro.svg" id="svgIntro" aria-label="Intro Ángel Valdés"></object>
     </div>
 
+    <!-- Frase emocional -->
     <div class="frase">Estás aquí, y eso ya es un paso hacia ti.</div>
 
+    <!-- Navegación visual -->
     <div class="window-grid" role="navigation">
       <div class="window" onclick="redirigir('index')">
         <h3>Inicio</h3>
@@ -72,18 +76,21 @@
   </div>
 
   <script>
+    // Redirección manual por cada botón
     function redirigir(destino) {
       localStorage.setItem('introVisto', 'true');
       window.location.href = destino + ".html";
     }
 
+    // Botón para cerrar intro sin redirigir
     document.getElementById("cerrarIntro").addEventListener("click", () => {
-      document.querySelector(".intro-container").classList.add("ocultar");
+      const contenedor = document.getElementById("introContainer");
+      contenedor.classList.add("ocultar");
     });
 
+    // Activar animación SVG al cargar
     window.onload = () => {
       const obj = document.getElementById("svgIntro");
-      if (!obj) return;
       obj.addEventListener("load", () => {
         const svgDoc = obj.contentDocument;
         if (svgDoc) {
