@@ -106,21 +106,19 @@
       transform: scale(1.1);
       z-index: 10;
     }
-    .preview {
+    .preview-simulated {
       position: absolute;
       inset: 0;
-      overflow: hidden;
       border-radius: 20px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(12px) brightness(0.5);
+      transition: filter 0.3s ease;
       z-index: 1;
     }
-    .preview iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      transform: scale(1.15);
-      filter: blur(10px) brightness(0.55);
-      pointer-events: none;
-      user-select: none;
+    .swiper-slide:hover .preview-simulated,
+    .swiper-slide-active .preview-simulated {
+      filter: blur(8px) brightness(0.65);
     }
     .overlay {
       position: relative;
@@ -134,7 +132,7 @@
       color: white;
       text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
       padding: 1rem;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.25);
       transition: background 0.3s ease;
       user-select: none;
       text-align: center;
@@ -216,46 +214,51 @@
     <!-- Swiper -->
     <div class="swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" onclick="redirigir('index')">
-          <div class="preview">
-            <iframe src="index.html" loading="lazy" title="Vista previa Inicio"></iframe>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('index')" tabindex="0" role="button" aria-label="Ir a Inicio">
+          <div
+            class="preview-simulated"
+            style="background-image: url('previews/index-blur.jpg');"
+          ></div>
           <div class="overlay">
             <h3>Inicio</h3>
             <p>Aquí comienza todo.</p>
           </div>
         </div>
-        <div class="swiper-slide" onclick="redirigir('kit')">
-          <div class="preview">
-            <iframe src="kit.html" loading="lazy" title="Vista previa Kit"></iframe>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('kit')" tabindex="0" role="button" aria-label="Ir a Kit">
+          <div
+            class="preview-simulated"
+            style="background-image: url('previews/kit-blur.jpg');"
+          ></div>
           <div class="overlay">
             <h3>Kit</h3>
             <p>Te estaba esperando para verte sanar.</p>
           </div>
         </div>
-        <div class="swiper-slide" onclick="redirigir('descarga')">
-          <div class="preview">
-            <iframe src="descarga.html" loading="lazy" title="Vista previa Descarga"></iframe>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('descarga')" tabindex="0" role="button" aria-label="Ir a Descarga">
+          <div
+            class="preview-simulated"
+            style="background-image: url('previews/descarga-blur.jpg');"
+          ></div>
           <div class="overlay">
             <h3>Descarga</h3>
             <p>Recibe lo que ya es tuyo.</p>
           </div>
         </div>
-        <div class="swiper-slide" onclick="redirigir('contacto')">
-          <div class="preview">
-            <iframe src="contacto.html" loading="lazy" title="Vista previa Contacto"></iframe>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('contacto')" tabindex="0" role="button" aria-label="Ir a Contacto">
+          <div
+            class="preview-simulated"
+            style="background-image: url('previews/contacto-blur.jpg');"
+          ></div>
           <div class="overlay">
             <h3>Contacto</h3>
             <p>Estoy aquí si me necesitas.</p>
           </div>
         </div>
-        <div class="swiper-slide" onclick="redirigir('tienda')">
-          <div class="preview">
-            <iframe src="tienda.html" loading="lazy" title="Vista previa Tienda"></iframe>
-          </div>
+        <div class="swiper-slide" onclick="redirigir('tienda')" tabindex="0" role="button" aria-label="Ir a Tienda">
+          <div
+            class="preview-simulated"
+            style="background-image: url('previews/tienda-blur.jpg');"
+          ></div>
           <div class="overlay">
             <h3>Tienda</h3>
             <p>Encuentra lo que hicimos con amor.</p>
@@ -266,8 +269,8 @@
 
     <div class="final-cta">
       <p>
-        Si estás pensando en irte, quédate.  
-        No por mí, no por esta página… quédate en el mundo.  
+        Si estás pensando en irte, quédate.<br />
+        No por mí, no por esta página… quédate en el mundo.<br />
         Porque incluso rota, tu vida sigue siendo valiosa.
       </p>
     </div>
@@ -339,13 +342,13 @@
       mainContent.style.display = "block";
       fadeInAudio();
     } else {
+      // Forzar recarga del SVG para animación
       const svgObject = document.getElementById("svgIntro");
       svgObject.data = svgObject.data;
+      fadeInAudio();
     }
 
-    document.getElementById("cerrarIntro").addEventListener("click", cerrarIntro);
-
-    function cerrarIntro() {
+    document.getElementById("cerrarIntro").addEventListener("click", () => {
       introContainer.classList.add("oculto");
       setTimeout(() => {
         introContainer.style.display = "none";
@@ -353,7 +356,7 @@
         fadeInAudio();
       }, 1000);
       localStorage.setItem("introVisto", "true");
-    }
+    });
 
     window.onload = () => {
       const obj = document.getElementById("svgIntro");
@@ -367,7 +370,7 @@
 
       setTimeout(() => {
         if (introContainer.style.display !== "none") {
-          cerrarIntro();
+          document.getElementById("cerrarIntro").click();
         }
       }, 7000);
     };
@@ -377,13 +380,20 @@
       window.location.href = destino + ".html";
     }
 
-    // Iniciar Swiper
+    // Inicializar swiper
     const swiper = new Swiper(".swiper", {
-      loop: true,
-      centeredSlides: true,
-      slidesPerView: 1.5,
-      spaceBetween: 20,
+      effect: "coverflow",
       grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      loop: true,
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 40,
+        depth: 150,
+        modifier: 1,
+        slideShadows: false,
+      },
       autoplay: {
         delay: 5000,
         disableOnInteraction: false,
