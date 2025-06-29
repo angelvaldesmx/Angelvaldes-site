@@ -1,16 +1,21 @@
-const redirigir = (destino = 'index') => {
+// Función para redireccionar al destino
+function redirigir(destino) {
+  // Guardamos que el usuario ya vio la intro
   localStorage.setItem('introVisto', 'true');
-  window.location.href = `${destino}.html`;
-};
+  window.location.href = destino + ".html";
+}
 
+// Maneja el clic en "Saltar Intro"
 document.getElementById("cerrarIntro").addEventListener("click", () => {
-  redirigir();
+  document.getElementById("introContainer").classList.add("ocultar");
 });
 
+// Esperamos a que cargue el SVG y luego aplicamos clase "active"
 window.onload = () => {
   const obj = document.getElementById("svgIntro");
   if (!obj) return;
 
+  // Escuchar cuando se cargue completamente el contenido SVG
   obj.addEventListener("load", () => {
     const svgDoc = obj.contentDocument;
     if (svgDoc) {
@@ -18,7 +23,4 @@ window.onload = () => {
       if (svg) svg.classList.add("active");
     }
   });
-
-  // Redirigir automáticamente después de 7 segundos
-  setTimeout(() => redirigir(), 7000);
 };
