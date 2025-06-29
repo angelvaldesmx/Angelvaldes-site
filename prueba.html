@@ -2,24 +2,41 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Prueba de SVG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intro Ángel Valdés</title>
   <style>
     body {
       margin: 0;
-      background-color: black;
+      background-color: #000;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
     }
 
-    embed {
+    object {
       width: 90vw;
       height: 90vh;
+      max-width: 600px;
+      max-height: 600px;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <embed src="intro.svg" type="image/svg+xml" />
+  <object type="image/svg+xml" data="intro.svg" id="svgIntro"></object>
+
+  <script>
+    window.onload = () => {
+      const obj = document.getElementById("svgIntro");
+      obj.addEventListener("load", () => {
+        const svgDoc = obj.contentDocument;
+        if (svgDoc) {
+          const svg = svgDoc.querySelector("svg");
+          if (svg) svg.classList.add("active");
+        }
+      });
+    };
+  </script>
 </body>
 </html>
