@@ -1,24 +1,24 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const introContainer = document.querySelector('.intro-container');
-  const cerrarBtn = document.getElementById('cerrarIntro');
-  const grid = document.querySelector('.window-grid');
-  const frase = document.querySelector('.frase');
+const redirigir = (destino = 'index') => {
+  localStorage.setItem('introVisto', 'true');
+  window.location.href = `${destino}.html`;
+};
 
-  // Mostrar contenido después de 7 segundos
-  setTimeout(() => {
-    introContainer.classList.add('intro-mostrado');
-    localStorage.setItem('introVisto', true);
-    if (frase) frase.style.opacity = 1;
-  }, 7000);
-
-  // Si presiona cerrar
-  cerrarBtn.addEventListener('click', () => {
-    introContainer.classList.add('intro-mostrado');
-    localStorage.setItem('introVisto', true);
-    if (frase) frase.style.opacity = 1;
-  });
+document.getElementById("cerrarIntro").addEventListener("click", () => {
+  redirigir();
 });
 
-function redirigir(pagina) {
-  window.location.href = `${pagina}.html`;
-}
+window.onload = () => {
+  const obj = document.getElementById("svgIntro");
+  if (!obj) return;
+
+  obj.addEventListener("load", () => {
+    const svgDoc = obj.contentDocument;
+    if (svgDoc) {
+      const svg = svgDoc.querySelector("svg");
+      if (svg) svg.classList.add("active");
+    }
+  });
+
+  // Redirigir automáticamente después de 7 segundos
+  setTimeout(() => redirigir(), 7000);
+};
