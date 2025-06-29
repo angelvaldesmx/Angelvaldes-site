@@ -1,105 +1,198 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ángel Valdés – Comienza a sanar</title>
-
-  <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Ángel Valdés – Comienza a sanar" />
-  <meta property="og:description" content="Descubre herramientas emocionales únicas. Descarga tu kit de sanación hoy." />
-  <meta property="og:image" content="/opengraph.jpg" />
-  <meta property="og:url" content="https://angelvaldesmx.qzz.io" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ángel Valdés – Comienza a sanar" />
-  <meta name="twitter:description" content="Descubre herramientas emocionales únicas. Descarga tu kit de sanación hoy." />
-  <meta name="twitter:image" content="/opengraph.jpg" />
-
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Ángel Valdés",
-      "url": "https://angelvaldesmx.qzz.io",
-      "sameAs": [
-        "https://instagram.com/angelvaldesmx",
-        "https://tiktok.com/@angelvaldesmx"
-      ]
+  <link rel="icon" href="/favicon.ico" />  <!-- Estilos -->  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  </script>
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="intro.css" />
-</head>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+      overflow: hidden;
+    }
 
-<body>
+    .intro-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #1f1f1f, #000);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 1s ease;
+    }
+
+    .intro-container.oculto {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cerrar-intro {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #fff;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .cerrar-intro:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .svg-animation object {
+      width: 300px;
+      max-width: 90vw;
+      margin-bottom: 1rem;
+    }
+
+    .frase {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      max-width: 80%;
+      color: #e0e0e0;
+    }
+
+    .window-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.5rem;
+      width: 90%;
+      max-width: 600px;
+      margin-top: 2rem;
+    }
+
+    .window {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.2rem;
+      text-align: center;
+      border-radius: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .window:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.05);
+    }
+
+    .window button {
+      margin-top: 0.5rem;
+      background: #fff;
+      border: none;
+      color: #000;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .window::after {
+      content: attr(data-mensaje);
+      position: absolute;
+      bottom: -2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      color: #aaa;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .window:hover::after {
+      opacity: 1;
+    }
+  </style></head><body>
   <div class="intro-container" id="introContainer">
-    <!-- Botón para cerrar -->
-    <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
+    <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button><div class="svg-animation">
+  <object type="image/svg+xml" data="intro.svg" id="svgIntro" aria-label="Intro animado Ángel Valdés"></object>
+</div>
 
-    <!-- Animación SVG -->
-    <div class="svg-animation">
-      <object type="image/svg+xml" data="intro.svg" id="svgIntro" aria-label="Intro animado Ángel Valdés"></object>
-    </div>
+<div class="frase">Estás aquí, y eso ya es un paso hacia ti.</div>
 
-    <!-- Frase emocional -->
-    <div class="frase">Estás aquí, y eso ya es un paso hacia ti.</div>
-
-    <!-- Ventanas -->
-    <div class="window-grid" role="navigation">
-      <div class="window" onclick="redirigir('index')">
-        <h3>Inicio</h3>
-        <button>Explorar</button>
-      </div>
-      <div class="window" onclick="redirigir('kit')">
-        <h3>Kit</h3>
-        <button>Empieza a sanar</button>
-      </div>
-      <div class="window" onclick="redirigir('descarga')">
-        <h3>Descarga</h3>
-        <button>Ya tengo mi código</button>
-      </div>
-      <div class="window" onclick="redirigir('contacto')">
-        <h3>Contacto</h3>
-        <button>Escríbeme</button>
-      </div>
-      <div class="window" onclick="redirigir('tienda')">
-        <h3>Tienda</h3>
-        <button>Ver productos</button>
-      </div>
-    </div>
+<div class="window-grid" role="navigation">
+  <div class="window" onclick="redirigir('index')" data-mensaje="Bienvenido a tu espacio seguro">
+    <h3>Inicio</h3>
+    <button>Explorar</button>
   </div>
+  <div class="window" onclick="redirigir('kit')" data-mensaje="Te estaba esperando para verte sanar">
+    <h3>Kit</h3>
+    <button>Empieza a sanar</button>
+  </div>
+  <div class="window" onclick="redirigir('descarga')" data-mensaje="¿Ya tienes tu código? Adelante">
+    <h3>Descarga</h3>
+    <button>Usar código</button>
+  </div>
+  <div class="window" onclick="redirigir('contacto')" data-mensaje="Estoy aquí si necesitas hablar">
+    <h3>Contacto</h3>
+    <button>Escríbeme</button>
+  </div>
+  <div class="window" onclick="redirigir('tienda')" data-mensaje="Encuentra lo que te abraza el alma">
+    <h3>Tienda</h3>
+    <button>Ver productos</button>
+  </div>
+</div>
 
-  <script>
-    // Guardar elección y redirigir
-    function redirigir(destino) {
-      localStorage.setItem('introVisto', 'true');
-      window.location.href = destino + ".html";
+  </div>  <script>
+    const yaVisto = localStorage.getItem("introVisto");
+    const introContainer = document.getElementById("introContainer");
+
+    if (yaVisto === "true") {
+      introContainer.style.display = "none";
     }
 
-    // Cerrar intro visualmente
     document.getElementById("cerrarIntro").addEventListener("click", () => {
-      document.getElementById("introContainer").style.display = "none";
+      cerrarIntro();
     });
 
-    // Activar SVG cuando cargue
+    function cerrarIntro() {
+      introContainer.classList.add("oculto");
+      setTimeout(() => {
+        introContainer.style.display = "none";
+      }, 1000);
+      localStorage.setItem("introVisto", "true");
+    }
+
     window.onload = () => {
       const obj = document.getElementById("svgIntro");
       obj.addEventListener("load", () => {
         const svgDoc = obj.contentDocument;
         if (svgDoc) {
           const svg = svgDoc.querySelector("svg");
-          if (svg) svg.classList.add("active");
+          if (svg) {
+            svg.classList.add("active");
+            setTimeout(() => {
+              cerrarIntro();
+            }, 5000);
+          }
         }
       });
     };
-  </script>
-</body>
+
+    function redirigir(destino) {
+      localStorage.setItem("introVisto", "true");
+      window.location.href = destino + ".html";
+    }
+  </script></body>
 </html>
