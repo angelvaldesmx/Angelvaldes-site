@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirigiendo a Worldcoin...</title>
+  <meta name="description" content="Protege tu identidad digital con World App. Estamos redirigiéndote de forma segura.">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZC09S32WVD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-ZC09S32WVD');
+  </script>
+
+  <!-- Estilos -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: white;
+      font-family: sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 0, 150, 0.3);
+      filter: blur(100px);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    h1 {
+      z-index: 1;
+      text-align: center;
+    }
+
+    #redir-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <h1>Estamos redirigiéndote a Worldcoin 🌍<br>Por favor, espera unos segundos...</h1>
+  <a id="redir-button" href="https://worldcoin.org/join/A4NP8SJ?utm_source=facebook&utm_medium=anuncio&utm_campaign=incentivo_chicoloapan">
+    Ir ahora
+  </a>
+
+  <script>
+    // Evento personalizado para botón
+    document.getElementById('redir-button').addEventListener('click', function () {
+      gtag('event', 'click_respaldo_worldcoin', {
+        event_category: 'Redirección',
+        event_label: 'Botón manual'
+      });
+    });
+
+    // Simula clic automático luego de 3 segundos
+    setTimeout(() => {
+      gtag('event', 'auto_redirect_worldcoin', {
+        event_category: 'Redirección',
+        event_label: 'Clic automático'
+      });
+      document.getElementById('redir-button').click();
+    }, 3000);
+  </script>
+</body>
+</html>
