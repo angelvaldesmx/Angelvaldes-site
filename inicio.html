@@ -130,5 +130,53 @@
   </footer>
 
   <script src="inicio.js"></script>
+  <script>  <script>
+    const introContainer = document.getElementById("introContainer");
+    
+    const svgObject = document.getElementById("svgIntro");
+    
+    const yaVisto = localStorage.getItem("introVisto");
+
+    function reproducirAnimacionSVG() {
+      svgObject.data = svgObject.data;
+    }
+
+    function cerrarIntro() {
+      introContainer.classList.add("oculto");
+      setTimeout(() => {
+        introContainer.style.display = "none";
+        mainContent.style.display = "block";
+        iniciarAudio();
+      }, 1000);
+      localStorage.setItem("introVisto", "true");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (yaVisto === "true") {
+        introContainer.style.display = "none";
+        mainContent.style.display = "block";
+        iniciarAudio();
+      } else {
+        reproducirAnimacionSVG();
+      }
+
+      svgObject.addEventListener("load", () => {
+        const svgDoc = svgObject.contentDocument;
+        if (svgDoc) {
+          const svg = svgDoc.querySelector("svg");
+          if (svg) svg.classList.add("active");
+        }
+      });
+
+      setTimeout(() => {
+        if (introContainer.style.display !== "none") {
+          cerrarIntro();
+        }
+      }, 7000);
+
+      document.getElementById("cerrarIntro").addEventListener("click", cerrarIntro);
+    
+    });
+  </script>
 </body>
 </html>
