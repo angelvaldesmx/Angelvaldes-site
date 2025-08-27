@@ -1,0 +1,226 @@
+@import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
+
+:root {
+  --color-text: #fff;
+  --color-bg: #000;
+  --color-neon: #ff3ec0;
+  --color-neon-light: #ff61d1;
+  --thumb-width: 120px;
+  --line-spacing: 10px;
+  --line-base-height: 15px;
+  --line-max-height: 50px;
+}
+
+/* RESET */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "TheGoodMonolith", sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* INTRO SVG */
+.intro-container {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 1s ease;
+}
+
+.intro-container.oculto {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cerrar-intro {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-neon);
+  color: var(--color-neon);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+/* AUDIO CONTROL */
+.audio-control {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: var(--color-neon);
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SLIDES */
+.slides-container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.slides {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+  place-items: center;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  grid-area: 1 / 1 / -1 / -1;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  position: relative;
+  display: grid;
+  place-items: center;
+  will-change: transform, opacity;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.slide--current {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.slide__img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 10px var(--color-neon));
+  will-change: transform, opacity, filter;
+  transition: filter 0.3s ease;
+}
+
+.slide__img:hover {
+  filter: drop-shadow(0 0 25px var(--color-neon-light));
+}
+
+/* Bottom UI */
+.bottom-ui-container {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 720px;
+  max-width: 100%;
+  z-index: 100;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slide-section {
+  color: var(--color-neon);
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.9;
+  letter-spacing: 1px;
+  margin-bottom: 36px;
+}
+
+.slide-counter {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  color: var(--color-text);
+  font-size: 0.825rem;
+  margin-bottom: 24px;
+}
+
+.counter-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.counter-nav {
+  width: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.counter-nav:hover {
+  opacity: 1;
+}
+
+.counter-divider {
+  opacity: 0.6;
+  font-size: 0.8rem;
+}
+
+.slide-title-container {
+  width: 100%;
+  text-align: center;
+  height: 30px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.slide-title {
+  position: absolute;
+  width: 100%;
+  color: var(--color-neon);
+  font-size: 1.2rem;
+  opacity: 0.9;
+  left: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background: linear-gradient(to top, #000, transparent);
+  padding: 2rem 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .bottom-ui-container {
+    width: 90%;
+  }
+  .slide-title {
+    font-size: 1rem;
+  }
+}
