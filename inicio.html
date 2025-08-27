@@ -54,6 +54,15 @@
       cursor: pointer;
       z-index: 10000;
     }
+ 
+  main-content {
+      display: none;
+      min-height: 100vh;
+      background: transparent;
+      padding: 1rem 1rem 3rem;
+      overflow-y: auto;
+    }
+
 </style>
 </head>
 <body>
@@ -64,6 +73,8 @@
     <object type="image/svg+xml" data="intro.svg" id="svgIntro"></object>
   </div>
 
+  <div class="main-content" id="mainContent">
+    
   <!-- SLIDESHOW PRINCIPAL -->
   <div class="slides-container">
     <div class="scroll-hint">scroll or drag</div>
@@ -130,12 +141,11 @@
   </footer>
 
   <script src="inicio.js"></script>
-  <script>  <script>
+    <script>
     const introContainer = document.getElementById("introContainer");
-    
+    const mainContent = document.getElementById("mainContent");
     const svgObject = document.getElementById("svgIntro");
-    
-    const yaVisto = localStorage.getItem("introVisto");
+     const yaVisto = localStorage.getItem("introVisto");
 
     function reproducirAnimacionSVG() {
       svgObject.data = svgObject.data;
