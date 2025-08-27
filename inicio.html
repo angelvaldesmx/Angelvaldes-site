@@ -17,13 +17,47 @@
 
   <!-- CSS externo -->
   <link rel="stylesheet" href="inicio.css">
+<style>.intro-container {
+      position: fixed;
+      inset: 0;
+      background-color: #000;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 1s ease;
+    }
 
+    .intro-container.oculto {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    object {
+      width: 90vw;
+      height: 90vh;
+      max-width: 600px;
+      max-height: 600px;
+      display: block;
+    }
+
+    .cerrar-intro {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid #fff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      z-index: 10000;
+    }
+</style>
 </head>
 <body>
-  <!-- Audio de fondo -->
-  <audio id="bgAudio" src="suave.mp3" loop></audio>
-  <button class="audio-control" onclick="toggleAudio()">🎧</button>
-
+  
   <!-- INTRO SVG -->
   <div class="intro-container" id="introContainer">
     <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
