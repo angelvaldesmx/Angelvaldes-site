@@ -228,58 +228,31 @@ class Slideshow {
 }
 
 // Initialize slideshow
-document.addEventListener("DOMContentLoaded", () => {
-  const slidesEl = document.querySelector(".slides");
-  const slideshow = new Slideshow(slidesEl);
+const slideshow = new Slideshow(document.querySelector(".slides-wrapper"));
 
-  const thumbsContainer = document.querySelector(".slide-thumbs");
-  const slideImgs = document.querySelectorAll(".slide__img");
-  const slideCount = slideImgs.length;
-
-  thumbsContainer.innerHTML = "";
-  slideImgs.forEach((img, index) => {
-    const thumb = document.createElement("div");
-    thumb.className = "slide-thumb";
-    thumb.style.backgroundImage = img.style.backgroundImage;
-    if (index === 0) thumb.classList.add("active");
-
-    thumb.addEventListener("click", () => { lastHoveredThumbIndex = index; slideshow.goTo(index); });
-    thumb.addEventListener("mouseenter", () => { currentHoveredThumb = index; lastHoveredThumbIndex = index; mouseOverThumbnails = true; if (!isAnimating) updateDragLines(index, true); });
-    thumb.addEventListener("mouseleave", () => { if (currentHoveredThumb === index) currentHoveredThumb = null; });
-
-    thumbsContainer.appendChild(thumb);
+// Thumbnails hover
+document.querySelectorAll(".slide-thumb").forEach((thumb, index) => {
+  thumb.addEventListener("mouseenter", () => {
+    currentHoveredThumb = index;
+    lastHoveredThumbIndex = index;
+    mouseOverThumbnails = true;
+    updateDragLines(index, true);
   });
 
-  const dragIndicator = document.querySelector(".drag-indicator");
-  if (dragIndicator) {
-    dragIndicator.innerHTML = "";
-    const linesContainer = document.createElement("div");
-    linesContainer.className = "lines-container";
-    dragIndicator.appendChild(linesContainer);
+  thumb.addEventListener("mouseleave", () => {
+    mouseOverThumbnails = false;
+    currentHoveredThumb = null;
+    updateDragLines(null, true);
+  });
 
-    const totalLines = 60;
-    for (let i = 0; i < totalLines; i++) {
-      const line = document.createElement("div");
-      line.className = "drag-line";
-      linesContainer.appendChild(line);
-    }
-  }
-
-  const totalSlidesEl = document.querySelector(".total-slides");
-  if (totalSlidesEl) totalSlidesEl.textContent = String(slideCount).padStart(2, "0");
-
-  document.querySelector(".prev-slide")?.addEventListener("click", () => slideshow.prev());
-  document.querySelector(".next-slide")?.addEventListener("click", () => slideshow.next());
-
-  updateSlideCounter(0);
-  updateDragLines(0, true);
-
-  const thumbsArea = document.querySelector(".thumbs-container");
-  if (thumbsArea) {
-    thumbsArea.addEventListener("mouseenter", () => mouseOverThumbnails = true);
-    thumbsArea.addEventListener("mouseleave", () => { mouseOverThumbnails = false; currentHoveredThumb = null; updateDragLines(null); });
-  }
-
-  // Keyboard navigation
-  document.addEventListener("keydown", e => { if (isAnimating) return; if (e.key === "ArrowRight") slideshow.next(); else if (e.key === "ArrowLeft") slideshow.prev(); });
+  thumb.addEventListener("click", () => slideshow.goTo(index));
 });
+
+// Navigation buttons
+document.querySelector(".nav-next").addEventListener("click", () => slideshow.navigate(NEXT));
+document.querySelector(".nav-prev").addEventListener("click", () => slideshow.navigate(PREV));
+
+// Initial UI
+updateSlideCounter(slideshow.current);
+updateSlideTitle(slideshow.current);
+updateDragLines(slideshow.current, true);
