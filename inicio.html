@@ -145,6 +145,7 @@
   </footer>
 
   <script src="inicio.js"></script>
+  
     <script>
     const introContainer = document.getElementById("introContainer");
     const mainContent = document.getElementById("mainContent");
@@ -192,5 +193,13 @@
     
     });
   </script>
+      <script>
+  document.querySelectorAll('.slide').forEach(slide => {
+    slide.addEventListener('click', () => {
+      const url = slide.getAttribute('data-url');
+      if (url) window.location.href = url;
+    });
+  });
+</script>
 </body>
 </html>
