@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Angel Valdés</title>
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="presentacion.css">
+
+  <style>
+    /* Mini imágenes flotantes / animaciones */
+    .floating-icon {
+      position: absolute;
+      opacity: 0.2;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(15deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+    .about-icons img {
+      width: 50px;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔹 NAV FIJA -->
+  <header class="header">
+    <nav class="navbar container">
+      <a href="#" class="nav-logo">Angel Valdés</a>
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link active-link">Inicio</a></li>
+        <li><a href="#about" class="nav-link">Sobre mí</a></li>
+        <li><a href="#skills" class="nav-link">Mis Caminos</a></li>
+        <li><a href="#work" class="nav-link">Proyectos</a></li>
+        <li><a href="#contact" class="nav-link">Contacto</a></li>
+      </ul>
+      <div class="nav-toggle" id="nav-toggle">
+        <i class="uil uil-apps"></i>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 🔹 SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Explora</h3>
+      <i class="uil uil-times" id="nav-close"></i>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/tienda">Tienda</a></li>
+      <li><a href="/libros">Libros</a></li>
+      <li><a href="/musica">Música & Podcast</a></li>
+      <li><a href="/crypto">Crypto</a></li>
+      <li><a href="/dimensiones">Multiverso</a></li>
+      <li><a href="/newsletter">Newsletter</a></li>
+    </ul>
+  </aside>
+
+  <!-- 🔹 MAIN SPA -->
+  <main class="main">
+    <!-- HOME / HERO -->
+    <section class="home section" id="home">
+      <div class="container grid">
+        <div class="home-content">
+          <h1>Hola, soy <span>Angel Valdés</span></h1>
+          <h3>Escritor, músico y creador creativo</h3>
+          <p>Transformo el dolor en arte, la ansiedad en motivación y cada proyecto en un espacio de inspiración.</p>
+          <a href="#about" class="button">Conóceme</a>
+        </div>
+        <div class="home-img">
+          <img src="https://i.postimg.cc/3NgvPcZD/home-img.png" alt="Angel Valdés">
+          <!-- Mini íconos flotantes -->
+          <img src="https://i.postimg.cc/XYf3L7kS/music-note.png" class="floating-icon" style="top:10%; left:5%; width:30px;">
+          <img src="https://i.postimg.cc/k5Bbmw2n/book.png" class="floating-icon" style="top:60%; left:80%; width:40px;">
+          <img src="https://i.postimg.cc/t44vM8wB/laptop.png" class="floating-icon" style="top:40%; left:50%; width:35px;">
+        </div>
+      </div>
+    </section>
+
+    <!-- 🔹 ANUNCIO TOP -->
+    <div class="ad-container ad-top">
+      <p>[Publicidad Banner Superior]</p>
+    </div>
+
+    <!-- ABOUT / QUIÉN SOY -->
+    <section class="about section" id="about">
+      <h2 class="section-title">Sobre mí</h2>
+      <div class="container grid">
+        <img src="https://i.postimg.cc/W1YZxTpJ/about-img.jpg" alt="Sobre mí" class="about-img">
+        <div class="about-content">
+          <p>
+            Soy <strong>Angel Valdés</strong>, estudiante de matemáticas, creador de música trap y reggaetón, escritor de historias y emprendedor creativo.
+            Desde pequeño la música y las historias me ayudaron a entender mis emociones; hoy las transformo en proyectos que inspiran.
+          </p>
+          <p>
+            Mi filosofía: <strong>resiliencia, autenticidad y transformar emociones en arte</strong>. Creo que cada experiencia, incluso la más difícil, puede convertirse en fuerza y creatividad.
+          </p>
+          <div class="about-icons">
+            <img src="https://i.postimg.cc/XYf3L7kS/music-note.png" alt="Música">
+            <img src="https://i.postimg.cc/k5Bbmw2n/book.png" alt="Escritura">
+            <img src="https://i.postimg.cc/t44vM8wB/laptop.png" alt="Proyectos">
+          </div>
+          <a href="#contact" class="button">Contáctame</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🔹 ANUNCIO INTERMEDIO -->
+    <div class="ad-container ad-middle">
+      <p>[Publicidad Nativa Intermedia]</p>
+    </div>
+
+    <!-- SKILLS / MIS CAMINOS CREATIVOS -->
+    <section class="skills section" id="skills">
+      <h2 class="section-title">Mis Caminos Creativos</h2>
+      <div class="container grid">
+        <div class="skill-card">
+          <span>🎶</span>
+          <h3>Música</h3>
+          <p>Trap, reggaetón y canciones profundas que motivan y acompañan.</p>
+          <a href="/musica.html">Explorar</a>
+        </div>
+        <div class="skill-card">
+          <span>📚</span>
+          <h3>Escritura</h3>
+          <p>Novelas y cuentos que exploran emociones, amor y superación.</p>
+          <a href="/escritura.html">Leer</a>
+        </div>
+        <div class="skill-card">
+          <span>💻</span>
+          <h3>Proyectos Digitales</h3>
+          <p>Emprendimientos creativos, diseño web y arte digital.</p>
+          <a href="/proyectos.html">Ver más</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISION -->
+    <section class="vision section" id="vision">
+      <h2 class="section-title">Mi Visión</h2>
+      <p>
+        Creo en el poder de sanar y motivar a través del arte. Mi objetivo es construir un espacio donde quien lo necesite encuentre inspiración, apoyo y creatividad. 
+        Cada proyecto es un recordatorio de que incluso la ansiedad y el dolor pueden transformarse en fuerza.
+      </p>
+    </section>
+
+    <!-- 🔹 TESTIMONIOS -->
+    <section class="testimonials section" id="testimonials">
+      <h2 class="section-title">Lo que dicen sobre mí</h2>
+      <div class="container swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide testimonial-card">
+            <p>"La música de Angel me motiva cada día. Sus letras llegan directo al corazón."</p>
+            <h4>- Laura G.</h4>
+          </div>
+          <div class="swiper-slide testimonial-card">
+            <p>"Sus historias transforman emociones en arte, verdaderamente inspirador."</p>
+            <h4>- Diego M.</h4>
+          </div>
+          <div class="swiper-slide testimonial-card">
+            <p>"Angel no solo crea contenido, crea experiencias que te cambian."</p>
+            <h4>- Carla S.</h4>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <!-- 🔹 LOGROS / HITOS -->
+    <section class="achievements section" id="achievements">
+      <h2 class="section-title">Mis Logros</h2>
+      <div class="container grid">
+        <div class="achievement-card">
+          <span>🎵</span>
+          <h3>50+ Canciones</h3>
+          <p>Trap, reggaetón y piezas motivacionales que inspiran a miles.</p>
+        </div>
+        <div class="achievement-card">
+          <span>📚</span>
+          <h3>5 Libros Publicados</h3>
+          <p>Novelas y cuentos que exploran emociones y superación personal.</p>
+        </div>
+        <div class="achievement-card">
+          <span>🌐</span>
+          <h3>3 Emprendimientos</h3>
+          <p>Proyectos digitales, tiendas y contenido creativo en distintas plataformas.</p>
+        </div>
+        <div class="achievement-card">
+          <span>💡</span>
+          <h3>10+ Colaboraciones</h3>
+          <p>Trabajos con artistas, escritores y creadores de todo el mundo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🔹 PROYECTOS DESTACADOS -->
+    <section class="featured-projects section" id="work">
+      <h2 class="section-title">Proyectos Destacados</h2>
+      <div class="container grid">
+        <div class="project-card">
+          <img src="https://i.postimg.cc/XYf3L7kS/music-note.png" alt="Proyecto Música">
+          <h3>Single “Inquebrantable”</h3>
+          <p>Trap motivacional que inspira a superar cualquier dificultad.</p>
+          <a href="/musica.html" class="button">Escuchar</a>
+        </div>
+        <div class="project-card">
+          <img src="https://i.postimg.cc/k5Bbmw2n/book.png" alt="Proyecto Escritura">
+          <h3>Libro “Al Borde del Abismo”</h3>
+          <p>Novela introspectiva sobre amor, pérdida y resiliencia.</p>
+          <a href="/libros.html" class="button">Leer</a>
+        </div>
+        <div class="project-card">
+          <img src="https://i.postimg.cc/t44vM8wB/laptop.png" alt="Proyecto Digital">
+          <h3>Plataforma Creativa</h3>
+          <p>Espacio donde convergen música, escritura y emprendimiento.</p>
+          <a href="/proyectos.html" class="button">Explorar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🔹 CALL TO ACTION FINAL -->
+    <section class="cta section" id="cta">
+      <h2 class="section-title">Únete a mi mundo creativo</h2>
+      <p>Suscríbete, escucha música, descubre historias y sé parte de esta comunidad.</p>
+      <a href="/newsletter" class="button">Suscribirme</a>
+    </section>
+
+    <!-- 🔹 ANUNCIO FOOTER -->
+    <div class="ad-container ad-footer">
+      <p>[Publicidad Banner Inferior]</p>
+    </div>
+
+    <!-- CONTACT / CIERRE -->
+    <section class="contact section" id="contact">
+      <h2 class="section-title">Contacto</h2>
+      <p>¿Quieres colaborar, leer más o escuchar mi música? ¡Hablemos!</p>
+      <form class="contact-form">
+        <input type="text" placeholder="Tu Nombre" required>
+        <input type="email" placeholder="Tu Email" required>
+        <textarea placeholder="Mensaje"></textarea>
+        <button type="submit" class="button">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Scripts Swiper -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 }
+      }
+    });
+  </script>
+  <script src="presentacion.js"></script>
+</body>
+</html>
