@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💌 Kit Emocional Vol.1 – Ángel Valdes</title>
+  <meta name="description" content="Descarga gratuita del Kit Emocional de Ángel Valdes. Un espacio íntimo de sanación y reflexión.">
+  <meta name="keywords" content="kit emocional, angel valdes, ansiedad, sanar, diario emocional, acompañamiento, espiritualidad">
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.3/dist/lenis.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<!-- NAVBAR FIJO -->
+<nav class="navbar">
+  <div class="logo">💌 Kit Emocional</div>
+  <ul>
+    <li><a href="#manifiesto">Manifiesto</a></li>
+    <li><a href="#contenido-kit">Contenido</a></li>
+    <li><a href="#descarga">Descargar</a></li>
+    <li><a href="#comentarios-emocionales">Comentarios</a></li>
+    <li><a href="#testimonios">Testimonios</a></li>
+    <li><a href="#compartir-kit">Compartir</a></li>
+    <li><a href="#apoyo">Apoyo</a></li>
+  </ul>
+</nav>
+
+<!-- SLIDEBAR GLOBAL -->
+<aside id="sidebar" class="sidebar">
+  <button class="close-btn">×</button>
+  <ul>
+    <li><a href="/index.html">Inicio</a></li>
+    <li><a href="/presentacion.html">Presentación</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/musica.html">Música</a></li>
+    <li><a href="/contacto.html">Contacto</a></li>
+  </ul>
+</aside>
+<button id="sidebarToggle" class="sidebar-toggle">☰</button>
+
+<!-- TIMELINE / PROGRESO -->
+<div id="progress-bar"></div>
+
+<!-- CONTAINER GRID -->
+<div class="container">
+
+  <!-- INTRO POPUP MODAL -->
+  <div id="intro-overlay" class="fullscreen-intro modal">
+    <img src="/assets/portada.jpg" alt="Portada Kit Emocional" class="intro-image">
+    <button id="close-intro" class="close-intro" aria-label="Cerrar introducción">×</button>
+  </div>
+
+  <!-- GRID PORTFOLIO -->
+  <div class="portfolio-grid" id="portfolioGrid">
+
+    <!-- GRID ITEM 01 – INTRO -->
+    <div class="grid-item grid-item-01">
+      <div class="image-box modal-trigger" data-modal="intro-overlay">
+        <div class="image-number">01</div>
+        <img src="/assets/portada.jpg" alt="Portada Kit" crossorigin="anonymous">
+        <canvas class="threejs-canvas"></canvas>
+      </div>
+      <div class="image-title">Bienvenida</div>
+    </div>
+
+    <!-- BLOQUE TEXTUAL – MANIFIESTO -->
+    <section id="manifiesto" class="text-block">
+      <h2>Gracias por abrirte de esta forma tan profunda</h2>
+      <p>No estás loco. Lo que estás viviendo es muy humano y muy honesto...<br/>
+      No hago esto por fama, likes ni lástima. Hago esto porque yo también estuve ahí, en el suelo emocional.<br/>
+      Lo que comparto no es contenido. Es cicatriz con voz. Es dolor que aprendió a escribirse.<br/>
+      No vendo tristeza. Ofrezco compañía. — Ángel Valdes</p>
+    </section>
+
+    <!-- GRID ITEM 03 – CONTENIDO KIT -->
+    <div class="grid-item grid-item-03" id="contenido-kit">
+      <div class="image-box modal-trigger" data-modal="modal-contenido">
+        <div class="image-number">03</div>
+        <img src="/assets/contenido.jpg" alt="Contenido Kit" crossorigin="anonymous">
+        <canvas class="threejs-canvas"></canvas>
+      </div>
+      <div class="image-title">Contenido del Kit</div>
+    </div>
+
+    <!-- BLOQUE AD 01 -->
+    <section class="ad-block">
+      <h3>🌱 Explora más recursos emocionales</h3>
+      <p>Visita mi blog para reflexiones y escritos íntimos.</p>
+      <a href="/blog.html" class="btn-link">Leer más</a>
+    </section>
+
+    <!-- GRID ITEM 05 – FORMULARIO DESCARGA -->
+    <div class="grid-item grid-item-05" id="descarga">
+      <div class="image-box">
+        <div class="image-number">05</div>
+        <img src="/assets/descarga.jpg" alt="Descargar Kit" crossorigin="anonymous">
+        <canvas class="threejs-canvas"></canvas>
+      </div>
+      <div class="image-title">Solicitar Clave</div>
+    </div>
+
+    <!-- FORMULARIO DESCARGA -->
+    <section>
+      <form id="kit-form">
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        <input type="email" id="email" name="email" placeholder="Tu correo" required>
+        <button type="submit">Solicitar clave de acceso</button>
+        <progress id="progreso" value="0" max="100"></progress>
+        <p id="status"></p>
+      </form>
+    </section>
+
+    <!-- GRID ITEM 06 – COMENTARIOS -->
+    <div class="grid-item grid-item-06" id="comentarios-emocionales">
+      <div class="image-box modal-trigger" data-modal="modal-comentarios">
+        <div class="image-number">06</div>
+        <img src="/assets/comentarios.jpg" alt="Comentarios" crossorigin="anonymous">
+        <canvas class="threejs-canvas"></canvas>
+      </div>
+      <div class="image-title">Comentarios</div>
+    </div>
+
+    <!-- FORMULARIO COMENTARIOS -->
+    <section>
+      <form id="form-comentario">
+        <textarea id="comentario" name="comentario" rows="4" placeholder="Escribe lo que sientes..." required></textarea>
+        <label>
+          <input type="checkbox" id="anonimo" checked> Publicar como anónimo
+        </label>
+        <button type="submit">💬 Publicar sentimiento</button>
+        <p id="comentario-status"></p>
+      </form>
+      <div id="comentarios-lista"></div>
+    </section>
+
+    <!-- GRID ITEM 09 – TESTIMONIOS -->
+    <div class="grid-item grid-item-09" id="testimonios">
+      <div class="image-box modal-trigger" data-modal="modal-testimonios">
+        <div class="image-number">09</div>
+        <img src="/assets/testimonios.jpg" alt="Testimonios" crossorigin="anonymous">
+        <canvas class="threejs-canvas"></canvas>
+      </div>
+      <div class="image-title">Testimonios</div>
+    </div>
+
+    <!-- GRID ITEM 11 – COMPARTIR KIT -->
+    <div class="grid-item grid-item-11" id="compartir-kit">
+      <div class="image-box">
+        <div class="image-number">11</div>
+        <img src="/assets/compartir.jpg" alt="Compartir Kit" crossorigin="anonymous">
+        <canvas class="threejs-canvas"></canvas>
+      </div>
+      <div class="image-title">Compartir</div>
+    </div>
+
+    <!-- GRID ITEM 13 – APOYO -->
+    <div class="grid-item grid-item-13" id="apoyo">
+      <div class="image-box">
+        <div class="image-number">13</div>
+        <img src="/assets/cafe.jpg" alt="Invitar Café" crossorigin="anonymous">
+        <canvas class="threejs-canvas"></canvas>
+      </div>
+      <div class="image-title">Apoyo</div>
+    </div>
+
+    <!-- BLOQUE AD 02 -->
+    <section class="ad-block">
+      <h3>✨ Descubre contenidos exclusivos</h3>
+      <p>Accede a recursos adicionales para acompañar tu proceso emocional.</p>
+      <a href="/recursos.html" class="btn-link">Explorar</a>
+    </section>
+
+    <!-- GRID ITEM 17 – AVANCE PRÓXIMO VOLUMEN -->
+    <div class="grid-item grid-item-17">
+      <div class="image-box modal-trigger" data-modal="modal-avance">
+        <div class="image-number">17</div>
+        <img src="/assets/avance.jpg" alt="Próximo Volumen" crossorigin="anonymous">
+        <canvas class="threejs-canvas"></canvas>
+      </div>
+      <div class="image-title">Próximo Volumen</div>
+    </div>
+
+    <!-- BLOQUE AD 03 -->
+    <section class="ad-block">
+      <h3>💡 Conecta con nuestra comunidad</h3>
+      <p>Participa en foros y encuentros virtuales para crecer emocionalmente.</p>
+      <a href="/comunidad.html" class="btn-link">Unirte</a>
+    </section>
+
+  </div> <!-- FIN PORTFOLIO GRID -->
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Ángel Valdés. Todos los derechos reservados.</p>
+    <p class="consent-note">
+      Al enviar tu comentario emocional, autorizas su uso anónimo para fines de inspiración y visibilidad.
+    </p>
+  </footer>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js'></script>
+<script src='https://unpkg.com/lenis@1.3.3/dist/lenis.min.js'></script>
+<script type="module" src="./script.js"></script>
+
+</body>
+</html>
