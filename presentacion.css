@@ -4,7 +4,8 @@
     --hue-color: 330;
     --accent-color: hsl(210, 90%, 60%);
     --skin-color: hsl(var(--hue-color), 92%, 46%);
-    --mirage-color: hsl(210, 10%, 23%);
+
+    /* Modo oscuro (por defecto) */
     --title-color: hsl(0, 0%, 95%);
     --text-color: hsl(0, 0%, 80%);
     --body-color: hsl(0, 0%, 7%);
@@ -34,6 +35,17 @@
     --z-modal: 100;
 }
 
+/* Variables modo claro */
+body.light-mode {
+    --title-color: hsl(0, 0%, 10%);
+    --text-color: hsl(0, 0%, 30%);
+    --body-color: hsl(0, 0%, 95%);
+    --box-color: hsl(0, 0%, 100%);
+    --scroll-box-color: hsl(0, 0%, 85%);
+    --scroll-thumb-color: hsl(0, 0%, 60%);
+}
+
+/* Global resets */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body, button, input, textarea { font-family: var(--body-font); font-size: var(--normal-font-size); color: var(--text-color); background-color: var(--body-color); }
@@ -58,10 +70,8 @@ button { cursor: pointer; border: none; outline: none; }
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    flex-wrap: wrap; /* Para que navbar se acomode si no hay espacio */
+    flex-wrap: wrap;
 }
-
-/* Navbar links siempre visibles */
 .nav-links { display: flex; gap: 2rem; flex-wrap: wrap; }
 .nav-link { color: var(--title-color); font-weight: var(--font-medium); position: relative; }
 .nav-link.active-link::after {
@@ -75,7 +85,7 @@ button { cursor: pointer; border: none; outline: none; }
     border-radius: 2px;
 }
 
-/* Botón hamburguesa siempre visible */
+/* Botón hamburguesa */
 .nav-toggle {
     display: block;
     cursor: pointer;
@@ -110,11 +120,12 @@ button { cursor: pointer; border: none; outline: none; }
     inset: 0;
     background: rgba(0,0,0,.5);
     z-index: 998;
+    display: none;
 }
 .sidebar-backdrop.show { display: block; }
 .no-scroll { overflow: hidden; }
 
-/* Main */
+/* Main padding */
 main { padding-top: 100px; }
 
 /* Contenedores y grids */
