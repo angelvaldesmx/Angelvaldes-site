@@ -178,7 +178,6 @@ main { padding-top: 100px; transition: background-color var(--transition-speed);
   align-items: center;
   gap: 2rem;
   height: 100vh;
-  background: url('https://github.com/angelvaldesmx/Angelvaldes-site/blob/main/images/IMG_4327.jpeg?raw=true') center/cover no-repeat;
   position: relative;
 }
 .home-container {
