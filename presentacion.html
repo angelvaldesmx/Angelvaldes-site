@@ -374,5 +374,43 @@
     });
   </script>
   <script src="presentacion.js"></script>
+  <script>
+  // Sidebar toggle
+  const sidebar = document.querySelector('.sidebar');
+  const backdrop = document.querySelector('.sidebar-backdrop');
+  const toggle = document.querySelector('.nav-toggle');
+
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('show-sidebar');
+    backdrop.classList.toggle('show');
+    document.body.classList.toggle('no-scroll');
+  });
+
+  backdrop.addEventListener('click', () => {
+    sidebar.classList.remove('show-sidebar');
+    backdrop.classList.remove('show');
+    document.body.classList.remove('no-scroll');
+  });
+
+  // Modo claro automático según hora
+  const hour = new Date().getHours();
+  if (hour >= 6 && hour < 18) { 
+    document.body.classList.add('light-mode');
+  }
+
+  // Alternar modo claro manual
+  const themeToggle = document.getElementById('theme-toggle');
+  if(themeToggle){
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    });
+
+    // Aplicar preferencia guardada
+    if(localStorage.getItem('theme') === 'light'){
+      document.body.classList.add('light-mode');
+    }
+  }
+</script>
 </body>
 </html>
