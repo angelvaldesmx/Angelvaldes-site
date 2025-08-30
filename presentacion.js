@@ -2,6 +2,7 @@
 // MAIN INIT
 // -----------------------------
 document.addEventListener('DOMContentLoaded', () => {
+    initDarkMode(); // <-- NUEVO: inicializa modo oscuro/claro
     initSkillsTabs();
     initPortfolioMixitup();
     initPortfolioFilters();
@@ -12,6 +13,36 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollActiveLinks();
     initSidebarToggle();
 });
+
+// -----------------------------
+// DARK/LIGHT MODE
+// -----------------------------
+function initDarkMode() {
+    const hour = new Date().getHours();
+    const savedTheme = localStorage.getItem('theme');
+
+    // Aplicar tema guardado en localStorage, si existe
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+    } else if (savedTheme === 'dark') {
+        document.body.classList.remove('light-mode');
+    } else {
+        // Tema automático según hora
+        if (hour >= 6 && hour < 18) {
+            document.body.classList.add('light-mode');
+        }
+    }
+
+    // Botón toggle si existe en HTML
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const mode = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', mode);
+        });
+    }
+}
 
 // -----------------------------
 // Skills Tabs Toggle
@@ -78,7 +109,6 @@ function initPortfolioPopup() {
 
     if (portfolioClose) portfolioClose.addEventListener('click', togglePortfolioPopup);
 
-    // Cerrar al hacer click fuera del contenido
     if (portfolioPopup) {
         portfolioPopup.addEventListener('click', (e) => {
             if (e.target === portfolioPopup) togglePortfolioPopup();
@@ -123,7 +153,6 @@ function initServicesModals() {
         });
     });
 
-    // Cerrar al hacer click fuera del contenido
     modalViews.forEach(modal => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) modal.classList.remove('active-modal');
@@ -136,7 +165,6 @@ function initServicesModals() {
 // -----------------------------
 function initSwiperTestimonials() {
     if (typeof Swiper !== 'undefined') {
-        // Asegúrate de que el contenedor tenga esta clase en el HTML
         new Swiper(".mySwiper", {
             slidesPerView: 1,
             spaceBetween: 20,
@@ -177,7 +205,6 @@ function initScrollActiveLinks() {
             const sectionTop = current.offsetTop - 50;
             const sectionId = current.getAttribute('id');
 
-            // ✅ Selector corregido para tu HTML (.nav-links)
             const link = document.querySelector('.nav-links a[href*="' + sectionId + '"]');
 
             if (link) {
@@ -195,8 +222,8 @@ function initScrollActiveLinks() {
 // Sidebar Toggle (Nav Sandwich)
 // -----------------------------
 function initSidebarToggle() {
-    const sidebar = document.getElementById('sidebar');
-    const openBtn = document.getElementById('nav-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const openBtn = document.querySelector('.nav-toggle');
     const closeBtn = document.getElementById('nav-close');
     const sidebarLinks = sidebar ? sidebar.querySelectorAll('.sidebar-links a') : [];
     let backdrop = null;
@@ -234,15 +261,12 @@ function initSidebarToggle() {
     if (openBtn) openBtn.addEventListener('click', open);
     if (closeBtn) closeBtn.addEventListener('click', close);
 
-    // Cerrar al hacer click en cualquier enlace del sidebar
     sidebarLinks.forEach(a => a.addEventListener('click', close));
 
-    // Cerrar con ESC
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') close();
     });
 
-    // Si re-dimensiona a desktop, cerrar el sidebar
     window.addEventListener('resize', () => {
         if (window.innerWidth >= 992) close();
     });
