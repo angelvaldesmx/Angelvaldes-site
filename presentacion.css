@@ -150,9 +150,30 @@ main { padding-top: 100px; transition: background-color .3s; }
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar { width: .6rem; background-color: var(--scroll-box-color); border-radius: .5rem; transition: background-color .3s; }
 ::-webkit-scrollbar-thumb { background-color: var(--scroll-thumb-color); border-radius: .5rem; transition: background-color .3s; }
+let lastScroll = 0;
+const header = document.querySelector('.header');
 
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll <= 0) {
+        header.style.top = '0';
+        return;
+    }
+
+    if (currentScroll > lastScroll) {
+        // scroll hacia abajo → ocultar nav
+        header.style.top = '-100px';
+    } else {
+        // scroll hacia arriba → mostrar nav
+        header.style.top = '0';
+    }
+
+    lastScroll = currentScroll;
+});
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 992px) {
     .home { grid-template-columns: 1fr; text-align: center; }
     .home-img { margin-top: 2rem; }
 }
+
