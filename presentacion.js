@@ -194,12 +194,27 @@ function initInputAnimations() {
 
 // -----------------------------
 // Scroll Section Active Link
-// -----------------------------
-function initScrollActiveLinks() {
+// -----------------------------function initScrollActiveLinks() {
     const sections = document.querySelectorAll('section[id]');
+    const header = document.querySelector('.header');
+    let lastScroll = 0;
+
     window.addEventListener('scroll', () => {
         const scrollY = window.pageYOffset;
 
+        // ===== Nav auto-ocultable =====
+        if (scrollY <= 0) {
+            header.style.top = '0';
+        } else if (scrollY > lastScroll) {
+            // Scroll hacia abajo → ocultar nav
+            header.style.top = '-100px'; // ajusta según la altura del nav
+        } else {
+            // Scroll hacia arriba → mostrar nav
+            header.style.top = '0';
+        }
+        lastScroll = scrollY;
+
+        // ===== Active link según sección =====
         sections.forEach(current => {
             const sectionHeight = current.offsetHeight;
             const sectionTop = current.offsetTop - 50;
@@ -218,6 +233,8 @@ function initScrollActiveLinks() {
     });
 }
 
+// Llamada inicial
+initScrollActiveLinks();
 // -----------------------------
 // Sidebar Toggle (Nav Sandwich)
 // -----------------------------
