@@ -159,16 +159,16 @@ main { padding-top: 100px; transition: background-color .3s; }
 }
 
 /* ===== ANUNCIO ===== */
-.responsive-ad {
+.responsive-wrapper {
   position: relative;
-  width: 100%;        /* Se adapta al contenedor padre */
-  max-width: 728px;   /* Máximo ancho del banner */
-  margin: 0 auto;     /* Centrado horizontal */
+  width: 100%;
+  max-width: 728px;      /* máximo ancho del banner */
+  margin: 0 auto;        /* centrado */
   height: 0;
-  padding-bottom: calc(90 / 728 * 100%); /* Proporción altura/ancho */
+  padding-bottom: calc(90 / 728 * 100%); /* proporción del banner */
 }
 
-.responsive-ad iframe {
+.responsive-wrapper iframe {
   position: absolute;
   top: 0;
   left: 0;
