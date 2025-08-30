@@ -194,7 +194,8 @@ function initInputAnimations() {
 
 // -----------------------------
 // Scroll Section Active Link
-// -----------------------------function initScrollActiveLinks() {
+// -----------------------------
+function initScrollActiveLinks() {
     const sections = document.querySelectorAll('section[id]');
     const header = document.querySelector('.header');
     let lastScroll = 0;
@@ -206,8 +207,8 @@ function initInputAnimations() {
         if (scrollY <= 0) {
             header.style.top = '0';
         } else if (scrollY > lastScroll) {
-            // Scroll hacia abajo → ocultar nav
-            header.style.top = '-100px'; // ajusta según la altura del nav
+            // Scroll hacia abajo → ocultar nav según altura real
+            header.style.top = `-${header.offsetHeight}px`;
         } else {
             // Scroll hacia arriba → mostrar nav
             header.style.top = '0';
@@ -232,9 +233,6 @@ function initInputAnimations() {
         });
     });
 }
-
-// Llamada inicial
-initScrollActiveLinks();
 // -----------------------------
 // Sidebar Toggle (Nav Sandwich)
 // -----------------------------
