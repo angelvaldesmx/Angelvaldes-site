@@ -158,3 +158,21 @@ main { padding-top: 100px; transition: background-color .3s; }
     .home-img { margin-top: 2rem; }
 }
 
+/* ===== ANUNCIO ===== */
+.responsive-ad {
+  position: relative;
+  width: 100%;        /* Se adapta al contenedor padre */
+  max-width: 728px;   /* Máximo ancho del banner */
+  margin: 0 auto;     /* Centrado horizontal */
+  height: 0;
+  padding-bottom: calc(90 / 728 * 100%); /* Proporción altura/ancho */
+}
+
+.responsive-ad iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
