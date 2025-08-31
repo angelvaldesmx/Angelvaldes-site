@@ -253,37 +253,35 @@ button {
 
 /* ===== SOLUCIÓN PARA MAIN - HOME ===== */
 .home {
-  min-height: 100vh; /* Cambia a min-height para que se expanda si el contenido lo requiere */
+  /* Se mantiene 'min-height: 100vh' para ocupar toda la pantalla */
+  min-height: 100vh;
+  /* El padding superior es crucial para que el contenido no se superponga con el navbar fijo. */
+  padding-top: 6rem; /* Ajusta este valor si la altura de tu navbar es diferente */
+  padding-bottom: 2rem; /* Agrega un padding inferior para espacio */
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  padding: 0 1rem;
   position: relative;
 }
 
-/* El resto del código de .home-social y .about se mantiene igual */
-
 .home-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; /* Centra el texto y los elementos del contenedor de contenido */
-  text-align: center; /* Centra el texto dentro de los elementos */
-  padding-left: 0; /* Elimina el padding extra para que el contenedor esté centrado */
+  /* Cambiamos a 'grid' para tener un control más preciso de la distribución de los elementos. */
+  display: grid;
+  /* Definimos las columnas para que la imagen, el texto y los íconos sociales se distribuyan.
+     Las columnas son: 1fr (para la imagen), un pequeño espacio, 1fr (para el texto) y el auto para los íconos. */
+  grid-template-columns: 1fr 2rem 1fr auto;
+  align-items: center;
+  text-align: left;
+  gap: 2rem;
 }
 
 .home-social {
-  position: absolute;
-  top: 50%; /* Posiciona el contenedor social a la mitad de la altura del home */
-  right: 1.8rem; /* Lo mueve hacia el borde derecho */
+  /* Se elimina 'position: absolute'. Ahora los íconos son parte del flujo normal del grid. */
   display: flex;
-  flex-direction: column; /* Lo cambia a una disposición vertical */
+  flex-direction: column;
   align-items: center;
-  transform: translateY(-50%); /* Centra verticalmente de forma precisa */
-  gap: 1.5rem; /* Ajusta el espacio entre los iconos */
+  gap: 1.5rem;
 }
-
 .home-social-follow {
   font-weight: var(--font-medium);
   transform: rotate(90deg); /* Rota el texto para que sea vertical */
@@ -308,16 +306,22 @@ button {
   gap: 1rem;
 }
 
+/* El resto de los estilos de .home-social-follow, .home-social-links, etc., se mantienen sin cambios. */
+
 .home-img {
   width: 100%;
   max-width: 500px;
   border-radius: 1rem;
   object-fit: cover;
-  transform: translateY(30px);
-  opacity: 0;
+  /* Mantenemos la animación 'fadeInUp' */
   animation: fadeInUp 1.2s forwards;
   transition: all var(--transition-speed);
 }
+
+.home-data {
+  text-align: left;
+}
+
 
 .my-info {
   display: none; /* Se oculta en dispositivos grandes, se puede mostrar en móviles */
@@ -1154,3 +1158,24 @@ textarea.input {
   .section-title { font-size: 1.5rem; }
   .home-img { max-width: 300px; margin-top: 1.5rem; }
 }
+/* --- Responsive Design --- */
+@media screen and (max-width: 992px) {
+  .home-container {
+    /* En pantallas más pequeñas, los elementos se apilan uno sobre otro. */
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .home-social {
+    /* Los íconos se colocan debajo de la imagen y el texto. */
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .home-data {
+    text-align: center;
+  }
+}
+
+
