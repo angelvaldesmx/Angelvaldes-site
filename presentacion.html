@@ -69,43 +69,95 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2002820447462286" crossorigin="anonymous"></script>
 
-  <!-- Schema JSON-LD -->
+  <!-- JSON-LD completo optimizado para SEO y Knowledge Panel -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Angel Valdes",
-    "url": "https://angelvaldesmx.qzz.io",
-    "image": "https://raw.githubusercontent.com/angelvaldesmx/Angelvaldes-site/refs/heads/main/images/IMG_3566.webp",
-    "sameAs": [
-      "https://www.facebook.com/angelvaldesmx",
-      "https://www.instagram.com/angelvaldesmxx",
-      "https://tiktok.com/@angelvaldesmx",
-      "https://www.youtube.com/c/angelvaldesmx"
-    ],
-    "jobTitle": "Compositor, Autor, Creador de Contenido Emocional",
-    "description": "Angel Valdes crea contenido emocional que conecta con personas que luchan contra la ansiedad y buscan sanación, amor propio y bienestar emocional.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Ciudad de México",
-      "addressCountry": "México"
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://angelvaldesmx.qzz.io/"
-    }
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://angelvaldesmx.qzz.io/#person",
+        "name": "Angel Valdes",
+        "jobTitle": "Compositor, Autor, Creador de Contenido Emocional",
+        "description": "Soy Angel Valdes, artista emocional, compositor y escritor. Creo contenido que acompaña procesos de ansiedad, autoestima y sanación. Transformo emociones en arte y cada proyecto es un espacio de inspiración, música y creatividad. Mi trabajo abarca música, podcasts, escritura, proyectos digitales y experiencias que conectan con personas buscando bienestar emocional.",
+        "image": "https://raw.githubusercontent.com/angelvaldesmx/Angelvaldes-site/refs/heads/main/images/IMG_3566.webp",
+        "url": "https://angelvaldesmx.qzz.io",
+        "sameAs": [
+          "https://www.facebook.com/angelvaldesmx",
+          "https://www.instagram.com/angelvaldesmxx",
+          "https://www.tiktok.com/@angelvaldesmx",
+          "https://www.youtube.com/c/angelvaldesmx",
+          "https://medium.com/@angelvaldesmx",
+          "https://musicbraiz.com/angelvaldes",
+          "https://twitter.com/angelvaldesmx",
+          "https://linkedin.com/in/angelvaldesmx"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad de México",
+          "addressCountry": "México"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://angelvaldesmx.qzz.io/#website",
+        "url": "https://angelvaldesmx.qzz.io",
+        "name": "Angel Valdes - Artista emocional",
+        "publisher": { "@id": "https://angelvaldesmx.qzz.io/#person" },
+        "inLanguage": "es-MX"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://angelvaldesmx.qzz.io/#organization",
+        "name": "Angel Valdes",
+        "url": "https://angelvaldesmx.qzz.io",
+        "logo": "https://raw.githubusercontent.com/angelvaldesmx/Angelvaldes-site/refs/heads/main/images/IMG_3566.webp",
+        "sameAs": [
+          "https://www.facebook.com/angelvaldesmx",
+          "https://www.instagram.com/angelvaldesmxx",
+          "https://www.tiktok.com/@angelvaldesmx",
+          "https://www.youtube.com/c/angelvaldesmx"
+        ]
+      },
+      {
+        "@type": "CreativeWork",
+        "@id": "https://angelvaldesmx.qzz.io/presentacion/#aboutme",
+        "url": "https://angelvaldesmx.qzz.io/presentacion/#aboutme",
+        "name": "Acerca de mí - Angel Valdes",
+        "description": "Sección de presentación personal donde Angel Valdes comparte su historia, filosofía y enfoque creativo, incluyendo música, escritura y proyectos digitales.",
+        "author": { "@id": "https://angelvaldesmx.qzz.io/#person" },
+        "inLanguage": "es-MX",
+        "mainEntityOfPage": { "@id": "https://angelvaldesmx.qzz.io/#website" }
+      },
+      {
+        "@type": "SocialMediaPosting",
+        "@id": "https://angelvaldesmx.qzz.io/#socialmedia",
+        "account": { "@id": "https://angelvaldesmx.qzz.io/#person" },
+        "publisher": { "@id": "https://angelvaldesmx.qzz.io/#organization" },
+        "sharedContent": [
+          {
+            "@type": "SocialMediaPosting",
+            "headline": "Mi último sencillo sobre emociones y sanación",
+            "url": "https://www.instagram.com/p/EXAMPLE1/",
+            "datePublished": "2025-08-30T12:00:00Z",
+            "author": { "@id": "https://angelvaldesmx.qzz.io/#person" },
+            "about": "Inspiración, autoestima y bienestar emocional",
+            "sharedContent": "Video musical de Angel Valdes sobre superar la ansiedad"
+          },
+          {
+            "@type": "SocialMediaPosting",
+            "headline": "Reflexión sobre amor propio y creatividad",
+            "url": "https://www.facebook.com/angelvaldesmx/posts/EXAMPLE2",
+            "datePublished": "2025-08-28T15:30:00Z",
+            "author": { "@id": "https://angelvaldesmx.qzz.io/#person" },
+            "about": "Reflexión y motivación personal",
+            "sharedContent": "Post sobre la importancia de amarse a uno mismo"
+          }
+        ]
+      }
+    ]
   }
   </script>
-
-  <!-- Microdata adicional avanzado -->
-  <div itemscope itemtype="https://schema.org/Person">
-    <span itemprop="name">Angel Valdes</span>
-    <span itemprop="jobTitle">Compositor, Autor, Creador de Contenido Emocional</span>
-    <span itemprop="description">Contenido emocional para acompañar procesos de ansiedad, autoestima y sanación.</span>
-    <img itemprop="image" src="https://raw.githubusercontent.com/angelvaldesmx/Angelvaldes-site/refs/heads/main/images/IMG_3566.webp" alt="Angel Valdes" />
-    <link itemprop="url" href="https://angelvaldesmx.qzz.io" />
-  </div>
-
 
   <!-- Iconos -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
