@@ -1121,23 +1121,35 @@ textarea.input {
   color: var(--title-color);
 }
 
-/* ===== MEDIA QUERIES ===== */
-@media screen and (max-width: 1408px) {
-  .container {
-    margin-left: var(--mb25);
-    margin-right: var(--mb25);
-  }
+/* ===== AD BLOCKS ===== */
+.ad-container {
+  background: linear-gradient(135deg, var(--skin-color), var(--accent-color));
+  color: var(--title-color); padding: 1rem 1.5rem; text-align: center; border-radius: .5rem;
+  margin: 2rem 0; font-weight: var(--font-medium);
+  box-shadow: 0 0 15px rgba(255,0,150,0.3), 0 0 25px rgba(0,200,255,0.2);
+  transition: transform var(--transition-speed);
 }
+.ad-container:hover { transform: translateY(-5px); }
 
-@media screen and (max-width: 1216px) {
-  .about-container {
-    column-gap: 2.5rem;
-  }
-  .about-description {
-    padding-right: 0;
-  }
+/* ===== RESPONSIVE WRAPPER PARA ANUNCIOS ===== */
+.responsive-wrapper { position: relative; width: 100%; max-width: 728px; margin: 0 auto; height: 0; padding-bottom: calc(90 / 728 * 100%); }
+.responsive-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: .6rem; background-color: var(--scroll-box-color); border-radius: .5rem; }
+::-webkit-scrollbar-thumb { background-color: var(--scroll-thumb-color); border-radius: .5rem; }
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 992px) {
+  .home { grid-template-columns: 1fr; text-align: center; }
+  .home-img { margin-top: 2rem; max-width: 400px; }
+  .my-info { flex-direction: column; position: static; margin-top: 2rem; }
 }
-
-@media screen and (max-width: 1024px) {
-  /* ... otras reglas ... */
+@media screen and (max-width: 576px) {
+  .navbar { padding: 1rem; }
+  .home-container { padding: 1rem; }
+  .home-title { font-size: 2.2rem; }
+  .home-subtitle { font-size: 1.1rem; }
+  .section-title { font-size: 1.5rem; }
+  .home-img { max-width: 300px; margin-top: 1.5rem; }
 }
