@@ -251,17 +251,18 @@ button {
   margin-left: 100px;
 }
 
-/* ===== MAIN - HOME ===== */
 /* ===== SOLUCIÓN PARA MAIN - HOME ===== */
 .home {
-  height: 100vh;
-  display: flex; /* Usamos flexbox para centrar y alinear los elementos en el home */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
+  min-height: 100vh; /* Cambia a min-height para que se expanda si el contenido lo requiere */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
   padding: 0 1rem;
-  position: relative; /* Esencial para posicionar elementos absolutamente dentro de él */
+  position: relative;
 }
+
+/* El resto del código de .home-social y .about se mantiene igual */
 
 .home-container {
   display: flex;
