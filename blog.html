@@ -2,182 +2,107 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Mi Blog Creativo | Inspiración y Superación</title>
-  <meta name="description" content="Artista multifacético comparte motivación, creatividad, emprendimiento y tecnología. Tips, historias y más para inspirarte a vivir tu vida.">
-  <meta name="keywords" content="motivación, creatividad, emprendimiento, tecnología, arte, superación, TDAH, ansiedad, música, diseño, blog">
-  <meta name="author" content="Angel Valdes">
-  <meta name="robots" content="index, follow">
-  <meta name="revisit-after" content="7 days">
-  <meta name="rating" content="general">
-  <meta name="distribution" content="global">
-  <link rel="canonical" href="https://www.tublog.com/">
-  <link rel="alternate" hreflang="es" href="https://www.tublog.com/">
-  <link rel="alternate" hreflang="en" href="https://www.tublog.com/en/">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="theme-color" content="#4CAF50">
-  <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="prefetch" href="https://www.tublog.com/img/articulo1.jpg">
-  <meta property="og:title" content="Mi Blog Creativo | Inspiración y Superación">
-  <meta property="og:description" content="Historias, consejos y motivación para artistas y emprendedores. Aprende a vivir sin miedo y a expresar tu creatividad.">
-  <meta property="og:image" content="https://www.tublog.com/img/preview-og.jpg">
-  <meta property="og:url" content="https://www.tublog.com/">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mi Blog Creativo | Inspiración y Superación">
-  <meta name="twitter:description" content="Historias, consejos y motivación para artistas y emprendedores. Aprende a vivir sin miedo y a expresar tu creatividad.">
-  <meta name="twitter:image" content="https://www.tublog.com/img/preview-twitter.jpg">
-  <meta name="twitter:site" content="@tuusuario">
 
   <link rel="stylesheet" href="blog.css">
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Blog",
-      "name": "Mi Blog Creativo",
-      "url": "https://www.tublog.com/",
-      "logo": "https://www.tublog.com/img/logo.png",
-      "author": {
-        "@type": "Person",
-        "name": "Angel Valdes"
-      },
-      "description": "Historias y consejos de un artista multifacético que combina motivación, emprendimiento y tecnología.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Mi Blog Creativo",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://www.tublog.com/img/logo.png"
-        }
-      }
-    }
-  </script>
+
+  <!-- Meta Tags para SEO -->
+  <meta name="description" content="Artista multifacético comparte motivación, creatividad, emprendimiento y tecnología.">
+  <meta name="keywords" content="motivación, creatividad, emprendimiento, tecnología, arte, superación, TDAH, ansiedad, música, diseño, blog">
+  <meta name="author" content="Angel Valdes">
+
+  <!-- Script principal -->
+  <script defer src="blog.js"></script>
 </head>
 <body>
 
 <div class="blog">
-  <div class="blog-part is-menu">
-    <div class="blog-article header-article">
-      <div class="blog-big__title">Crea</div>
-      <div class="blog-menu rounded small-title">Artículo Destacado</div>
-    </div>
 
+  <!-- =========================== -->
+  <!-- COLUMNA 1: Menú + Navbar -->
+  <!-- =========================== -->
+  <div class="blog-part sidebar-column">
+
+    <!-- Navbar -->
     <nav class="navbar-fixed">
       <div class="logo-container">
-        <a href="/">
-          <img src="https://www.tublog.com/img/logo.png" alt="Logo de Mi Blog Creativo" class="logo">
-        </a>
+        <a href="/"><img src="https://www.tublog.com/img/logo.png" alt="Logo" class="logo"></a>
         <span class="blog-title">Crea, Inspira, Evoluciona</span>
       </div>
+
       <button class="slide-menu-button" aria-controls="slide-menu" aria-expanded="false">
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
       </button>
+
       <div class="navbar-links">
-        <a href="/work.html" class="blog-menu">Work</a>
-        <a href="/studio.html" class="blog-menu">Studio</a>
-        <a href="/blog.html" class="blog-menu">Blog</a>
-        <a href="/contact.html" class="blog-menu">Contact</a>
-        <a href="https://twitter.com/tuusuario" class="blog-menu mention">@tuusuario</a>
-        <a href="#" class="blog-menu subscribe">Subscribe</a>
+        <a href="#featured" class="blog-menu">Destacados</a>
+        <a href="#recent" class="blog-menu">Recientes</a>
+        <a href="#weekly-blogs" class="blog-menu">Semanales</a>
+        <a href="#monthly-blogs" class="blog-menu">Mensuales</a>
       </div>
     </nav>
 
+    <!-- Slidebar -->
     <aside id="slide-menu" class="slide-menu">
       <button class="slide-menu-close">&times;</button>
       <ul>
-        <li><a href="#weekly-blogs" class="nav-link">🔥 Blogs Semanales</a></li>
+        <li><a href="#weekly-blogs">🔥 Blogs Semanales</a></li>
         <ul id="weekly-blogs-list"></ul>
-        <li><a href="#monthly-blogs" class="nav-link">✨ Blogs Mensuales</a></li>
+        <li><a href="#monthly-blogs">✨ Blogs Mensuales</a></li>
         <ul id="monthly-blogs-list"></ul>
-        <li><a href="#" class="nav-link">Sobre Mí</a></li>
-        <li><a href="#" class="nav-link">Contacto</a></li>
-        <li><a href="#" class="nav-link">Podcast</a></li>
-        <li><a href="#" class="nav-link">Recursos Gratuitos</a></li>
+        <li><a href="#">Sobre Mí</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Podcast</a></li>
+        <li><a href="#">Recursos Gratuitos</a></li>
         <li><button id="theme-toggle">Modo Oscuro</button></li>
       </ul>
-      <div class="ad-container ad-menu-sidebar">
-        <p>Anuncio: Recibe mi newsletter semanal.</p>
-      </div>
+
+      <div class="ad-container ad-menu-sidebar">Anuncio: Newsletter</div>
     </aside>
+
+    <div class="ad-container top-banner">Anuncio: Cabecera principal</div>
   </div>
 
-  <div class="blog-content-wrapper">
-    <div class="blog-header-container">
-      <div class="blog-header blog-is-sticky">
-        <div class="blog-article page-number">NO. 01</div>
-      </div>
-      <div class="ad-container top-banner">
-        <p>Anuncio: Crea tu tienda online en 5 minutos.</p>
-      </div>
+  <!-- =========================== -->
+  <!-- COLUMNA 2: Artículos Destacados -->
+  <!-- =========================== -->
+  <div class="blog-part featured-column">
+    <h2>Artículos Destacados</h2>
+    <div class="blog-section featured-blogs" id="featured">
+      <!-- Artículos se cargan dinámicamente -->
     </div>
+  </div>
 
-    <div class="blog-part right-blog">
-      <marquee width="100%" direction="left">
-        <span>Crea, Inspira, Evoluciona</span>
-        <span>Tips de superación y creatividad</span>
-        <span>Blog de Angel Valdes</span>
-      </marquee>
-      <div class="blog-right-title-container">
-        <div class="blog-right-title">
-          Artículos Destacados
-        </div>
-        <div class="blog-menu rounded">Ver todos</div>
-      </div>
-
-      <div class="ad-container sidebar-top">
-        <p>Anuncio: Servicios de marketing para creadores.</p>
-      </div>
-
-      <div class="blog-right">
-        </div>
+  <!-- =========================== -->
+  <!-- COLUMNA 3: Artículos Recientes -->
+  <!-- =========================== -->
+  <div class="blog-part recent-column">
+    <h2>Artículos Recientes</h2>
+    <div class="blog-section recent-blogs" id="recent">
+      <!-- Artículos se cargan dinámicamente -->
     </div>
   </div>
 </div>
 
-<footer>
-  <p>Este sitio contiene enlaces de afiliados. El contenido tiene fines educativos y motivacionales. Toda inversión o compra es responsabilidad del usuario.</p>
-  <p>© 2025 Blog de Crea, Inspira, Evoluciona</p>
-</footer>
-
+<!-- =========================== -->
+<!-- MODAL PARA ARTÍCULOS -->
+<!-- =========================== -->
 <div id="article-modal" class="modal">
   <div class="modal-content">
     <span class="modal-close">&times;</span>
 
-    <div class="modal-ad top-of-article">
-      <p>Anuncio: Herramientas de productividad para creativos.</p>
-    </div>
+    <!-- Contenedor de anuncios dinámicos -->
+    <div class="modal-ads-container"></div>
 
+    <!-- Contenido del artículo -->
     <h2 id="modal-article-title"></h2>
     <img id="modal-article-image" src="" alt="">
     <p id="modal-article-text"></p>
-
-    <div class="modal-ad middle-1">
-      <p>Anuncio: Hosting para tu blog.</p>
-    </div>
-
-    <p>... Continuación del artículo ...</p>
-    <div class="modal-ad middle-2">
-      <p>Anuncio: Plugin SEO para WordPress.</p>
-    </div>
-
-    <p>... Continuación del artículo ...</p>
-    <div class="modal-ad middle-3">
-      <p>Anuncio: Inscríbete a nuestro webinar gratuito.</p>
-    </div>
-    <p>... Continuación del artículo ...</p>
-
-    <div class="modal-ad bottom-of-article">
-      <p>Anuncio: Conoce nuestra agencia de diseño.</p>
-    </div>
   </div>
 </div>
-
-<script src="blog.js"></script>
 
 </body>
 </html>
