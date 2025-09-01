@@ -1,0 +1,492 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* 🎨 Valores de las variables convertidos de Sass a CSS */
+:root {
+  --blog-bg: #e9e6e4;
+  --body-bg: #121418;
+  --title-color: #121418;
+  --subtitle-color: #161419;
+  --border-color: #94918f;
+  --title-font: "Space Grotesk", sans-serif;
+  --subtitle-font: "Inter", sans-serif;
+  --italic-font: "Playfair Display", serif;
+}
+
+body {
+  background-color: var(--body-bg);
+  display: flex;
+  font-family: var(--subtitle-font);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 2em;
+  font-weight: 400;
+  height: 100vh;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+}
+
+/* 🔹 Estilos del Modo Oscuro */
+body.dark-mode {
+  background-color: #121418;
+  color: #e9e6e4;
+}
+
+body.dark-mode .blog {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .blog-part:not(:last-child) {
+  border-right-color: #4a4a4a;
+}
+
+body.dark-mode .blog-menu,
+body.dark-mode .blog-big__title,
+body.dark-mode .blog-right-title {
+  color: #e9e6e4;
+}
+
+body.dark-mode .blog-menu.rounded::before {
+  background-color: #e9e6e4;
+}
+
+body.dark-mode .small-title,
+body.dark-mode .blog-right-title-container {
+  border-bottom-color: #4a4a4a;
+}
+
+body.dark-mode .blog-header-container {
+  border-right-color: #4a4a4a;
+}
+
+body.dark-mode .blog-article a {
+  color: #e9e6e4;
+  border-top-color: #4a4a4a;
+}
+
+body.dark-mode marquee {
+  background-color: #1e1e1e;
+  color: #e9e6e4;
+}
+
+body.dark-mode marquee span::before {
+  background-color: #e9e6e4;
+}
+
+body.dark-mode .circle {
+  background-color: #4a4a4a;
+  color: #e9e6e4;
+}
+
+.blog {
+  background-color: var(--blog-bg);
+  max-width: 1350px;
+  display: grid;
+  height: 90vh;
+  max-height: 800px;
+  overflow: hidden;
+  grid-template-columns: 25% 75%; /* Se ajusta para 2 columnas principales */
+  grid-template-rows: 100%;
+  width: 100%;
+  padding: 40px 4px;
+  position: relative;
+}
+
+@media screen and (max-width: 1030px) {
+  .blog {
+    grid-template-columns: 20% 80%; /* Ajuste para tablets */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .blog {
+    grid-template-columns: 100%;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+}
+
+.blog-part.is-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  border-right: 1px solid var(--border-color);
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .blog-part.is-menu {
+    display: flex;
+    flex-direction: column;
+    border-right: none;
+    padding: 0;
+  }
+}
+
+/* 🔹 Se define el contenedor de las dos columnas principales */
+.blog-content-wrapper {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 100%;
+  height: 100%;
+  padding-right: 20px;
+}
+
+@media screen and (max-width: 1030px) {
+  .blog-content-wrapper {
+    grid-template-columns: 65% 35%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .blog-content-wrapper {
+    grid-template-columns: 100%;
+    padding-right: 0;
+  }
+}
+
+/* 🔹 Se modifica la posición del navbar para móvil */
+.navbar-fixed {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  transition: top 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-fixed {
+    position: fixed;
+    top: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--blog-bg);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* 🔹 Clase para ocultar el navbar al hacer scroll down */
+.navbar-fixed.hide {
+  top: -100px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .logo-container {
+    flex-direction: row;
+    margin-bottom: 0;
+  }
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    width: 40px;
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+}
+
+.blog-title {
+  font-size: 14px;
+  color: var(--subtitle-color);
+  font-weight: 500;
+}
+
+.slide-menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .slide-menu-button {
+    display: flex;
+  }
+}
+
+.slide-menu-button .line {
+  width: 25px;
+  height: 3px;
+  background-color: var(--subtitle-color);
+  margin: 4px 0;
+}
+
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 250px;
+  height: 100%;
+  background-color: var(--body-bg);
+  color: var(--blog-bg);
+  z-index: 2000;
+  transition: left 0.3s ease;
+  padding: 20px;
+}
+
+.slide-menu.is-active {
+  left: 0;
+}
+
+.slide-menu-close {
+  background: none;
+  border: none;
+  color: var(--blog-bg);
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.slide-menu ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 50px;
+}
+
+.slide-menu li {
+  margin-bottom: 15px;
+}
+
+.slide-menu a {
+  color: var(--blog-bg);
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.ad-container {
+  border: 1px dashed var(--border-color);
+  padding: 10px;
+  margin: 20px 0;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.ad-container p {
+  font-size: 12px;
+  color: var(--subtitle-color);
+}
+
+.ad-menu-sidebar {
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.blog-menu {
+  font-size: 22px;
+  text-decoration: none;
+  color: var(--subtitle-color);
+  display: flex;
+  letter-spacing: -0.5px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+@media screen and (max-width: 1260px) {
+  .blog-menu {
+    font-size: 1.6vw;
+  }
+}
+
+.blog-menu svg {
+  width: 22px;
+  margin-left: 4px;
+}
+
+.blog-menu + .blog-menu {
+  margin-top: 0;
+}
+
+.blog-menu.mention,
+.blog-menu.subscribe {
+  font-size: 19px;
+}
+
+@media screen and (max-width: 1260px) {
+  .blog-menu.mention,
+  .blog-menu.subscribe {
+    font-size: 1.4vw;
+  }
+}
+
+.blog-menu.mention {
+  margin-top: auto;
+}
+
+.blog-big__title {
+  font-size: 132px;
+  font-family: var(--title-font);
+  font-weight: 700;
+  letter-spacing: -5px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+@media screen and (max-width: 1400px) {
+  .blog-big__title {
+    font-size: 120px;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  .blog-big__title {
+    font-size: 9vw;
+    letter-spacing: -2px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .blog-big__title {
+    display: none;
+  }
+}
+
+.blog-header-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-type: y mandatory;
+  border-right: 1px solid var(--border-color);
+}
+
+@media screen and (max-width: 768px) {
+  .blog-header-container {
+    border-right: 0;
+  }
+}
+
+.blog-header-container > * {
+  flex-shrink: 0;
+  min-height: 100%;
+  scroll-snap-align: start;
+}
+
+.blog-article:not(.header-article) {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔹 Se oculta la columna de la derecha en móvil para un mejor uso del espacio */
+.right-blog {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .right-blog {
+    display: none;
+  }
+}
+
+/* 🔹 Se ocultan los elementos del menú de la columna de la izquierda en móvil */
+@media screen and (max-width: 768px) {
+  .blog-part.is-menu > .blog-menu,
+  .blog-part.is-menu > .blog-menu.mention,
+  .blog-part.is-menu > .blog-menu.subscribe {
+    display: none;
+  }
+}
+
+/* 🔹 Oculta el título "Crea" en móvil para liberar espacio */
+@media screen and (max-width: 768px) {
+  .blog-article.header-article .blog-big__title {
+    display: none;
+  }
+}
+
+/* 🔹 Se asegura que la columna de la izquierda solo contenga los elementos fijos y el menú de enlaces se oculte */
+@media screen and (max-width: 768px) {
+  .blog-part.is-menu {
+    padding: 0;
+    border-right: none;
+    flex-grow: 0;
+  }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 3000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: var(--blog-bg);
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-ad {
+  border: 1px dashed var(--border-color);
+  padding: 10px;
+  margin: 20px 0;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.2);
+}
