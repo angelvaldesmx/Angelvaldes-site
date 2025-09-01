@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // -----------------------------
   // 1. Sidebar deslizable
   // -----------------------------
@@ -31,24 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // -----------------------------
   const featuredContainer = document.querySelector('.featured-blogs');
   const recentContainer = document.querySelector('.recent-blogs');
-  const modal = document.getElementById('article-modal');
-  const closeModalBtn = document.querySelector('.modal-close');
-  const modalTitle = document.getElementById('modal-article-title');
-  const modalImage = document.getElementById('modal-article-image');
-  const modalText = document.getElementById('modal-article-text');
-  const modalAdsContainer = document.getElementById('modal-ads-container');
 
-  // Modales para listas (Semanales/Mensuales)
   const blogListModal = document.getElementById("blogListModal");
   const listModalTitle = document.getElementById("listModalTitle");
   const modalList = document.getElementById("modalList");
   const closeListBtn = blogListModal.querySelector(".close");
 
-  // Modal de contenido individual (dentro de Semanales/Mensuales)
   const blogContentModal = document.getElementById("blogContentModal");
   const contentTitle = document.getElementById("contentTitle");
   const contentBody = document.getElementById("contentBody");
-  const closeContentBtn = blogContentModal.querySelector(".closeContent");
+  const closeContentBtn = blogContentModal?.querySelector(".closeContent");
+
+  const modal = document.getElementById('article-modal');
+  const modalTitle = document.getElementById('modal-article-title');
+  const modalImage = document.getElementById('modal-article-image');
+  const modalText = document.getElementById('modal-article-text');
+  const modalAdsContainer = document.getElementById('modal-ads-container');
 
   let allArticles = [];
   let previousHash = '';
@@ -56,12 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // -----------------------------
   // 4. Renderizar artículos
   // -----------------------------
-  const renderArticles = (articles) => {
-    featuredContainer.innerHTML = '';
-    recentContainer.innerHTML = '';
-
-    articles.forEach((article, index) => {
-      const articleHTML = `
+  const renderArticles = (articles, container) => {
+    container.innerHTML = '';
+    articles.forEach(article => {
+      const html = `
         <div class="blog-card">
           <img src="${article.image}" alt="${article.title}" loading="lazy">
           <h3>${article.title}</h3>
@@ -69,69 +65,30 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="#articulo-${article.id}" class="read-more-link" data-article-id="${article.id}">Leer más</a>
         </div>
       `;
-      if (index % 2 === 0) featuredContainer.insertAdjacentHTML('beforeend', articleHTML);
-      else recentContainer.insertAdjacentHTML('beforeend', articleHTML);
+      container.insertAdjacentHTML('beforeend', html);
     });
   };
 
   // -----------------------------
-  // 5. Renderizar anuncios
-  // -----------------------------
-  const mainAds = [
-    'Curso de Creatividad',
-    'Software de Productividad',
-    'Ebook Gratis de Marketing',
-    'Herramienta SEO',
-    'Hosting para Blog',
-    'Tutorial de Diseño',
-    'Plugin WordPress',
-    'Newsletter Semanal'
-  ];
-
-  const modalAds = [
-    'Herramienta de Productividad',
-    'Hosting Creativo',
-    'Plugin SEO',
-    'Webinar Gratuito',
-    'Agencia de Diseño'
-  ];
-
-  const renderMainAds = () => {
-    const allColumns = [featuredContainer, recentContainer];
-    let adIndex = 0;
-
-    allColumns.forEach(col => {
-      const cards = Array.from(col.children);
-      cards.forEach((card, i) => {
-        if (adIndex < mainAds.length && i % 2 === 0) {
-          const adHTML = `<div class="ad-container">${mainAds[adIndex++]}</div>`;
-          card.insertAdjacentHTML('afterend', adHTML);
-        }
-      });
-    });
-  };
-
-  const renderModalAds = () => {
-    if (!modalAdsContainer) return;
-    modalAdsContainer.innerHTML = modalAds.map(ad => `<div class="modal-ad">${ad}</div>`).join('');
-  };
-
-  // -----------------------------
-  // 6. Modal de artículo
+  // 5. Abrir modal de artículo
   // -----------------------------
   const openArticleModal = (articleId) => {
     const article = allArticles.find(a => a.id === parseInt(articleId, 10));
     if (!article) return;
 
-    if (!window.location.hash.startsWith('#articulo-')) {
-      previousHash = window.location.hash || '';
-    }
+    if (!window.location.hash.startsWith('#articulo-')) previousHash = window.location.hash || '';
 
     modalTitle.textContent = article.title;
     modalImage.src = article.image || '';
     modalText.textContent = article.fullText || article.subtitle || '';
-    renderModalAds();
-    modal.style.display = 'block';
+
+    // Renderizar anuncios del modal
+    if (modalAdsContainer) {
+      const modalAds = ['Herramienta de Productividad', 'Hosting Creativo', 'Plugin SEO', 'Webinar Gratuito', 'Agencia de Diseño'];
+      modalAdsContainer.innerHTML = modalAds.map(ad => `<div class="modal-ad">${ad}</div>`).join('');
+    }
+
+    modal.style.display = 'flex';
   };
 
   const handleHashChange = () => {
@@ -145,9 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // -----------------------------
-  // 7. Abrir listas (Semanales/Mensuales)
+  // 6. Abrir listas (Semanales/Mensuales)
   // -----------------------------
-  function openListModal(title, blogs) {
+  const openListModal = (title, blogs) => {
     listModalTitle.textContent = title;
     modalList.innerHTML = "";
 
@@ -162,87 +119,95 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     blogListModal.style.display = "flex";
-  }
-
-  function openContentModal(blog) {
-    contentTitle.textContent = blog.title;
-    // Si el JSON no trae `content`, usamos url como enlace o fallback
-    contentBody.innerHTML = blog.content 
-      ? blog.content 
-      : `<p>Visita: <a href="${blog.url}" target="_blank">${blog.url}</a></p>`;
-    blogContentModal.style.display = "flex";
-  }
-
-  // -----------------------------
-  // 8. Cargar JSON
-  // -----------------------------
-  const loadData = async () => {
-    try {
-      const response = await fetch('data.json');
-      const data = await response.json();
-
-      allArticles = [...data.articles, ...data.featuredArticles];
-
-      renderArticles(allArticles);
-      renderMainAds();
-
-      // Eventos para abrir modales de listas
-      document.getElementById("openWeekly").addEventListener("click", (e) => {
-        e.preventDefault();
-        openListModal("Blogs Semanales", data.weeklyBlogs);
-      });
-      document.getElementById("openMonthly").addEventListener("click", (e) => {
-        e.preventDefault();
-        openListModal("Blogs Mensuales", data.monthlyBlogs);
-      });
-      // También desde el sidebar
-      document.getElementById("openWeeklySidebar").addEventListener("click", (e) => {
-        e.preventDefault();
-        openListModal("Blogs Semanales", data.weeklyBlogs);
-      });
-      document.getElementById("openMonthlySidebar").addEventListener("click", (e) => {
-        e.preventDefault();
-        openListModal("Blogs Mensuales", data.monthlyBlogs);
-      });
-
-      // Delegación de click para artículos
-      document.body.addEventListener('click', (e) => {
-        const link = e.target.closest('.read-more-link');
-        if (link) {
-          e.preventDefault();
-          const articleId = link.dataset.articleId;
-          window.location.hash = `#articulo-${articleId}`;
-        }
-      });
-
-      window.addEventListener('hashchange', handleHashChange);
-      handleHashChange();
-    } catch (err) {
-      console.error('Error al cargar datos JSON:', err);
-    }
   };
 
-  loadData();
+  const openContentModal = (blog) => {
+    contentTitle.textContent = blog.title;
+    contentBody.innerHTML = blog.content
+      ? blog.content
+      : `<p>Visita: <a href="${blog.url || '#'}" target="_blank">${blog.url || '#'}</a></p>`;
+    blogContentModal.style.display = "flex";
+  };
 
   // -----------------------------
-  // 9. Cerrar modales
+  // 7. Cargar datos JSON y filtrar automáticamente
+  // -----------------------------
+  try {
+    const response = await fetch('data.json');
+    const data = await response.json();
+
+    allArticles = [...(data.articles || [])];
+
+    // Destacados: los 3 más recientes con imagen y isFeatured
+    const featuredArticles = allArticles
+      .filter(a => a.isFeatured && a.image)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 3);
+
+    // Recientes: 5 más recientes que no estén en destacados
+    const recentArticles = allArticles
+      .filter(a => !a.isFeatured)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 5);
+
+    renderArticles(featuredArticles, featuredContainer);
+    renderArticles(recentArticles, recentContainer);
+
+    // Blogs semanales y mensuales
+    const weeklyBlogs = allArticles.filter(a => a.isWeekly);
+    const monthlyBlogs = allArticles.filter(a => a.isMonthly);
+
+    // Abrir listas desde botones
+    ["openWeekly","openWeeklySidebar"].forEach(id => {
+      document.getElementById(id).addEventListener("click", e => {
+        e.preventDefault();
+        openListModal("Blogs Semanales", weeklyBlogs);
+      });
+    });
+
+    ["openMonthly","openMonthlySidebar"].forEach(id => {
+      document.getElementById(id).addEventListener("click", e => {
+        e.preventDefault();
+        openListModal("Blogs Mensuales", monthlyBlogs);
+      });
+    });
+
+    // Delegación click para artículos
+    document.body.addEventListener('click', e => {
+      const link = e.target.closest('.read-more-link');
+      if (link) {
+        e.preventDefault();
+        const articleId = link.dataset.articleId;
+        window.location.hash = `#articulo-${articleId}`;
+      }
+    });
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange();
+
+  } catch (err) {
+    console.error('Error al cargar JSON:', err);
+  }
+
+  // -----------------------------
+  // 8. Cerrar modales
   // -----------------------------
   const closeModal = () => {
     if (previousHash) {
       window.location.hash = previousHash;
       previousHash = '';
-    } else {
-      window.location.hash = '';
-    }
+    } else window.location.hash = '';
   };
 
+  const closeModalBtn = modal.querySelector('.modal-close');
+
   if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-  window.addEventListener('click', (e) => {
+  window.addEventListener('click', e => {
     if (e.target === modal) closeModal();
     if (e.target === blogListModal) blogListModal.style.display = "none";
     if (e.target === blogContentModal) blogContentModal.style.display = "none";
   });
 
-  if (closeListBtn) closeListBtn.addEventListener("click", () => (blogListModal.style.display = "none"));
-  if (closeContentBtn) closeContentBtn.addEventListener("click", () => (blogContentModal.style.display = "none"));
+  if (closeListBtn) closeListBtn.addEventListener("click", () => blogListModal.style.display = "none");
+  if (closeContentBtn) closeContentBtn.addEventListener("click", () => blogContentModal.style.display = "none");
 });
