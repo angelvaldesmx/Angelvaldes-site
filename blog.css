@@ -101,10 +101,17 @@ body {
   margin-top: 10px;
 }
 
+.navbar-links {
+  display: flex;
+  flex-wrap: wrap; /* permite que los links se muevan a la siguiente línea */
+  gap: 10px;
+}
+
 .navbar-links a {
   text-decoration: none;
   color: var(--subtitle-color);
   padding: 5px 0;
+  white-space: nowrap;
 }
 
 /* =============================== */
