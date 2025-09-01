@@ -40,8 +40,8 @@
       <div class="navbar-links">
         <a href="#featured" class="blog-menu">Destacados</a>
         <a href="#recent" class="blog-menu">Recientes</a>
-        <a href="#weekly-blogs" class="blog-menu">Semanales</a>
-        <a href="#monthly-blogs" class="blog-menu">Mensuales</a>
+        <a href="#" id="openWeekly" class="blog-menu">Semanales</a>
+        <a href="#" id="openMonthly" class="blog-menu">Mensuales</a>
       </div>
     </nav>
 
@@ -49,10 +49,8 @@
     <aside id="slide-menu" class="slide-menu">
       <button class="slide-menu-close">&times;</button>
       <ul>
-        <li><a href="#weekly-blogs">🔥 Blogs Semanales</a></li>
-        <ul id="weekly-blogs-list"></ul>
-        <li><a href="#monthly-blogs">✨ Blogs Mensuales</a></li>
-        <ul id="monthly-blogs-list"></ul>
+        <li><a href="#" id="openWeeklySidebar">🔥 Blogs Semanales</a></li>
+        <li><a href="#" id="openMonthlySidebar">✨ Blogs Mensuales</a></li>
         <li><a href="#">Sobre Mí</a></li>
         <li><a href="#">Contacto</a></li>
         <li><a href="#">Podcast</a></li>
@@ -82,6 +80,17 @@
     <div class="blog-section recent-blogs" id="recent"></div>
   </div>
 
+</div>
+
+<!-- =========================== -->
+<!-- MODAL LISTA (Semanales/Mensuales) -->
+<!-- =========================== -->
+<div id="blogListModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="listModalTitle"></h2>
+    <ul id="modalList"></ul>
+  </div>
 </div>
 
 <!-- =========================== -->

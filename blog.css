@@ -16,6 +16,7 @@ img { max-width: 100%; display: block; }
   --title-color: #121418;
   --subtitle-color: #161419;
   --border-color: #94918f;
+  --link-color: #0077cc;
 }
 
 body.dark-mode {
@@ -24,6 +25,7 @@ body.dark-mode {
   --title-color: #ffffff;
   --subtitle-color: #cccccc;
   --border-color: #555555;
+  --link-color: #66aaff;
 }
 
 /* =============================== */
@@ -54,7 +56,7 @@ body {
 .featured-column, .recent-column { display: flex; flex-direction: column; gap: 20px; }
 
 /* =============================== */
-/* NAVBAR FIXED                     */
+/* NAVBAR FIXED                    */
 /* =============================== */
 .navbar-fixed {
   position: sticky;
@@ -71,7 +73,7 @@ body {
 .navbar-links a { text-decoration: none; color: var(--subtitle-color); padding: 5px 0; white-space: nowrap; }
 
 /* =============================== */
-/* SLIDEBAR                         */
+/* SLIDEBAR                        */
 /* =============================== */
 .slide-menu {
   position: fixed;
@@ -95,7 +97,7 @@ body {
 .slide-menu a { color: var(--blog-bg); text-decoration: none; }
 
 /* =============================== */
-/* BANNERS Y ADS                    */
+/* BANNERS Y ADS                   */
 /* =============================== */
 .ad-container, .modal-ad {
   border: 1px dashed var(--border-color);
@@ -104,13 +106,13 @@ body {
 }
 
 /* =============================== */
-/* BLOG SECTIONS                     */
+/* BLOG SECTIONS                   */
 /* =============================== */
 .blog-section { display: grid; gap: 20px; }
 .featured-blogs, .recent-blogs { display: grid; grid-template-columns: 1fr; gap: 15px; }
 
 /* =============================== */
-/* ARTICULO CARD                     */
+/* ARTICULO CARD                   */
 /* =============================== */
 .blog-card {
   background-color: var(--blog-bg);
@@ -125,17 +127,65 @@ body {
 .blog-card:hover { transform: translateY(-2px); }
 .blog-card h3 { font-family: 'Playfair Display', serif; margin-bottom: 10px; color: var(--title-color); }
 .blog-card p { font-size: 14px; color: var(--subtitle-color); }
-.blog-card .read-more { margin-top: auto; color: blue; font-weight: 500; text-decoration: underline; }
+.blog-card .read-more { margin-top: auto; color: var(--link-color); font-weight: 500; text-decoration: underline; }
 
 /* =============================== */
-/* MODAL                             */
+/* MODAL GENERAL                   */
 /* =============================== */
-.modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; background-color: rgba(0,0,0,0.8); }
-.modal-content { background-color: var(--blog-bg); margin: 50px auto; padding: 20px; max-width: 800px; border-radius: 5px; position: relative; }
-.modal-close { position: absolute; top: 10px; right: 10px; font-size: 28px; cursor: pointer; color: var(--subtitle-color); }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 3000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: var(--blog-bg);
+  color: var(--subtitle-color);
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80%;
+  overflow-y: auto;
+  border-radius: 8px;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: var(--title-color);
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-content li {
+  margin: 10px 0;
+}
+
+.modal-content a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+.close, .closeContent, .modal-close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--subtitle-color);
+}
 
 /* =============================== */
-/* RESPONSIVE                        */
+/* RESPONSIVE                      */
 /* =============================== */
 @media screen and (max-width: 1030px) {
   .blog { grid-template-columns: 30% 35% 35%; }

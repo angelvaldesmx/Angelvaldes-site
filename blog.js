@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
   // -----------------------------
   // 1. Sidebar deslizable
   // -----------------------------
@@ -28,12 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------------
-  // 3. Contenedores correctos
+  // 3. Contenedores
   // -----------------------------
   const featuredContainer = document.querySelector('.featured-blogs');
   const recentContainer = document.querySelector('.recent-blogs');
-  const weeklyBlogsList = document.getElementById('weekly-blogs-list');
-  const monthlyBlogsList = document.getElementById('monthly-blogs-list');
   const modal = document.getElementById('article-modal');
   const closeModalBtn = document.querySelector('.modal-close');
   const modalTitle = document.getElementById('modal-article-title');
@@ -41,8 +38,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalText = document.getElementById('modal-article-text');
   const modalAdsContainer = document.getElementById('modal-ads-container');
 
+  // Modales para listas (Semanales/Mensuales)
+  const blogListModal = document.getElementById("blogListModal");
+  const listModalTitle = document.getElementById("listModalTitle");
+  const modalList = document.getElementById("modalList");
+  const closeListBtn = blogListModal.querySelector(".close");
+
+  // Modal de contenido individual (dentro de Semanales/Mensuales)
+  const blogContentModal = document.getElementById("blogContentModal");
+  const contentTitle = document.getElementById("contentTitle");
+  const contentBody = document.getElementById("contentBody");
+  const closeContentBtn = blogContentModal.querySelector(".closeContent");
+
   let allArticles = [];
-  let previousHash = ''; // <-- Para recordar la sección anterior
+  let previousHash = '';
 
   // -----------------------------
   // 4. Renderizar artículos
@@ -66,15 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // -----------------------------
-  // 5. Renderizar blogs semanales y mensuales
-  // -----------------------------
-  const renderLinks = (links, container) => {
-    container.innerHTML = '';
-    links.forEach(link => container.innerHTML += `<li><a href="${link.url}">${link.title}</a></li>`);
-  };
-
-  // -----------------------------
-  // 6. Renderizar anuncios
+  // 5. Renderizar anuncios
   // -----------------------------
   const mainAds = [
     'Curso de Creatividad',
@@ -116,13 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // -----------------------------
-  // 7. Modal de artículo
+  // 6. Modal de artículo
   // -----------------------------
   const openArticleModal = (articleId) => {
     const article = allArticles.find(a => a.id === parseInt(articleId, 10));
     if (!article) return;
 
-    // Guardar hash previo solo si no es un artículo
     if (!window.location.hash.startsWith('#articulo-')) {
       previousHash = window.location.hash || '';
     }
@@ -145,6 +145,35 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // -----------------------------
+  // 7. Abrir listas (Semanales/Mensuales)
+  // -----------------------------
+  function openListModal(title, blogs) {
+    listModalTitle.textContent = title;
+    modalList.innerHTML = "";
+
+    blogs.forEach((blog, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<a data-index="${index}" href="#">${blog.title}</a>`;
+      li.querySelector("a").addEventListener("click", (e) => {
+        e.preventDefault();
+        openContentModal(blog);
+      });
+      modalList.appendChild(li);
+    });
+
+    blogListModal.style.display = "flex";
+  }
+
+  function openContentModal(blog) {
+    contentTitle.textContent = blog.title;
+    // Si el JSON no trae `content`, usamos url como enlace o fallback
+    contentBody.innerHTML = blog.content 
+      ? blog.content 
+      : `<p>Visita: <a href="${blog.url}" target="_blank">${blog.url}</a></p>`;
+    blogContentModal.style.display = "flex";
+  }
+
+  // -----------------------------
   // 8. Cargar JSON
   // -----------------------------
   const loadData = async () => {
@@ -155,11 +184,28 @@ document.addEventListener('DOMContentLoaded', () => {
       allArticles = [...data.articles, ...data.featuredArticles];
 
       renderArticles(allArticles);
-      renderLinks(data.weeklyBlogs, weeklyBlogsList);
-      renderLinks(data.monthlyBlogs, monthlyBlogsList);
       renderMainAds();
 
-      // Delegación de click para enlaces de artículos
+      // Eventos para abrir modales de listas
+      document.getElementById("openWeekly").addEventListener("click", (e) => {
+        e.preventDefault();
+        openListModal("Blogs Semanales", data.weeklyBlogs);
+      });
+      document.getElementById("openMonthly").addEventListener("click", (e) => {
+        e.preventDefault();
+        openListModal("Blogs Mensuales", data.monthlyBlogs);
+      });
+      // También desde el sidebar
+      document.getElementById("openWeeklySidebar").addEventListener("click", (e) => {
+        e.preventDefault();
+        openListModal("Blogs Semanales", data.weeklyBlogs);
+      });
+      document.getElementById("openMonthlySidebar").addEventListener("click", (e) => {
+        e.preventDefault();
+        openListModal("Blogs Mensuales", data.monthlyBlogs);
+      });
+
+      // Delegación de click para artículos
       document.body.addEventListener('click', (e) => {
         const link = e.target.closest('.read-more-link');
         if (link) {
@@ -179,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadData();
 
   // -----------------------------
-  // 9. Cerrar modal y restaurar hash previo
+  // 9. Cerrar modales
   // -----------------------------
   const closeModal = () => {
     if (previousHash) {
@@ -190,12 +236,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', closeModal);
-  }
-
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
   window.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
+    if (e.target === blogListModal) blogListModal.style.display = "none";
+    if (e.target === blogContentModal) blogContentModal.style.display = "none";
   });
 
+  if (closeListBtn) closeListBtn.addEventListener("click", () => (blogListModal.style.display = "none"));
+  if (closeContentBtn) closeContentBtn.addEventListener("click", () => (blogContentModal.style.display = "none"));
 });
