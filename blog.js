@@ -47,28 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ----------------------------------------------------
-  //   3. Ocultar Navbar al Hacer Scroll (Sticky Navbar)
-  // ----------------------------------------------------
-  // Se ha deshabilitado esta función para que el navbar sea siempre visible
-  // de acuerdo a la solicitud del usuario en dispositivos móviles
-  /*
-  const navbar = document.querySelector('.navbar-fixed');
-  let lastScrollY = window.scrollY;
-
-  window.addEventListener('scroll', () => {
-    if (window.innerWidth >= 768) { // Solo aplica en desktop
-      if (window.scrollY > lastScrollY && window.scrollY > 200) {
-        navbar.classList.add('hide');
-      } else {
-        navbar.classList.remove('hide');
-      }
-      lastScrollY = window.scrollY;
-    }
-  });
-  */
-
-  // ----------------------------------------------------
-  //   4. Cargar y Rellenar Contenido Dinámicamente desde JSON
+  //   3. Cargar y Rellenar Contenido Dinámicamente desde JSON
   // ----------------------------------------------------
 
   const articlesContainer = document.querySelector('.blog-header-container');
@@ -77,6 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const monthlyBlogsList = document.getElementById('monthly-blogs-list');
   const modal = document.getElementById('article-modal');
   const closeModalBtn = document.querySelector('.modal-close');
+  const modalTitle = document.getElementById('modal-article-title');
+  const modalImage = document.getElementById('modal-article-image');
+  const modalText = document.getElementById('modal-article-text');
+
+  let allArticles = [];
 
   const renderArticles = (articles) => {
     let articlesHtml = '';
@@ -95,10 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
               <span>${article.readTime}</span>
             </div>
             <p>${article.subtitle}</p>
-            <a href="#" class="read-more-link" data-article-id="${article.id}">
+            <a href="#articulo-${article.id}" class="read-more-link" data-article-id="${article.id}">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-corner-down-right" viewBox="0 0 24 24">
                 <path d="M15 10l5 5-5 5" />
-                <path d="M4 4v7a4 4 0 004 4h12" />
+                <path d="M4 4v7a4 0 004 4h12" />
               </svg>
               Leer más
             </a>
@@ -118,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="blog-right-page">${article.id}</div>
             <div class="date">${article.date}</div>
           </div>
-          <div class="blog-right-page-title">${article.title}</div>
+          <a href="#articulo-${article.id}" class="blog-right-page-title" data-article-id="${article.id}">${article.title}</a>
           <div class="blog-right-page-subtitle">${article.subtitle}</div>
         </div>
       `;
@@ -134,45 +118,49 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = linksHtml;
   };
 
+  const openArticleModal = (articleId) => {
+    const article = allArticles.find(art => art.id === articleId);
+    if (article) {
+      modalTitle.textContent = article.title;
+      modalImage.src = article.image;
+      modalText.textContent = article.fullText;
+      modal.style.display = 'block';
+    }
+  };
+
+  const handleHashChange = () => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#articulo-')) {
+      const articleId = hash.substring(hash.indexOf('-') + 1);
+      openArticleModal(articleId);
+    } else {
+      modal.style.display = 'none';
+    }
+  };
+
   const loadData = async () => {
     try {
       const response = await fetch('data.json');
       const data = await response.json();
+
+      allArticles = [...data.articles, ...data.featuredArticles];
 
       renderArticles(data.articles);
       renderFeatured(data.featuredArticles);
       renderLinks(data.weeklyBlogs, weeklyBlogsList);
       renderLinks(data.monthlyBlogs, monthlyBlogsList);
 
-      const allArticles = [...data.articles, ...data.featuredArticles];
-      const readMoreLinks = document.querySelectorAll('.read-more-link');
-      
-      readMoreLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+      document.body.addEventListener('click', (e) => {
+        if (e.target.closest('.read-more-link') || e.target.closest('.blog-right-page-title')) {
           e.preventDefault();
-          const articleId = e.target.closest('.read-more-link').dataset.articleId;
-          const article = allArticles.find(art => art.id === articleId);
-
-          if (article) {
-            document.getElementById('modal-article-title').textContent = article.title;
-            document.getElementById('modal-article-image').src = article.image;
-            document.getElementById('modal-article-text').textContent = article.fullText;
-            modal.style.display = 'block';
-          }
-        });
-      });
-
-      if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-          modal.style.display = 'none';
-        });
-      }
-
-      window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.style.display = 'none';
+          const link = e.target.closest('.read-more-link') || e.target.closest('.blog-right-page-title');
+          const articleId = link.dataset.articleId;
+          window.location.hash = `#articulo-${articleId}`;
         }
       });
+
+      window.addEventListener('hashchange', handleHashChange);
+      handleHashChange();
 
     } catch (error) {
       console.error('Error al cargar los datos:', error);
@@ -180,5 +168,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   loadData();
+
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+      window.location.hash = '';
+    });
+  }
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      window.location.hash = '';
+    }
+  });
 
 });

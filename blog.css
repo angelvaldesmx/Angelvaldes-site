@@ -14,7 +14,6 @@ img {
   max-width: 100%;
 }
 
-/* 🎨 Valores de las variables convertidos de Sass a CSS */
 :root {
   --blog-bg: #e9e6e4;
   --body-bg: #121418;
@@ -37,15 +36,17 @@ body {
   padding: 0 2em;
   font-weight: 400;
   height: 100vh;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 768px) {
   body {
     padding: 0;
+    overflow-y: auto;
+    height: auto;
   }
 }
 
-/* 🔹 Estilos del Modo Oscuro */
 body.dark-mode {
   background-color: #121418;
   color: #e9e6e4;
@@ -61,7 +62,8 @@ body.dark-mode .blog-part:not(:last-child) {
 
 body.dark-mode .blog-menu,
 body.dark-mode .blog-big__title,
-body.dark-mode .blog-right-title {
+body.dark-mode .blog-right-title,
+body.dark-mode .navbar-links a {
   color: #e9e6e4;
 }
 
@@ -104,7 +106,7 @@ body.dark-mode .circle {
   height: 90vh;
   max-height: 800px;
   overflow: hidden;
-  grid-template-columns: 25% 75%; /* Se ajusta para 2 columnas principales */
+  grid-template-columns: 25% 75%;
   grid-template-rows: 100%;
   width: 100%;
   padding: 40px 4px;
@@ -113,18 +115,19 @@ body.dark-mode .circle {
 
 @media screen and (max-width: 1030px) {
   .blog {
-    grid-template-columns: 20% 80%; /* Ajuste para tablets */
+    grid-template-columns: 20% 80%;
   }
 }
 
 @media screen and (max-width: 768px) {
   .blog {
-    grid-template-columns: 100%;
+    display: block;
     width: 100%;
     max-width: none;
     height: auto;
     min-height: 100vh;
-    padding: 20px 0;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -138,14 +141,11 @@ body.dark-mode .circle {
 
 @media screen and (max-width: 768px) {
   .blog-part.is-menu {
-    display: flex;
-    flex-direction: column;
     border-right: none;
     padding: 0;
   }
 }
 
-/* 🔹 Se define el contenedor de las dos columnas principales */
 .blog-content-wrapper {
   display: grid;
   grid-template-columns: 60% 40%;
@@ -164,10 +164,10 @@ body.dark-mode .circle {
   .blog-content-wrapper {
     grid-template-columns: 100%;
     padding-right: 0;
+    display: block;
   }
 }
 
-/* 🔹 Se modifica la posición del navbar para móvil */
 .navbar-fixed {
   position: sticky;
   top: 0;
@@ -178,7 +178,6 @@ body.dark-mode .circle {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 24px;
-  transition: top 0.3s ease-in-out;
 }
 
 @media screen and (max-width: 768px) {
@@ -192,11 +191,9 @@ body.dark-mode .circle {
     background-color: var(--blog-bg);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-}
-
-/* 🔹 Clase para ocultar el navbar al hacer scroll down */
-.navbar-fixed.hide {
-  top: -100px;
+  .navbar-links {
+    display: none;
+  }
 }
 
 .logo-container {
@@ -400,6 +397,8 @@ body.dark-mode .circle {
 @media screen and (max-width: 768px) {
   .blog-header-container {
     border-right: 0;
+    height: auto;
+    overflow-y: visible;
   }
 }
 
@@ -409,46 +408,27 @@ body.dark-mode .circle {
   scroll-snap-align: start;
 }
 
+@media screen and (max-width: 768px) {
+  .blog-header-container > * {
+    min-height: auto;
+  }
+}
+
 .blog-article:not(.header-article) {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-/* 🔹 Se oculta la columna de la derecha en móvil para un mejor uso del espacio */
 .right-blog {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 @media screen and (max-width: 768px) {
   .right-blog {
     display: none;
-  }
-}
-
-/* 🔹 Se ocultan los elementos del menú de la columna de la izquierda en móvil */
-@media screen and (max-width: 768px) {
-  .blog-part.is-menu > .blog-menu,
-  .blog-part.is-menu > .blog-menu.mention,
-  .blog-part.is-menu > .blog-menu.subscribe {
-    display: none;
-  }
-}
-
-/* 🔹 Oculta el título "Crea" en móvil para liberar espacio */
-@media screen and (max-width: 768px) {
-  .blog-article.header-article .blog-big__title {
-    display: none;
-  }
-}
-
-/* 🔹 Se asegura que la columna de la izquierda solo contenga los elementos fijos y el menú de enlaces se oculte */
-@media screen and (max-width: 768px) {
-  .blog-part.is-menu {
-    padding: 0;
-    border-right: none;
-    flex-grow: 0;
   }
 }
 
