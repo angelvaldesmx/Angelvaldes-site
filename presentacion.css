@@ -289,21 +289,26 @@ button {
     transition: all var(--transition-speed);
 }
 
+/* ===== SOLUCIÓN PARA MAIN - HOME ===== */
+
 .home-social {
+    /* El contenedor principal debe ser un Flexbox de columna */
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    flex-direction: column; 
+    align-items: center; /* Esto centrará "Follow Me" y los iconos horizontalmente dentro de su contenedor */
+    gap: 1.5rem; /* Ajusta el espacio entre los elementos */
 }
 
 .home-social-follow {
     font-weight: var(--font-medium);
-    transform: rotate(90deg);
+    /* Mantén la rotación para que el texto sea vertical */
+    transform: rotate(90deg); 
     position: relative;
     font-size: var(--smaller-font-size);
 }
 
 .home-social-follow::after {
+    /* Mantenemos esta línea para el efecto visual debajo del texto rotado */
     content: '';
     position: absolute;
     width: 1rem;
@@ -315,6 +320,7 @@ button {
 }
 
 .home-social-links {
+    /* Los enlaces individuales también deben estar en una columna si quieres que se apilen */
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -326,19 +332,29 @@ button {
 }
 
 .my-info {
-    /* Los íconos de contacto que deben ir debajo de todo. */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
+  /* Los íconos de contacto que deben ir debajo de todo. */
+  display: flex;
+  flex-direction: row; /* Mantiene los elementos en una fila. */
+  flex-wrap: nowrap; /* Evita que los elementos salten de línea. */
+  justify-content: center; /* Centra los íconos horizontalmente. */
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .info-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  /* Añade `min-width` para evitar que los elementos se achiquen demasiado. */
+  min-width: fit-content; /* O `min-content` en algunos casos. */
 }
 
+/* --- Responsive Design --- */
+@media screen and (max-width: 767px) {
+  .my-info {
+      /* Reduce el espacio entre los íconos en dispositivos móviles */
+      gap: 1rem;
+  }
+}
 .info-title,
 .info-subtitle {
     font-size: var(--small-font-size);
