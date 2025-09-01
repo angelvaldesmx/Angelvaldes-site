@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------------
-  // 3. Contenedores
+  // 3. Contenedores correctos
   // -----------------------------
-  const featuredContainer = document.querySelector('.featured-column');
-  const recentContainer = document.querySelector('.recent-column');
+  const featuredContainer = document.querySelector('.featured-blogs');
+  const recentContainer = document.querySelector('.recent-blogs');
   const weeklyBlogsList = document.getElementById('weekly-blogs-list');
   const monthlyBlogsList = document.getElementById('monthly-blogs-list');
   const modal = document.getElementById('article-modal');
@@ -39,9 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalTitle = document.getElementById('modal-article-title');
   const modalImage = document.getElementById('modal-article-image');
   const modalText = document.getElementById('modal-article-text');
-  const modalAdsContainer = document.querySelector('.modal-ads-container');
+  const modalAdsContainer = document.getElementById('modal-ads-container');
 
   let allArticles = [];
+  let previousHash = ''; // <-- Para recordar la sección anterior
 
   // -----------------------------
   // 4. Renderizar artículos
@@ -52,15 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     articles.forEach((article, index) => {
       const articleHTML = `
-        <div class="article-card">
+        <div class="blog-card">
           <img src="${article.image}" alt="${article.title}" loading="lazy">
           <h3>${article.title}</h3>
           <p>${article.subtitle}</p>
           <a href="#articulo-${article.id}" class="read-more-link" data-article-id="${article.id}">Leer más</a>
         </div>
       `;
-      if (index % 2 === 0) featuredContainer.innerHTML += articleHTML;
-      else recentContainer.innerHTML += articleHTML;
+      if (index % 2 === 0) featuredContainer.insertAdjacentHTML('beforeend', articleHTML);
+      else recentContainer.insertAdjacentHTML('beforeend', articleHTML);
     });
   };
 
@@ -121,9 +122,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const article = allArticles.find(a => a.id === parseInt(articleId, 10));
     if (!article) return;
 
+    // Guardar hash previo solo si no es un artículo
+    if (!window.location.hash.startsWith('#articulo-')) {
+      previousHash = window.location.hash || '';
+    }
+
     modalTitle.textContent = article.title;
-    modalImage.src = article.image;
-    modalText.textContent = article.fullText;
+    modalImage.src = article.image || '';
+    modalText.textContent = article.fullText || article.subtitle || '';
     renderModalAds();
     modal.style.display = 'block';
   };
@@ -153,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderLinks(data.monthlyBlogs, monthlyBlogsList);
       renderMainAds();
 
+      // Delegación de click para enlaces de artículos
       document.body.addEventListener('click', (e) => {
         const link = e.target.closest('.read-more-link');
         if (link) {
@@ -172,14 +179,23 @@ document.addEventListener('DOMContentLoaded', () => {
   loadData();
 
   // -----------------------------
-  // 9. Cerrar modal
+  // 9. Cerrar modal y restaurar hash previo
   // -----------------------------
+  const closeModal = () => {
+    if (previousHash) {
+      window.location.hash = previousHash;
+      previousHash = '';
+    } else {
+      window.location.hash = '';
+    }
+  };
+
   if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', () => window.location.hash = '');
+    closeModalBtn.addEventListener('click', closeModal);
   }
 
   window.addEventListener('click', (e) => {
-    if (e.target === modal) window.location.hash = '';
+    if (e.target === modal) closeModal();
   });
 
 });

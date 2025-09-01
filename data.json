@@ -1,7 +1,7 @@
 {
   "articles": [
     {
-      "id": "1",
+      "id": 1,
       "title": "Inspira",
       "subtitle": "Aquí verás el resumen del artículo más reciente cargado dinámicamente...",
       "category": "Reciente",
@@ -12,7 +12,7 @@
       "fullText": "Este es el contenido completo del artículo más reciente..."
     },
     {
-      "id": "2",
+      "id": 2,
       "title": "Evoluciona",
       "subtitle": "Resumen del segundo artículo.",
       "category": "Reciente",
@@ -23,7 +23,7 @@
       "fullText": "Contenido completo del segundo artículo. El modal es una forma excelente de mantener a los usuarios en la misma página mientras consumen el contenido, lo que puede mejorar la retención y la navegación en tu sitio."
     },
     {
-      "id": "3",
+      "id": 3,
       "title": "Tecno",
       "subtitle": "Resumen del tercer artículo.",
       "category": "Reciente",
@@ -36,44 +36,53 @@
   ],
   "featuredArticles": [
     {
-      "id": "4",
+      "id": 4,
       "title": "Artículo Destacado 1",
       "subtitle": "Resumen del primer artículo destacado.",
-      "date": "2025"
+      "image": "https://www.tublog.com/img/destacado1.jpg",
+      "fullText": "Texto completo del primer artículo destacado.",
+      "date": "2025",
+      "author": "Angel Valdes"
     },
     {
-      "id": "5",
+      "id": 5,
       "title": "Artículo Destacado 2",
       "subtitle": "Resumen del segundo artículo destacado.",
-      "date": "2025"
+      "image": "https://www.tublog.com/img/destacado2.jpg",
+      "fullText": "Texto completo del segundo artículo destacado.",
+      "date": "2025",
+      "author": "Angel Valdes"
     },
     {
-      "id": "6",
+      "id": 6,
       "title": "Artículo Destacado 3",
       "subtitle": "Resumen del tercer artículo destacado.",
-      "date": "2025"
+      "image": "https://www.tublog.com/img/destacado3.jpg",
+      "fullText": "Texto completo del tercer artículo destacado.",
+      "date": "2025",
+      "author": "Angel Valdes"
     }
   ],
   "weeklyBlogs": [
     {
-      "id": "7",
+      "id": 7,
       "title": "Blog Semanal: Tips de Productividad",
       "url": "https://www.tublog.com/semanal-productividad"
     },
     {
-      "id": "8",
+      "id": 8,
       "title": "Blog Semanal: Marketing Digital",
       "url": "https://www.tublog.com/semanal-marketing"
     }
   ],
   "monthlyBlogs": [
     {
-      "id": "9",
+      "id": 9,
       "title": "Blog Mensual: Innovación Tech",
       "url": "https://www.tublog.com/mensual-innovacion"
     },
     {
-      "id": "10",
+      "id": 10,
       "title": "Blog Mensual: Emprendimiento",
       "url": "https://www.tublog.com/mensual-emprendimiento"
     }
