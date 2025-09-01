@@ -1,0 +1,214 @@
+{
+  "destacados": [
+    {
+      "id": "art1",
+      "title": "Inspira",
+      "slug": "inspira",
+      "subtitle": "Resumen del artículo sobre motivación y creatividad.",
+      "image": "https://www.tublog.com/img/articulo1.jpg",
+      "date": "2025-09-01",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Encuentra tu motivación interna y mantén la creatividad.",
+      "content": "Este artículo inspira a encontrar tu motivación interna y mantener la creatividad."
+    },
+    {
+      "id": "art4",
+      "title": "Artículo Destacado 1",
+      "slug": "articulo-destacado-1",
+      "subtitle": "Creatividad que impulsa el éxito personal y profesional.",
+      "image": "https://www.tublog.com/img/destacado1.jpg",
+      "date": "2025-08-20",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Estrategias de creatividad aplicadas a la vida y negocios.",
+      "content": "Profundizamos en estrategias de creatividad aplicadas a la vida y negocios."
+    },
+    {
+      "id": "art5",
+      "title": "Artículo Destacado 2",
+      "slug": "articulo-destacado-2",
+      "subtitle": "Marketing y branding para creadores.",
+      "image": "https://www.tublog.com/img/destacado2.jpg",
+      "date": "2025-08-18",
+      "readTime": "6 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Cómo posicionar tu marca y conectar con tu audiencia de forma efectiva.",
+      "content": "Conoce cómo posicionar tu marca y conectar con tu audiencia de forma efectiva."
+    },
+    {
+      "id": "art6",
+      "title": "Artículo Destacado 3",
+      "slug": "articulo-destacado-3",
+      "subtitle": "Gestión del tiempo y productividad.",
+      "image": "https://www.tublog.com/img/destacado3.jpg",
+      "date": "2025-08-15",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Estrategias para administrar mejor tu tiempo y optimizar tu rutina diaria.",
+      "content": "Estrategias para administrar mejor tu tiempo y optimizar tu rutina diaria."
+    }
+  ],
+  "recientes": [
+    {
+      "id": "art2",
+      "title": "Evoluciona",
+      "slug": "evoluciona",
+      "subtitle": "Cómo mejorar tus hábitos y productividad.",
+      "image": "https://www.tublog.com/img/articulo2.jpg",
+      "date": "2025-08-28",
+      "readTime": "6 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Técnicas para evolucionar profesionalmente y construir hábitos sostenibles.",
+      "content": "Aprende técnicas para evolucionar profesionalmente y construir hábitos sostenibles."
+    },
+    {
+      "id": "art3",
+      "title": "Tecno",
+      "slug": "tecno",
+      "subtitle": "Últimas tendencias en tecnología.",
+      "image": "https://www.tublog.com/img/articulo3.jpg",
+      "date": "2025-08-25",
+      "readTime": "4 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Exploramos los avances tecnológicos recientes, desde IA hasta gadgets inteligentes.",
+      "content": "Exploramos los avances tecnológicos recientes, desde IA hasta gadgets inteligentes."
+    }
+  ],
+  "semanales": [
+    {
+      "id": "art1",
+      "title": "Inspira",
+      "slug": "inspira",
+      "subtitle": "Resumen del artículo sobre motivación y creatividad.",
+      "image": "https://www.tublog.com/img/articulo1.jpg",
+      "date": "2025-09-01",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Encuentra tu motivación interna y mantén la creatividad.",
+      "content": "Este artículo inspira a encontrar tu motivación interna y mantener la creatividad."
+    },
+    {
+      "id": "art2",
+      "title": "Evoluciona",
+      "slug": "evoluciona",
+      "subtitle": "Cómo mejorar tus hábitos y productividad.",
+      "image": "https://www.tublog.com/img/articulo2.jpg",
+      "date": "2025-08-28",
+      "readTime": "6 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Técnicas para evolucionar profesionalmente y construir hábitos sostenibles.",
+      "content": "Aprende técnicas para evolucionar profesionalmente y construir hábitos sostenibles."
+    },
+    {
+      "id": "art7",
+      "title": "Blog Semanal: Tips de Productividad",
+      "slug": "blog-semanal-tips-productividad",
+      "subtitle": "Consejos prácticos para mejorar tu productividad semana a semana.",
+      "image": "https://www.tublog.com/img/semanal1.jpg",
+      "date": "2025-08-25",
+      "readTime": "4 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Estrategias semanales de productividad: gestión de tiempo y hábitos diarios.",
+      "content": "Aquí encontrarás estrategias semanales de productividad: gestión de tiempo y hábitos diarios."
+    },
+    {
+      "id": "art8",
+      "title": "Blog Semanal: Marketing Digital",
+      "slug": "blog-semanal-marketing-digital",
+      "subtitle": "Estrategias de marketing online para negocios pequeños.",
+      "image": "https://www.tublog.com/img/semanal2.jpg",
+      "date": "2025-08-18",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Recorrido por tendencias en marketing digital y branding semanal.",
+      "content": "Un recorrido por tendencias en marketing digital, redes sociales y branding semanal."
+    },
+    {
+      "id": "art12",
+      "title": "Blog Semanal: Mindset y Bienestar",
+      "slug": "blog-semanal-mindset-bienestar",
+      "subtitle": "Cómo mantener un equilibrio mental y emocional semana a semana.",
+      "image": "https://www.tublog.com/img/semanal3.jpg",
+      "date": "2025-08-22",
+      "readTime": "4 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Consejos prácticos sobre mindset, hábitos saludables y bienestar personal.",
+      "content": "Consejos prácticos sobre mindset, hábitos saludables y bienestar personal."
+    }
+  ],
+  "mensuales": [
+    {
+      "id": "art3",
+      "title": "Tecno",
+      "slug": "tecno",
+      "subtitle": "Últimas tendencias en tecnología.",
+      "image": "https://www.tublog.com/img/articulo3.jpg",
+      "date": "2025-08-25",
+      "readTime": "4 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Exploramos los avances tecnológicos recientes, desde IA hasta gadgets inteligentes.",
+      "content": "Exploramos los avances tecnológicos recientes, desde IA hasta gadgets inteligentes."
+    },
+    {
+      "id": "art4",
+      "title": "Artículo Destacado 1",
+      "slug": "articulo-destacado-1",
+      "subtitle": "Creatividad que impulsa el éxito personal y profesional.",
+      "image": "https://www.tublog.com/img/destacado1.jpg",
+      "date": "2025-08-20",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Estrategias de creatividad aplicadas a la vida y negocios.",
+      "content": "Profundizamos en estrategias de creatividad aplicadas a la vida y negocios."
+    },
+    {
+      "id": "art6",
+      "title": "Artículo Destacado 3",
+      "slug": "articulo-destacado-3",
+      "subtitle": "Gestión del tiempo y productividad.",
+      "image": "https://www.tublog.com/img/destacado3.jpg",
+      "date": "2025-08-15",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Estrategias para administrar mejor tu tiempo y optimizar tu rutina diaria.",
+      "content": "Estrategias para administrar mejor tu tiempo y optimizar tu rutina diaria."
+    },
+    {
+      "id": "art9",
+      "title": "Blog Mensual: Innovación Tech",
+      "slug": "blog-mensual-innovacion-tech",
+      "subtitle": "Un vistazo a los avances tecnológicos del mes.",
+      "image": "https://www.tublog.com/img/mensual1.jpg",
+      "date": "2025-08",
+      "readTime": "6 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Análisis mensual de innovaciones en tecnología, IA y gadgets que marcan tendencia.",
+      "content": "Análisis mensual de innovaciones en tecnología, IA y gadgets que marcan tendencia."
+    },
+    {
+      "id": "art10",
+      "title": "Blog Mensual: Emprendimiento",
+      "slug": "blog-mensual-emprendimiento",
+      "subtitle": "Historias de éxito y fracasos para aprender cada mes.",
+      "image": "https://www.tublog.com/img/mensual2.jpg",
+      "date": "2025-08",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Experiencias reales de emprendedores: lecciones y consejos prácticos.",
+      "content": "Compartimos experiencias reales de emprendedores: lecciones y consejos prácticos."
+    },
+    {
+      "id": "art11",
+      "title": "Blog Mensual: Creatividad",
+      "slug": "blog-mensual-creatividad",
+      "subtitle": "Explorando nuevas técnicas artísticas y proyectos creativos.",
+      "image": "https://www.tublog.com/img/mensual3.jpg",
+      "date": "2025-08",
+      "readTime": "5 Min de Lectura",
+      "author": "Angel Valdes",
+      "summary": "Tendencias creativas, tutoriales y proyectos innovadores cada mes.",
+      "content": "Tendencias creativas, tutoriales y proyectos innovadores cada mes para inspirarte."
+    }
+  ]
+}
