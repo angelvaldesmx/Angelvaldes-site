@@ -1,18 +1,19 @@
 import fs from "fs";
 import path from "path";
 
-export async function handler(event, context) {
-  // 🔍 Debug para ver slug
-  console.log("EVENT:", JSON.stringify(event, null, 2));
+export async function handler(event) {
+  // 🔍 Debug para ver la ruta completa
+  console.log("EVENT PATH:", event.path);
 
-  // Captura el slug de pathParameters
-  const slug = event.pathParameters?.slug;
+  // Extrae el slug del final de la URL
+  const parts = event.path.split("/");
+  const slug = parts[parts.length - 1]; // último segmento
 
   if (!slug) {
     return { statusCode: 400, body: "❌ Slug no proporcionado" };
   }
 
-  // 📂 Ruta al JSON en la raíz del proyecto
+  // Ruta al JSON en la raíz del proyecto
   const filePath = path.resolve("articulos.json");
 
   let data;
@@ -36,17 +37,18 @@ export async function handler(event, context) {
     return { statusCode: 404, body: "❌ Artículo no encontrado" };
   }
 
+  // Retorna HTML del artículo
   return {
     statusCode: 200,
     headers: { "Content-Type": "text/html; charset=utf-8" },
     body: `
       <html>
         <head>
-          <title>${article.title}</title>
+          <title>${article.titulo}</title>
         </head>
         <body>
-          <h1>${article.title}</h1>
-          <p>${article.content}</p>
+          <h1>${article.titulo}</h1>
+          <p>${article.contenido}</p>
         </body>
       </html>
     `,

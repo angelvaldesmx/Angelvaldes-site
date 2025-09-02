@@ -1,21 +1,29 @@
 [build]
   functions = "netlify/functions"
-  publish = "."
+  publish = "."  # o la carpeta de salida de tu sitio
 
+# ----------------------------
 # API genérica
+# ----------------------------
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
-# Artículos dinámicos (URL limpia)
+# ----------------------------
+# Artículos dinámicos
+# Captura cualquier /blog/* y lo manda a la función article
+# ----------------------------
 [[redirects]]
-  from = "/blog/:slug"
-  to = "/.netlify/functions/article/:slug"
+  from = "/blog/*"
+  to = "/.netlify/functions/article/:splat"
   status = 200
   force = true
 
+# ----------------------------
 # SPA del blog
+# Captura /blog o cualquier hash o query dentro de /blog/
+# ----------------------------
 [[redirects]]
   from = "/blog"
   to = "/blog/index.html"
@@ -28,9 +36,11 @@
   status = 200
   force = true
 
+# ----------------------------
 # Configuración específica de funciones
+# ----------------------------
 [functions."article"]
-  included_files = ["articulos.json"]
+included_files = ["articulos.json"]
 
 [functions."addContactToMailchimp"]
-  included_files = ["netlify/functions/angelvaldessitio-nueva.json"]
+included_files = ["netlify/functions/angelvaldessitio-nueva.json"]
