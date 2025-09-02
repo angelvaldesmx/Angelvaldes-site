@@ -8,17 +8,16 @@
   <!-- Normalize CSS -->
   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
 
-  <!-- Estilos principales -->
-  <link rel="stylesheet" href="blog.css">
+  <!-- Estilos principales optimizados -->
+  <link rel="stylesheet" href="blog.min.css">
 
   <!-- Meta tags -->
   <meta name="description" content="Artista multifacético comparte motivación, creatividad, emprendimiento y tecnología.">
   <meta name="keywords" content="motivación, creatividad, emprendimiento, tecnología, arte, superación, TDAH, ansiedad, música, diseño, blog">
   <meta name="author" content="Angel Valdes">
 
-  <!-- Scripts -->
-  <script defer src="blog.js"></script>
-  <script defer src="articles.js"></script>
+  <!-- Scripts optimizados -->
+  <script defer src="blog.min.js"></script>
 
   <!-- JSON-LD SEO -->
   <script type="application/ld+json">
@@ -49,104 +48,6 @@
     ]
   }
   </script>
-
-  <style>
-    /* ====== Anuncios ====== */
-    .ad-container {
-      border:1px dashed #94918f;
-      background:rgba(255,255,255,0.2);
-      padding:10px;
-      margin:10px 0;
-      text-align:center;
-      width:100%;
-    }
-    .ad-container iframe { width:100%; height:90px; border:none; }
-
-    @media screen and (max-width:1030px){
-      .ad-container { padding:8px; font-size:14px; }
-      .ad-container iframe { height:80px; }
-    }
-    @media screen and (max-width:768px){
-      .ad-container { padding:6px; font-size:12px; }
-      .ad-container iframe { height:70px; }
-    }
-
-    /* ====== Layout tipo Grid ====== */
-    .blog {
-      display: grid;
-      grid-template-columns: 250px 1fr 300px;
-      gap: 20px;
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    @media screen and (max-width: 1200px) {
-      .blog { grid-template-columns: 200px 1fr; }
-      .recent-column { display:none; }
-    }
-    @media screen and (max-width: 768px) {
-      .blog { grid-template-columns: 1fr; }
-      .sidebar-column { order: -1; }
-    }
-
-    /* ====== Modals ====== */
-    .modal {
-      display:none;
-      position:fixed;
-      z-index:1000;
-      left:0;
-      top:0;
-      width:100%;
-      height:100%;
-      overflow:auto;
-      background:rgba(0,0,0,0.6);
-      opacity:0;
-      transition: opacity 0.3s ease;
-    }
-    .modal.show {
-      display:block;
-      opacity:1;
-    }
-    .modal-content {
-      background:#fff;
-      margin:50px auto;
-      padding:20px;
-      border-radius:6px;
-      max-width:800px;
-      position:relative;
-      transform: translateY(-20px);
-      transition: transform 0.3s ease;
-    }
-    .modal.show .modal-content {
-      transform: translateY(0);
-    }
-    .modal-content img { max-width:100%; height:auto; display:block; margin:15px 0; }
-    .modal .close, .modal .modal-close, .modal .closeContent {
-      position:absolute;
-      top:10px;
-      right:15px;
-      font-size:24px;
-      cursor:pointer;
-    }
-
-    /* ====== Sidebar ====== */
-    .slide-menu {
-      position:fixed;
-      left:-300px;
-      top:0;
-      width:250px;
-      height:100%;
-      background:#fff;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-      transition:left 0.3s ease;
-      z-index:999;
-      overflow-y:auto;
-      padding:20px;
-    }
-    .slide-menu.is-active {
-      left:0;
-    }
-  </style>
 </head>
 <body>
 
@@ -170,7 +71,8 @@
       </div>
     </nav>
 
-    <aside id="slide-menu" class="slide-menu">
+    <!-- Sidebar toggle -->
+    <div class="slide-menu" id="slide-menu">
       <button class="slide-menu-close">&times;</button>
       <ul>
         <li><a href="#" id="openWeeklySidebar">🔥 Blogs Semanales</a></li>
@@ -184,7 +86,7 @@
       <div class="ad-container ad-menu-sidebar">
         <iframe src="about:blank" loading="lazy"></iframe>
       </div>
-    </aside>
+    </div>
 
     <div class="ad-container top-banner">
       <iframe src="about:blank" loading="lazy"></iframe>
@@ -211,7 +113,7 @@
 <!-- Modals -->
 <div id="blogListModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="document.getElementById('blogListModal').style.display='none'">&times;</span>
+    <span class="close">&times;</span>
     <h2 id="listModalTitle"></h2>
     <ul id="modalList"></ul>
   </div>
@@ -219,7 +121,7 @@
 
 <div id="blogContentModal" class="modal">
   <div class="modal-content">
-    <span class="closeContent" onclick="document.getElementById('blogContentModal').style.display='none'">&times;</span>
+    <span class="closeContent">&times;</span>
     <h2 id="contentTitle"></h2>
     <div id="contentBody"></div>
   </div>
@@ -227,7 +129,7 @@
 
 <div id="article-modal" class="modal">
   <div class="modal-content">
-    <span class="modal-close" onclick="document.getElementById('article-modal').style.display='none'">&times;</span>
+    <span class="modal-close">&times;</span>
     <h2 id="modal-article-title"></h2>
     <div id="article-ads-container-top" class="ad-container"><iframe src="about:blank" loading="lazy"></iframe></div>
     <img id="modal-article-image" src="" alt="" loading="lazy" />
@@ -237,33 +139,6 @@
     <div id="article-ads-container-bottom" class="ad-container"><iframe src="about:blank" loading="lazy"></iframe></div>
   </div>
 </div> 
-
-<script>
-  // Ajuste dinámico anuncios
-  function ajustarAds(){
-    document.querySelectorAll('.ad-container').forEach(ad=>{
-      ad.style.fontSize = window.innerWidth < 768 ? '12px' : window.innerWidth < 1030 ? '14px' : '16px';
-    });
-  }
-  window.addEventListener('resize', ajustarAds);
-  window.addEventListener('load', ajustarAds);
-
-  // Sidebar toggle animado
-  const slideMenu = document.getElementById('slide-menu');
-  document.querySelectorAll('.slide-menu-button').forEach(btn => {
-    btn.addEventListener('click', () => slideMenu.classList.toggle('is-active'));
-  });
-  document.querySelectorAll('.slide-menu-close').forEach(btn => {
-    btn.addEventListener('click', () => slideMenu.classList.remove('is-active'));
-  });
-
-  // Modals toggle al hacer click fuera
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', e => {
-      if(e.target === modal) modal.style.display = 'none';
-    });
-  });
-</script>
 
 </body>
 </html>
