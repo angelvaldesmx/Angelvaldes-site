@@ -1,1 +1,1 @@
-/blog/*    /index.html    200
+/blog/:slug  /.netlify/functions/article?slug=:slug  200
