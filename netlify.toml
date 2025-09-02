@@ -16,7 +16,7 @@
 # ----------------------------
 [[redirects]]
   from = "/blog/:slug"
-  to = "/.netlify/functions/article/:slug"
+  to = "/.netlify/functions/article?slug=:slug"
   status = 200
   force = true
 
@@ -39,5 +39,8 @@
 # ----------------------------
 # Configuración específica de funciones
 # ----------------------------
+[functions."article"]
+included_files = ["articulos.json"]
+
 [functions."addContactToMailchimp"]
   included_files = ["netlify/functions/angelvaldessitio-nueva.json"]
