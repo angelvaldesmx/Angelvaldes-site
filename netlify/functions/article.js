@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 export async function handler(event, context) {
-  const slug = event.queryStringParameters?.slug;
+  const slug = context.pathParams?.slug;
   if (!slug) return { statusCode: 400, body: "Slug no proporcionado" };
 
   const filePath = path.join(process.cwd(), "articulos.json");

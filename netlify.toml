@@ -15,10 +15,10 @@
 # Captura cualquier /blog/:slug y lo manda a la función article
 # ----------------------------
 [[redirects]]
-  from = "/blog/:slug"
-  to = "/.netlify/functions/article?slug=:slug"
-  status = 200
-  force = true
+from = "/blog/:slug"
+to = "/.netlify/functions/article/:slug"
+status = 200
+force = true
 
 # ----------------------------
 # SPA del blog
