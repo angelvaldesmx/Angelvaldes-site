@@ -1,4 +1,1 @@
-# Redirige todas las rutas de artículos a la página principal del blog
-/articulos/*  /blog  200
-/blog/*       /blog  200
-/*            /index.html  200
+/blog/*    /index.html    200
