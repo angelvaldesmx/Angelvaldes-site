@@ -6,7 +6,7 @@ export async function handler(event, context) {
   const slug = context.pathParams?.slug;
   if (!slug) return { statusCode: 400, body: "Slug no proporcionado" };
 
-  const filePath = path.join(process.cwd(), "articulos.json");
+  const filePath = path.join(__dirname, "../../articulos.json");
 
   let data;
   try {
