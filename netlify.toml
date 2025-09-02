@@ -1,21 +1,29 @@
 [build]
   functions = "netlify/functions"
-  publish = "."  # o la carpeta donde está tu sitio
+  publish = "."  # o la carpeta de salida de tu sitio
 
-# Redirections para la API genérica que ya tenías
+# ----------------------------
+# API genérica
+# ----------------------------
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
-# Todas las URLs de artículos dinámicos van a la función serverless
+# ----------------------------
+# Artículos dinámicos
+# Captura cualquier /blog/:slug y lo manda a la función article
+# ----------------------------
 [[redirects]]
   from = "/blog/:slug"
-  to = "/.netlify/functions/article?slug=:slug"
+  to = "/.netlify/functions/article/:slug"
   status = 200
   force = true
 
-# SPA del blog para /blog/ y cualquier hash o query interna
+# ----------------------------
+# SPA del blog
+# Captura /blog o cualquier hash o query dentro de /blog/
+# ----------------------------
 [[redirects]]
   from = "/blog"
   to = "/blog/index.html"
@@ -28,6 +36,8 @@
   status = 200
   force = true
 
+# ----------------------------
 # Configuración específica de funciones
+# ----------------------------
 [functions."addContactToMailchimp"]
   included_files = ["netlify/functions/angelvaldessitio-nueva.json"]
