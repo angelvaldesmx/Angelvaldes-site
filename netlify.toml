@@ -1,6 +1,6 @@
 [build]
   functions = "netlify/functions"
-  publish = "."  # o la carpeta de salida de tu sitio
+  publish = "."
 
 # ----------------------------
 # API genérica
@@ -12,11 +12,11 @@
 
 # ----------------------------
 # Artículos dinámicos
-# Captura cualquier /blog/* y lo manda a la función article
+# Captura cualquier /blog/:slug y lo manda a la función article
 # ----------------------------
 [[redirects]]
-  from = "/blog/*"
-  to = "/.netlify/functions/article/:splat"
+  from = "/blog/:slug"
+  to = "/.netlify/functions/article"
   status = 200
   force = true
 
@@ -40,7 +40,7 @@
 # Configuración específica de funciones
 # ----------------------------
 [functions."article"]
-included_files = ["articulos.json"]
+  included_files = ["articulos.json"]
 
 [functions."addContactToMailchimp"]
-included_files = ["netlify/functions/angelvaldessitio-nueva.json"]
+  included_files = ["netlify/functions/angelvaldessitio-nueva.json"]

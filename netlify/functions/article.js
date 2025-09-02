@@ -4,13 +4,14 @@ import path from "path";
 export async function handler(event) {
   console.log("EVENT PATH:", event.path);
 
-  // Quita "/blog/" del path y toma lo que queda como slug
+  // 🔹 Extrae el slug desde el path
   const slug = event.path.replace(/^\/blog\//, "");
 
   if (!slug) {
     return { statusCode: 400, body: "❌ Slug no proporcionado" };
   }
 
+  // 🔹 JSON de artículos en la raíz del proyecto
   const filePath = path.resolve("articulos.json");
 
   let data;
@@ -34,15 +35,24 @@ export async function handler(event) {
     return { statusCode: 404, body: "❌ Artículo no encontrado" };
   }
 
+  // 🔹 HTML final con meta tags
   return {
     statusCode: 200,
     headers: { "Content-Type": "text/html; charset=utf-8" },
     body: `
-      <html>
-        <head><title>${article.titulo}</title></head>
+      <!DOCTYPE html>
+      <html lang="es">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta name="description" content="${article.descripcion || ""}">
+          <title>${article.titulo}</title>
+        </head>
         <body>
-          <h1>${article.titulo}</h1>
-          <p>${article.contenido}</p>
+          <article>
+            <h1>${article.titulo}</h1>
+            <p>${article.contenido}</p>
+          </article>
         </body>
       </html>
     `,

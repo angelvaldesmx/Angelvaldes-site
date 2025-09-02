@@ -1,5 +1,0 @@
-# Todas las URLs de artículos dinámicos van a la función serverless
-/blog/:slug  /.netlify/functions/article?slug=:slug  200
-
-# SPA del blog para /blog/ y cualquier hash o query interna
-/blog/*      /blog/index.html  200
