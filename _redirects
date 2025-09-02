@@ -1,5 +1,4 @@
-# Todas las rutas de artículos apuntan a /blog para que el JS abra el modal correspondiente
-/articulos/*    /blog    200
-
-# Redirige /blog a sí mismo (opcional, pero útil si quieres forzar SPA)
-/blog           /blog    200
+# Redirige todas las rutas de artículos a la página principal del blog
+/articulos/*  /blog  200
+/blog/*       /blog  200
+/*            /index.html  200
