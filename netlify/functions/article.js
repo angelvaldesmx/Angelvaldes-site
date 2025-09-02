@@ -1,14 +1,25 @@
 import fs from "fs";
 import path from "path";
 
+// 🔹 Normaliza slugs para comparaciones y enlaces
+const normalizeSlug = (str) =>
+  str
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")      // espacios → guiones
+    .replace(/[^\w-]/g, "");   // elimina caracteres especiales
+
 export async function handler(event) {
   console.log("EVENT PATH:", event.path);
 
   // 🔹 Extrae el slug desde la ruta: /blog/<slug>
-  const slug = event.path.replace(/^\/blog\//, "");
-  if (!slug) return { statusCode: 400, body: "❌ Slug no proporcionado" };
+  const slugRaw = event.path.replace(/^\/blog\//, "");
+  if (!slugRaw) return { statusCode: 400, body: "❌ Slug no proporcionado" };
 
-  // 🔹 Ruta al JSON de artículos
+  const slug = normalizeSlug(slugRaw);
+
+  // 🔹 Ruta correcta al JSON de artículos
   const filePath = path.resolve("./articulos.json");
 
   let data;
@@ -19,42 +30,36 @@ export async function handler(event) {
     return { statusCode: 500, body: "❌ Error leyendo los artículos" };
   }
 
-  // 🔹 Combina todas las categorías
+  // 🔹 Combina todas las categorías y añade artículos sin categoría
   const allArticles = [
     ...(data.destacados || []),
     ...(data.recientes || []),
     ...(data.semanales || []),
     ...(data.mensuales || []),
+    ...(data.otros || []), // opcional: artículos sin categoría definida
   ];
 
-  // 🔹 Busca el artículo por slug
-  const article = allArticles.find(a => a.slug === slug);
+  // 🔹 Buscar artículo por slug normalizado
+  const article = allArticles.find(a => normalizeSlug(a.slug || "") === slug);
   if (!article) return { statusCode: 404, body: "❌ Artículo no encontrado" };
 
-  // 🔹 Datos seguros
-  const title = article.title || "Sin título";
-  const description = article.subtitle || "";
-  const content = article.content || "";
-  const author = article.author || "Desconocido";
-  const date = article.date || new Date().toISOString();
-
   const siteUrl = "https://www.tublog.com";
-  const articleUrl = `${siteUrl}/blog/${article.slug}`;
+  const articleUrl = `${siteUrl}/blog/${normalizeSlug(article.slug)}`;
   const imageUrl = article.image || `${siteUrl}/img/default.jpg`;
 
-  // 🔹 Función para renderizar tarjetas de artículo
+  // 🔹 Función para renderizar tarjetas de artículos
   const renderCards = (articlesArray) =>
     (articlesArray || []).map(a => `
       <div class="blog-card">
         ${a.image ? `<img src="${a.image}" alt="${a.title}" loading="lazy">` : ''}
         <h3>${a.title}</h3>
         <p>${a.subtitle || ''}</p>
-        <a href="/blog/${a.slug}" class="read-more-link">Leer más</a>
+        <a href="/blog/${normalizeSlug(a.slug)}" class="read-more-link">Leer más</a>
       </div>
     `).join('');
 
-  const destacadosHTML = renderCards(data.destacados);
-  const recientesHTML = renderCards(data.recientes);
+  const destacadosHTML = renderCards(data.destacados || []);
+  const recientesHTML = renderCards(data.recientes || []);
 
   return {
     statusCode: 200,
@@ -65,14 +70,14 @@ export async function handler(event) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${title} | Mi Blog Creativo</title>
-<meta name="description" content="${description}">
+<title>${article.title} | Mi Blog Creativo</title>
+<meta name="description" content="${article.subtitle || ''}">
 <meta name="keywords" content="motivación, creatividad, emprendimiento, tecnología, arte, superación, blog">
-<meta name="author" content="${author}">
+<meta name="author" content="${article.author || 'Desconocido'}">
 
 <!-- Open Graph -->
-<meta property="og:title" content="${title}">
-<meta property="og:description" content="${description}">
+<meta property="og:title" content="${article.title}">
+<meta property="og:description" content="${article.subtitle || ''}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="${articleUrl}">
 <meta property="og:image" content="${imageUrl}">
@@ -80,8 +85,8 @@ export async function handler(event) {
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${title}">
-<meta name="twitter:description" content="${description}">
+<meta name="twitter:title" content="${article.title}">
+<meta name="twitter:description" content="${article.subtitle || ''}">
 <meta name="twitter:image" content="${imageUrl}">
 <meta name="twitter:site" content="@tuUsuarioTwitter">
 
@@ -97,12 +102,12 @@ export async function handler(event) {
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "${title}",
-  "description": "${description}",
+  "headline": "${article.title}",
+  "description": "${article.subtitle || ''}",
   "image": "${imageUrl}",
-  "author": { "@type": "Person", "name": "${author}" },
+  "author": { "@type": "Person", "name": "${article.author || 'Desconocido'}" },
   "publisher": { "@type": "Organization", "name": "Mi Blog Creativo", "logo": { "@type": "ImageObject", "url": "${siteUrl}/img/logo.png" } },
-  "datePublished": "${date}",
+  "datePublished": "${article.date || new Date().toISOString()}",
   "mainEntityOfPage": "${articleUrl}"
 }
 </script>
@@ -184,12 +189,12 @@ export async function handler(event) {
 <div id="article-modal" class="modal">
   <div class="modal-content">
     <span class="modal-close">&times;</span>
-    <h2 id="modal-article-title">${title}</h2>
+    <h2 id="modal-article-title">${article.title}</h2>
     <div id="article-ads-container-top" class="ad-container">
       <iframe src="${article.adTop || 'about:blank'}" loading="lazy"></iframe>
     </div>
-    <img id="modal-article-image" src="${imageUrl}" alt="${title}" loading="lazy" />
-    <div id="modal-article-text">${content}</div>
+    <img id="modal-article-image" src="${imageUrl}" alt="${article.title}" loading="lazy" />
+    <div id="modal-article-text">${article.content || ''}</div>
     <div id="modal-article-text-2"></div>
     <div id="modal-article-text-3"></div>
     <div id="article-ads-container-bottom" class="ad-container">
