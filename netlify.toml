@@ -1,47 +1,733 @@
-[build]
-  functions = "netlify/functions"
-  publish = "."
-
-# ----------------------------
-# API genérica
-# ----------------------------
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-# ----------------------------
-# Artículos dinámicos
-# Captura cualquier /blog/:slug y lo manda a la función article
-# ----------------------------
-[[redirects]]
-  from = "/blog/:slug"
-  to = "/.netlify/functions/article"
-  status = 200
-  force = true
-
-# ----------------------------
-# SPA del blog
-# Captura /blog o cualquier hash o query dentro de /blog/
-# ----------------------------
-[[redirects]]
-  from = "/blog"
-  to = "/blog/index.html"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/blog/*"
-  to = "/blog/index.html"
-  status = 200
-  force = true
-
-# ----------------------------
-# Configuración específica de funciones
-# ----------------------------
-[functions."article"]
-  included_files = ["articulos.json"]
-
-[functions."addContactToMailchimp"]
-  included_files = ["netlify/functions/angelvaldessitio-nueva.json"]
 # === Auto-generated redirects ===
+
+[[redirects]]
+  from = "/#svgIntro"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#introContainer"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#mainContent"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#cerrarIntro"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#recent"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#article-ads-container-top"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#blogListModal"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-title"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modalList"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#contentTitle"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#openMonthlySidebar"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#listModalTitle"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#slide-menu"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-text-2"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-text-3"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#article-modal"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#contentBody"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#article-ads-container-bottom"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#openMonthly"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-text"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#openWeeklySidebar"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#featured"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#theme-toggle"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-image"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#openWeekly"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#blogContentModal"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#comentario-status"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#comentario"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#comentarios-lista"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#nombre"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#manifiesto"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#intro-overlay"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#progreso"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#anonimo"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#email"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#form-comentario"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#testimonios"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#sidebar"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#descarga"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#sidebarToggle"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#progress-bar"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#compartir-kit"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#contenido-kit"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#status"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#close-intro"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#apoyo"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#portfolioGrid"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#kit-form"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#comentarios-emocionales"
+  to = "/kit-emocional.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#nav-toggle"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#about"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#home"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#nav-close"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#contact"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#skills"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#testimonials"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#theme-toggle"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#sidebar"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#vision"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#cta"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#container-8b411cf50834d36e2ca890fcf7d19b20"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#achievements"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#work"
+  to = "/presentacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#nav-toggle"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#about"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#home"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#nav-close"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#contact"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#skills"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#testimonials"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#theme-toggle"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#sidebar"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#vision"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#cta"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#container-8b411cf50834d36e2ca890fcf7d19b20"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#achievements"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#work"
+  to = "/presentacion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#recent"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#article-ads-container-top"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#blogListModal"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-title"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modalList"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#contentTitle"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#openMonthlySidebar"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#listModalTitle"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#slide-menu"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-text-2"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-text-3"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#article-modal"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#contentBody"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#article-ads-container-bottom"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#openMonthly"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-text"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#openWeeklySidebar"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#featured"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#theme-toggle"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#modal-article-image"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#openWeekly"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#blogContentModal"
+  to = "/blog.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#comentario-status"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#comentario"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#comentarios-lista"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#nombre"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#manifiesto"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#intro-overlay"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#progreso"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#anonimo"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#email"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#form-comentario"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#testimonios"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#sidebar"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#descarga"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#sidebarToggle"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#progress-bar"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#compartir-kit"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#contenido-kit"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#status"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#close-intro"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#apoyo"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#portfolioGrid"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#kit-form"
+  to = "/kit-emocional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/#comentarios-emocionales"
+  to = "/kit-emocional"
+  status = 301
+  force = true
