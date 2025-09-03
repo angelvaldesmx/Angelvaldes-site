@@ -44,3 +44,4 @@
 
 [functions."addContactToMailchimp"]
   included_files = ["netlify/functions/angelvaldessitio-nueva.json"]
+# === Auto-generated redirects ===
