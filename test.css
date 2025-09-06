@@ -1,4 +1,4 @@
-/* ===== GLOBAL ===== */
+/* ===== RESET & BOX-SIZING ===== */
 *,
 *::after,
 *::before {
@@ -7,8 +7,8 @@
   padding: 0;
 }
 
+/* ===== VARIABLES GLOBALES ===== */
 :root {
-  /* Colores branding */
   --hue-color: 330;
   --accent-color: hsl(210, 90%, 60%);
   --skin-color: hsl(var(--hue-color), 92%, 46%);
@@ -18,8 +18,6 @@
   --box-color: hsl(0, 0%, 12%);
   --scroll-box-color: hsl(0, 0%, 20%);
   --scroll-thumb-color: hsl(0, 0%, 35%);
-
-  /* Branding antiguo y controles de slide */
   --color-text: var(--text-color);
   --color-bg: var(--body-color);
   --color-neon: hsl(var(--hue-color), 100%, 70%);
@@ -59,15 +57,63 @@ body.dark-mode {
   --color-neon-light: #ff61d1;
 }
 
-/* Aplicar colores globales */
+/* ===== BODY ===== */
 body {
   margin: 0;
+  font-family: "TheGoodMonolith", sans-serif;
   color: var(--color-text);
   background-color: var(--color-bg);
-  font-family: "TheGoodMonolith", sans-serif;
-  overflow: hidden;
   height: 100vh;
+  overflow: hidden;
   transition: background-color 0.3s, color 0.3s;
+}
+
+/* ===== INTRO ===== */
+.intro-container {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 1s ease;
+}
+
+.intro-container.oculto {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cerrar-intro {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #fff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+object {
+  width: 90vw;
+  height: 90vh;
+  max-width: 600px;
+  max-height: 600px;
+  display: block;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+  display: none;
+  min-height: 100vh;
+  background: transparent;
+  padding: 1rem 1rem 3rem;
+  overflow-y: auto;
 }
 
 /* ===== SLIDES ===== */
@@ -100,15 +146,11 @@ body {
   opacity: 1;
 }
 
-/* Imagen responsiva centrada con margen extra */
 .slide__img {
   width: 90%;
   max-width: 1200px;
   max-height: 90%;
   object-fit: contain;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
   margin: 0 auto;
   border-radius: 12px;
   box-shadow: 0 0 30px rgba(255, 62, 192, 0.5);
@@ -277,18 +319,89 @@ body {
 .slide-thumb.active {
   opacity: 1;
   transform: scale(1.05);
-  border: none;
-  outline: none;
   box-shadow: 0 0 12px var(--color-neon-light);
 }
 
-/* ===== RESPONSIVE ===== */
-@media screen and (max-width: 768px) {
-  .slide__img { width: 95%; max-height: 80%; }
-  .bottom-ui-container { width: 90%; }
-  .slide-section { font-size: 1.5rem; margin-bottom: 24px; }
-  .slide-title { font-size: 1rem; }
+/* ===== MODAL ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
 }
+
+.modal-content {
+  background: #fff;
+  max-width: 800px;
+  width: 90%;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.modal-img-container {
+  flex: 1;
+  background: #f0f0f0;
+}
+
+.modal-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-text {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.modal-text p {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+#modal-btn {
+  padding: 10px 20px;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  transition: box-shadow 0.4s, transform 0.4s;
+}
+
+#modal-btn:hover {
+  background: #444;
+}
+
 /* ===== FOOTER ===== */
 .footer {
   position: fixed;
@@ -319,10 +432,16 @@ body {
   text-decoration: underline;
 }
 
-/* ===== RESPONSIVE FOOTER ===== */
+/* ===== RESPONSIVE ===== */
 @media screen and (max-width: 768px) {
-  .footer {
-    padding: 1rem;
-    font-size: 0.8rem;
-  }
+  .slide__img { width: 95%; max-height: 80%; }
+  .bottom-ui-container { width: 90%; }
+  .slide-section { font-size: 1.5rem; margin-bottom: 24px; }
+  .slide-title { font-size: 1rem; }
+  .footer { padding: 1rem; font-size: 0.8rem; }
+}
+
+@media(max-width: 700px) {
+  .modal-body { flex-direction: column; }
+  .modal-img-container, .modal-text { width: 100%; }
 }
