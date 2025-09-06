@@ -140,7 +140,7 @@
     </div>
 
     <div class="slides-container">
-      <div class="scroll-hint"><img src="https://api6.iloveimg.com/v1/download/wvcrb07lc9pAyqbAv9whg19v91hyc2qf3qbywpz79447czsn87A9xf2AAyn53gd59b5psf0qgd08gk65s0jhjh9gh6cwzfh3lg225vv5ytjfnsz93tkbv9pctbhxmx9rhbbxmgd1pkv15c6ltg992xm4mgcz5xjj342vc5pyzqkg641zqqb1"></div>
+      <div class="scroll-hint"><button id="theme-toggle" class="button">🌞/🌙</button></div>
       <div class="slides">
         <div class="slide slide--current" data-url="presentacion.html"><div class="slide__img" style="background-image:url('/images/presentacion.webp')"></div></div>
         <div class="slide" data-url="kit-emocional.html"><div class="slide__img" style="background-image:url('/images/kit-emocional.webp')"></div></div>
@@ -173,6 +173,22 @@
   </div>
 
   <script src="test.js"></script>
+  <script> const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Aplicar tema guardado
+    const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+    body.classList.add(savedTheme);
+
+    // Cambiar tema al hacer clic
+    toggleBtn.addEventListener('click', () => {
+      const newTheme = body.classList.contains('light-mode') ? 'dark-mode' : 'light-mode';
+      body.classList.remove('light-mode', 'dark-mode');
+      body.classList.add(newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+
+    // Opcional: actualizar slides si necesitas cambiar sombras o neon según modo</script>
   <script>
     // Intro
     const introContainer=document.getElementById("introContainer");

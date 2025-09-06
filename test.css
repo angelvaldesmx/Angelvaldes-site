@@ -1,4 +1,4 @@
-/* ===== RESET & BOX-SIZING ===== */
+/* ===== GLOBAL ===== */
 *,
 *::after,
 *::before {
@@ -7,127 +7,124 @@
   padding: 0;
 }
 
-/* ===== VARIABLES ===== */
 :root {
-  --color-text: #fff;
-  --color-bg: #000;
-  --color-neon: #ff3ec0;
-  --color-neon-light: #ff61d1;
+  /* Colores branding */
+  --hue-color: 330;
+  --accent-color: hsl(210, 90%, 60%);
+  --skin-color: hsl(var(--hue-color), 92%, 46%);
+  --title-color: hsl(0, 0%, 95%);
+  --text-color: hsl(0, 0%, 80%);
+  --body-color: hsl(0, 0%, 7%);
+  --box-color: hsl(0, 0%, 12%);
+  --scroll-box-color: hsl(0, 0%, 20%);
+  --scroll-thumb-color: hsl(0, 0%, 35%);
+
+  /* Branding antiguo y controles de slide */
+  --color-text: var(--text-color);
+  --color-bg: var(--body-color);
+  --color-neon: hsl(var(--hue-color), 100%, 70%);
+  --color-neon-light: hsl(var(--hue-color), 100%, 85%);
   --thumb-width: 120px;
   --line-spacing: 10px;
   --line-base-height: 15px;
   --line-max-height: 50px;
 }
 
-/* ===== BODY ===== */
+/* ===== MODO CLARO / OSCURO ===== */
+body.light-mode {
+  --body-color: hsl(0, 0%, 95%);
+  --box-color: hsl(0, 0%, 90%);
+  --text-color: hsl(0, 0%, 15%);
+  --title-color: hsl(330, 80%, 35%);
+  --scroll-box-color: hsl(0, 0%, 80%);
+  --scroll-thumb-color: hsl(0, 0%, 50%);
+  --accent-color: hsl(330, 90%, 60%);
+  --color-text: var(--text-color);
+  --color-bg: var(--body-color);
+  --color-neon: var(--accent-color);
+  --color-neon-light: hsl(var(--hue-color), 100%, 80%);
+}
+
+body.dark-mode {
+  --body-color: hsl(0, 0%, 7%);
+  --box-color: hsl(0, 0%, 12%);
+  --text-color: hsl(0, 0%, 80%);
+  --title-color: hsl(0, 0%, 95%);
+  --scroll-box-color: hsl(0, 0%, 20%);
+  --scroll-thumb-color: hsl(0, 0%, 35%);
+  --accent-color: hsl(330, 90%, 60%);
+  --color-text: #fff;
+  --color-bg: #000;
+  --color-neon: #ff3ec0;
+  --color-neon-light: #ff61d1;
+}
+
+/* Aplicar colores globales */
 body {
-  font-family: "TheGoodMonolith", sans-serif;
-  color: var(--color-text); 
+  margin: 0;
+  color: var(--color-text);
   background-color: var(--color-bg);
-  overflow: auto;
-  height: 100vh;
-}
-
-/* ===== SLIDESHOW ===== */
-.slides-container {
-  width: 100%;
-  height: 100vh;
+  font-family: "TheGoodMonolith", sans-serif;
   overflow: hidden;
-  position: relative;
+  height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
 }
 
+/* ===== SLIDES ===== */
 .slides {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
-  position: relative;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+  place-items: center;
 }
 
 .slide {
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0; left: 0;
-  opacity: 0;
+  grid-area: 1 / 1 / -1 / -1;
   pointer-events: none;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  opacity: 0;
+  overflow: hidden;
+  position: relative;
+  display: grid;
+  place-items: center;
+  will-change: transform, opacity;
   transition: opacity 0.5s ease;
 }
 
 .slide--current {
-  opacity: 1;
   pointer-events: auto;
+  opacity: 1;
 }
 
+/* Imagen responsiva centrada con margen extra */
 .slide__img {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90%;
+  object-fit: contain;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(255, 62, 192, 0.5);
+  transition: all 0.5s ease;
 }
 
-/* ===== INTRO ===== */
-.intro-container {
-  position: fixed;
-  inset: 0;
-  background-color: #000;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  transition: opacity 1s ease;
-}
-
-.intro-container.oculto {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.cerrar-intro {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid #fff;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  z-index: 10000;
-}
-
-object {
-  width: 90vw;
-  height: 90vh;
-  max-width: 600px;
-  max-height: 600px;
-  display: block;
-}
-
-/* ===== MAIN CONTENT ===== */
-.main-content {
-  display: none;
-  min-height: 100vh;
-  background: transparent;
-  padding: 1rem 1rem 3rem;
-  overflow-y: auto;
-}
-
-/* ===== SCROLL HINT ===== */
+/* ===== SLIDE TEXT & UI ===== */
 .scroll-hint {
   position: fixed;
   top: 2rem;
   right: 2rem;
-  color: #fff;
+  color: var(--color-text);
   z-index: 100;
   font-size: 1rem;
 }
 
-/* ===== BOTTOM UI ===== */
 .bottom-ui-container {
   position: fixed;
   bottom: 0;
@@ -158,7 +155,7 @@ object {
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  color: #fff;
+  color: var(--color-text);
   font-size: 0.825rem;
   margin-bottom: 24px;
 }
@@ -197,7 +194,7 @@ object {
 .slide-title {
   position: absolute;
   width: 100%;
-  color: #fff;
+  color: var(--title-color);
   font-size: 1.2rem;
   opacity: 0.8;
   transition: transform 0.5s ease, opacity 0.5s ease;
@@ -257,18 +254,16 @@ object {
   gap: 0;
 }
 
-.frost-bg {
-  display: none;
-}
+.frost-bg { display: none; }
 
 .slide-thumb {
   width: var(--thumb-width);
   height: 40px;
   background-size: cover;
-  background-position: left center;
+  background-position: center center;
   cursor: pointer;
   opacity: 0.5;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
   border: none;
   outline: none;
   box-shadow: none;
@@ -277,113 +272,57 @@ object {
   z-index: 12;
 }
 
-.slide-thumb:hover {
-  opacity: 0.8;
-}
+.slide-thumb:hover { opacity: 0.8; }
 
 .slide-thumb.active {
   opacity: 1;
-  transform: none;
+  transform: scale(1.05);
   border: none;
   outline: none;
-  box-shadow: none;
-}
-
-/* ===== MODAL ===== */
-.modal {
-  display: none; 
-  position: fixed; 
-  z-index: 10000; 
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8); 
-  justify-content: center; 
-  align-items: center;
-}
-
-.modal-content {
-  background: #fff;
-  max-width: 800px;
-  width: 90%;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  transform: scale(0.8);
-  opacity: 0;
-}
-
-.modal-body {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-}
-
-.modal-img-container {
-  flex: 1;
-  background: #f0f0f0;
-}
-
-.modal-img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.modal-text {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-}
-
-.modal-text p {
-  margin-bottom: 15px;
-  font-size: 16px;
-  color: #333;
-}
-
-.modal-close {
-  position: absolute;
-  top: 10px; right: 15px;
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
-}
-
-#modal-btn {
-  padding: 10px 20px;
-  background: #000;
-  color: #fff;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  align-self: flex-start;
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
-  transition: box-shadow 0.4s, transform 0.4s;
-}
-
-#modal-btn:hover {
-  background: #444;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  color: #fff;
-  margin-top: 2rem;
-  font-size: 0.9rem;
+  box-shadow: 0 0 12px var(--color-neon-light);
 }
 
 /* ===== RESPONSIVE ===== */
-@media(max-width: 700px) {
-  .modal-body {
-    flex-direction: column;
-  }
-  .modal-img-container, .modal-text {
-    width: 100%;
+@media screen and (max-width: 768px) {
+  .slide__img { width: 95%; max-height: 80%; }
+  .bottom-ui-container { width: 90%; }
+  .slide-section { font-size: 1.5rem; margin-bottom: 24px; }
+  .slide-title { font-size: 1rem; }
+}
+/* ===== FOOTER ===== */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem 2rem;
+  background-color: var(--box-color);
+  color: var(--text-color);
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 50;
+  border-top: 2px solid var(--accent-color);
+  transition: background-color 0.3s, color 0.3s;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+}
+
+.footer a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: var(--color-neon-light);
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVE FOOTER ===== */
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 1rem;
+    font-size: 0.8rem;
   }
 }
