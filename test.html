@@ -1,289 +1,240 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Angel Valdes – Comienza a sanar</title>
-<meta name="description" content="Angel Valdes, artista emocional, compositor y escritor. Descubre música, libros y contenido para acompañar tu proceso de sanación y autoestima.">
-<meta name="robots" content="index, follow">
-<meta name="author" content="Angel Valdes">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angel Valdes – Comienza a sanar</title>
+  <meta name="description" content="Angel Valdes, artista emocional, compositor y escritor. Descubre música, libros y contenido para acompañar tu proceso de sanación y autoestima.">
 
-<!-- JSON-LD SEO -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": "https://angelvaldesmx.qzz.io/#person",
-      "name": "Angel Valdes",
-      "alternateName": "Ángel Valdés",
-      "jobTitle": "Compositor, Autor, Creador de Contenido Emocional",
-      "description": "Soy Angel Valdes, artista emocional, compositor y escritor. Creo contenido que acompaña procesos de ansiedad, autoestima y sanación.",
-      "image": "https://raw.githubusercontent.com/angelvaldesmx/Angelvaldes-site/main/images/IMG_3566.webp",
-      "url": "https://angelvaldesmx.qzz.io",
-      "mainEntityOfPage": "https://angelvaldesmx.qzz.io/",
-      "sameAs": [
-        "https://medium.com/@angelvaldesmx",
-        "https://musicbrainz.org/artist/56be42be-8f1f-47cc-ab1b-ac27d9d616d4",
-        "https://www.facebook.com/angelvaldesmx",
-        "https://www.instagram.com/angelvaldesmxx",
-        "https://www.tiktok.com/@angelvaldesmx",
-        "https://www.youtube.com/c/angelvaldesmx",
-        "https://twitter.com/angelvaldesmx",
-        "https://linkedin.com/in/angelvaldesmx"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Ciudad de México",
-        "addressCountry": "México"
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://angelvaldesmx.qzz.io/#person",
+        "name": "Angel Valdes",
+        "alternateName": "Ángel Valdés",
+        "jobTitle": "Compositor, Autor, Creador de Contenido Emocional",
+        "description": "Soy Angel Valdes, artista emocional, compositor y escritor. Creo contenido que acompaña procesos de ansiedad, autoestima y sanación.",
+        "image": "https://raw.githubusercontent.com/angelvaldesmx/Angelvaldes-site/refs/heads/main/images/IMG_3566.webp",
+        "url": "https://angelvaldesmx.qzz.io",
+        "mainEntityOfPage": "https://angelvaldesmx.qzz.io/",
+        "sameAs": [
+          "https://medium.com/@angelvaldesmx",
+          "https://musicbrainz.org/artist/56be42be-8f1f-47cc-ab1b-ac27d9d616d4",
+          "https://www.facebook.com/angelvaldesmx",
+          "https://www.instagram.com/angelvaldesmxx",
+          "https://www.tiktok.com/@angelvaldesmx",
+          "https://www.youtube.com/c/angelvaldesmx",
+          "https://twitter.com/angelvaldesmx",
+          "https://linkedin.com/in/angelvaldesmx"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad de México",
+          "addressCountry": "México"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://angelvaldesmx.qzz.io/#website",
+        "url": "https://angelvaldesmx.qzz.io",
+        "name": "Angel Valdes - Artista emocional",
+        "publisher": { "@id": "https://angelvaldesmx.qzz.io/#person" },
+        "inLanguage": "es-MX"
       }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://angelvaldesmx.qzz.io/#website",
-      "url": "https://angelvaldesmx.qzz.io",
-      "name": "Angel Valdes - Artista emocional",
-      "publisher": { "@id": "https://angelvaldesmx.qzz.io/#person" },
-      "inLanguage": "es-MX"
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/thegoodmonolith">
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/Observer.min.js"></script>
+
+  <link rel="stylesheet" href="inicio.css">
+
+  <style>
+    /* Intro */
+    .intro-container {position: fixed; inset: 0; background-color: #000; z-index: 9999; display:flex; align-items:center; justify-content:center; flex-direction:column; transition:opacity 1s ease;}
+    .intro-container.oculto {opacity: 0; pointer-events: none;}
+    object {width: 90vw; height: 90vh; max-width:600px; max-height:600px; display:block;}
+    .cerrar-intro {position:absolute; top:1rem; right:1rem; background: rgba(255,255,255,0.2); border:1px solid #fff; color:white; padding:0.5rem 1rem; border-radius:20px; cursor:pointer; z-index:10000;}
+    .main-content {display:none; min-height:100vh; background:transparent; padding:1rem 1rem 3rem; overflow-y:auto;}
+
+    /* --- Blur del fondo al abrir modal --- */
+    body.modal-open #mainContent {filter: blur(8px) brightness(0.7); transition: filter 0.3s ease;}
+
+    /* Modal */
+    .modal {display:none; position:fixed; inset:0; background: rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center; padding:1rem;}
+    .modal-content {
+      background:#111;
+      border-radius:10px;
+      max-width:1000px;
+      width:100%;
+      overflow:hidden;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff;
+      border:2px solid #ff00ff;
     }
-  ]
-}
-</script>
+    .modal-close {position:absolute; top:1rem; right:1rem; background:transparent; border:none; font-size:1.5rem; cursor:pointer;}
+    .modal-body {display:flex; flex-direction:row; flex-wrap:wrap;}
+    .modal-img {flex:1; min-width:300px;}
+    .modal-img img {width:100%; height:auto; display:block;}
+    .modal-info {flex:1; min-width:250px; padding:1rem; display:flex; flex-direction:column; justify-content:center;}
 
-<!-- Fuentes -->
-<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/thegoodmonolith">
+    /* Botón neon */
+    #modalBtn {
+      margin-top:1rem;
+      padding:0.7rem 1.5rem;
+      background:#000;
+      color:#ff00ff;
+      border:2px solid #ff00ff;
+      cursor:pointer;
+      border-radius:5px;
+      font-weight:bold;
+      text-transform:uppercase;
+      box-shadow:0 0 5px #ff00ff,0 0 10px #ff00ff,0 0 20px #ff00ff;
+      transition:all 0.3s ease;
+    }
+    #modalBtn:hover {box-shadow:0 0 10px #ff00ff,0 0 20px #ff00ff,0 0 40px #ff00ff; transform:scale(1.05);}
 
-<link rel="stylesheet" href="test.css">
+    /* Barra de progreso */
+    #modalProgress {display:none; width:100%; height:5px; background:#222; margin-top:0.5rem; border-radius:3px; overflow:hidden;}
+    #modalProgress .progress-fill {width:0%; height:100%; background:linear-gradient(90deg, #ff00ff, #ff99ff); transition:width 3s linear;}
 
-<!-- GSAP -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/Observer.min.js"></script>
-
-<style>
-/* ===== INTRO ===== */
-.intro-container { position: fixed; inset: 0; background:#000; z-index:9999; display:flex; align-items:center; justify-content:center; flex-direction:column; transition:opacity 1s ease; }
-.intro-container.oculto { opacity:0; pointer-events:none; }
-object { width:90vw; height:90vh; max-width:600px; max-height:600px; display:block; }
-.cerrar-intro { position:absolute; top:1rem; right:1rem; background:rgba(255,255,255,0.2); border:1px solid #fff; color:#fff; padding:.5rem 1rem; border-radius:20px; cursor:pointer; z-index:10000; }
-
-/* ===== MAIN CONTENT ===== */
-.main-content { display:none; min-height:100vh; padding:1rem 1rem 3rem; overflow-y:auto; }
-.slides-container { position: relative; overflow:hidden; }
-.slides { display:flex; transition:transform 0.6s ease; }
-.slide { min-width:100%; cursor:pointer; user-select:none; background-size:cover; background-position:center; height:70vh; }
-
-/* ===== BOTTOM UI ===== */
-.bottom-ui-container { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); width:90%; max-width:900px; display:flex; flex-direction:column; align-items:center; gap:10px; pointer-events:auto; }
-.slide-counter { display:flex; align-items:center; gap:10px; font-family: monospace; color:#fff; }
-.counter-nav { cursor:pointer; padding:5px 10px; background:rgba(0,0,0,0.5); border-radius:5px; user-select:none; }
-.counter-display { font-size:16px; }
-.drag-indicator { height:6px; width:100%; background:rgba(255,255,255,0.2); border-radius:3px; overflow:hidden; }
-.lines-container { height:100%; width:0%; background:#00c8ff; border-radius:3px; }
-.thumbs-container { display:flex; overflow-x:auto; gap:5px; padding-top:5px; width:100%; }
-.slide-thumbs div { width:60px; height:40px; background-size:cover; background-position:center; flex-shrink:0; cursor:pointer; border:2px solid transparent; border-radius:4px; transition:0.3s; }
-.slide-thumbs div.active { border-color:#00c8ff; }
-
-/* ===== MODAL ===== */
-.modal { display:none; position:fixed; z-index:10000; left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
-.modal-content { background:#fff; max-width:800px; width:90%; border-radius:12px; overflow:hidden; position:relative; transform:scale(0.8); opacity:0; }
-.modal-body { display:flex; flex-direction:row; align-items:stretch; }
-.modal-img-container { flex:1; background:#f0f0f0; }
-.modal-img-container img { width:100%; height:100%; object-fit:cover; }
-.modal-text { flex:1; padding:20px; display:flex; flex-direction:column; justify-content:center; text-align:left; }
-.modal-text p { margin-bottom:15px; font-size:16px; color:#333; }
-.modal-close { position:absolute; top:10px; right:15px; font-size:28px; font-weight:bold; color:#333; cursor:pointer; }
-#modal-btn { padding:10px 20px; background:#000; color:#fff; font-size:16px; border:none; border-radius:6px; cursor:pointer; align-self:flex-start; box-shadow:0 0 8px rgba(0,0,0,0.3); }
-
-@media(max-width:700px){ .modal-body{flex-direction:column;} .modal-img-container,.modal-text{width:100%;} }
-</style>
+    /* Responsivo */
+    @media(max-width:768px){.modal-body{flex-direction:column;}.modal-img,.modal-info{min-width:100%;}}
+  </style>
 </head>
 
 <body>
+  <!-- INTRO SVG -->
+  <div class="intro-container" id="introContainer">
+    <button class="cerrar-intro" id="cerrarIntro">Saltar Intro</button>
+    <object type="image/svg+xml" data="/images/intro.svg" id="svgIntro"></object>
+  </div>
 
-<!-- ===== INTRO CON SVG AVANZADO ===== -->
-<div class="intro-container" id="introContainer" aria-label="Animación de introducción">
-  <button class="cerrar-intro" id="cerrarIntro" aria-label="Saltar introducción">Saltar Intro</button>
-  <object type="image/svg+xml" data="/images/intro.svg" id="svgIntro" aria-hidden="true" loading="lazy"></object>
-</div>
-
-<!-- ===== MAIN CONTENT ===== -->
-<div class="main-content" id="mainContent">
-  <div class="slides-container">
-    <div class="slides">
-      <div class="slide slide--current" data-url="presentacion.html" data-bg="/images/presentacion.webp"></div>
-      <div class="slide" data-url="kit-emocional.html" data-bg="/images/kit-emocional.webp"></div>
-      <div class="slide" data-url="/blog/" data-bg="/images/blog.webp"></div>
-      <div class="slide" data-url="musica-podcast.html" data-bg="/images/musica&podcast.webp"></div>
-      <div class="slide" data-url="libros.html" data-bg="/images/libros.webp"></div>
-      <div class="slide" data-url="tienda.html" data-bg="/images/tiend.webp"></div>
-      <div class="slide" data-url="crypto.html" data-bg="/images/crypto.webp"></div>
-      <div class="slide" data-url="dimensiones.html" data-bg="/images/multiverse.webp"></div>
-      <div class="slide" data-url="newsletter.html" data-bg="/images/comunidad.webp"></div>
-    </div>
-
-    <!-- ===== BOTTOM UI ===== -->
+  <div class="main-content" id="mainContent">
+    <!-- Bottom UI, Thumbs, Slides Container -->
     <div class="bottom-ui-container">
+      <div class="slide-section"></div>
       <div class="slide-counter">
         <div class="counter-nav prev-slide">⟪</div>
-        <div class="counter-display"><span class="current-slide">01</span> / <span class="total-slides">09</span></div>
+        <div class="counter-display">
+          <span class="current-slide">01</span>
+          <span class="counter-divider">//</span>
+          <span class="total-slides">09</span>
+        </div>
         <div class="counter-nav next-slide">⟫</div>
       </div>
-      <div class="drag-indicator"><div class="lines-container"></div></div>
-      <div class="thumbs-container"><div class="slide-thumbs"></div></div>
+      <div class="slide-title-container"><div class="slide-title"></div></div>
+      <div class="drag-indicator"></div>
+      <div class="thumbs-container"><div class="frost-bg"></div><div class="slide-thumbs"></div></div>
+    </div>
+
+    <div class="slides-container">
+      <div class="scroll-hint"><img src="https://api6.iloveimg.com/v1/download/wvcrb07lc9pAyqbAv9whg19v91hyc2qf3qbywpz79447czsn87A9xf2AAyn53gd59b5psf0qgd08gk65s0jhjh9gh6cwzfh3lg225vv5ytjfnsz93tkbv9pctbhxmx9rhbbxmgd1pkv15c6ltg992xm4mgcz5xjj342vc5pyzqkg641zqqb1"></div>
+      <div class="slides">
+        <div class="slide slide--current" data-url="presentacion.html"><div class="slide__img" style="background-image:url('/images/presentacion.webp')"></div></div>
+        <div class="slide" data-url="kit-emocional.html"><div class="slide__img" style="background-image:url('/images/kit-emocional.webp')"></div></div>
+        <div class="slide" data-url="/blog/"><div class="slide__img" style="background-image:url('/images/blog.webp')"></div></div>
+        <div class="slide" data-url="musica-podcast.html"><div class="slide__img" style="background-image:url('/images/musica&podcast.webp')"></div></div>
+        <div class="slide" data-url="libros.html"><div class="slide__img" style="background-image:url('/images/libros.webp')"></div></div>
+        <div class="slide" data-url="tienda.html"><div class="slide__img" style="background-image:url('/images/tiend.webp')"></div></div>
+        <div class="slide" data-url="crypto.html"><div class="slide__img" style="background-image:url('/images/crypto.webp')"></div></div>
+        <div class="slide" data-url="dimensiones.html"><div class="slide__img" style="background-image:url('/images/multiverse.webp')"></div></div>
+        <div class="slide" data-url="newsletter.html"><div class="slide__img" style="background-image:url('/images/comunidad.webp')"></div></div>
+      </div>
+    </div>
+
+    <footer>No tienes que hacer todo ahora. Respira. Quédate. Tu historia aún tiene más por contar.</footer>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-body">
+        <div class="modal-img"><img src="" alt="Preview" id="modalImg"></div>
+        <div class="modal-info">
+          <p id="modalDesc">Descripción del sitio...</p>
+          <button id="modalBtn">Visitar sitio</button>
+          <div id="modalProgress"><div class="progress-fill"></div></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <footer>No tienes que hacer todo ahora. Respira. Quédate. Tu historia aún tiene más por contar.</footer>
-</div>
-
-<!-- ===== MODAL ===== -->
-<div id="modal" class="modal" role="dialog" aria-modal="true">
-  <div class="modal-content">
-    <span class="modal-close" aria-label="Cerrar modal">&times;</span>
-    <div class="modal-body">
-      <div class="modal-img-container">
-        <img id="modal-img" src="" alt="Imagen sección" loading="lazy">
-      </div>
-      <div class="modal-text">
-        <p id="modal-desc"></p>
-        <button id="modal-btn">Visitar sección</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SCRIPTS ===== -->
-<script src="test.js" defer></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const introContainer = document.getElementById("introContainer");
-  const mainContent = document.getElementById("mainContent");
-  const svgObject = document.getElementById("svgIntro");
-  const yaVisto = localStorage.getItem("introVisto");
-
-  function reproducirAnimacionSVG() {
-    if (svgObject.contentDocument) {
-      const svg = svgObject.contentDocument.querySelector("svg");
-      if (svg) gsap.fromTo(svg.querySelectorAll("path"), {drawSVG:"0%"}, {drawSVG:"100%", duration:2, stagger:0.05, ease:"power2.out"});
-    }
-  }
-
-  function cerrarIntro() {
-    gsap.to(introContainer, {opacity:0, duration:1, onComplete:()=>{
-      introContainer.style.display="none";
-      mainContent.style.display="block";
-    }});
-    localStorage.setItem("introVisto","true");
-  }
-
-  if(yaVisto==="true"){ introContainer.style.display="none"; mainContent.style.display="block"; }
-  else reproducirAnimacionSVG();
-
-  svgObject.addEventListener("load", reproducirAnimacionSVG);
-  document.getElementById("cerrarIntro").addEventListener("click", cerrarIntro);
-  setTimeout(() => { if (introContainer.style.display !== "none") cerrarIntro(); }, 7000);
-
-  // ===== SLIDER =====
-  const slides = document.querySelectorAll(".slide");
-  const slidesContainer = document.querySelector(".slides");
-  const totalSlides = slides.length;
-  let current = 0;
-  const thumbsContainer = document.querySelector(".slide-thumbs");
-  const currentSlideEl = document.querySelector(".current-slide");
-  const prevBtn = document.querySelector(".prev-slide");
-  const nextBtn = document.querySelector(".next-slide");
-  const dragIndicator = document.querySelector(".lines-container");
-
-  slides.forEach(slide => {
-    const bg = slide.dataset.bg;
-    slide.style.backgroundImage = `url('${bg}')`;
-  });
-
-  slides.forEach((slide, i) => {
-    const thumb = document.createElement("div");
-    thumb.style.backgroundImage = slide.style.backgroundImage;
-    if(i===0) thumb.classList.add("active");
-    thumb.addEventListener("click", ()=>goToSlide(i));
-    thumbsContainer.appendChild(thumb);
-  });
-
-  function updateUI() {
-    currentSlideEl.textContent = String(current+1).padStart(2,"0");
-    gsap.to(slidesContainer,{x:`-${current*100}%`, duration:0.6, ease:"power3.out"});
-    thumbsContainer.querySelectorAll("div").forEach((t,i)=>{
-      t.classList.toggle("active", i===current);
-      gsap.to(t,{scale:i===current?1.1:1, opacity:i===current?1:0.6, duration:0.3});
+  <script src="inicio.js"></script>
+  <script>
+    // Intro
+    const introContainer=document.getElementById("introContainer");
+    const mainContent=document.getElementById("mainContent");
+    const svgObject=document.getElementById("svgIntro");
+    const yaVisto=localStorage.getItem("introVisto");
+    function reproducirAnimacionSVG(){svgObject.data=svgObject.data;}
+    function cerrarIntro(){introContainer.classList.add("oculto"); setTimeout(()=>{introContainer.style.display="none"; mainContent.style.display="block"; iniciarAudio();},1000); localStorage.setItem("introVisto","true");}
+    document.addEventListener("DOMContentLoaded",()=>{
+      if(yaVisto==="true"){introContainer.style.display="none"; mainContent.style.display="block"; iniciarAudio();} else{reproducirAnimacionSVG();}
+      svgObject.addEventListener("load",()=>{const svgDoc=svgObject.contentDocument; if(svgDoc){const svg=svgDoc.querySelector("svg"); if(svg) svg.classList.add("active");}});
+      setTimeout(()=>{if(introContainer.style.display!=="none") cerrarIntro();},7000);
+      document.getElementById("cerrarIntro").addEventListener("click",cerrarIntro);
     });
-    gsap.to(dragIndicator,{width:`${(current/(totalSlides-1))*100}%`, duration:0.5, ease:"power3.out"});
-  }
 
-  function goToSlide(index){ current = Math.max(0,Math.min(totalSlides-1,index)); updateUI(); }
+    // Modal
+    const slides=document.querySelectorAll('.slide');
+    const modal=document.getElementById('modal');
+    const modalImg=document.getElementById('modalImg');
+    const modalDesc=document.getElementById('modalDesc');
+    const modalBtn=document.getElementById('modalBtn');
+    const modalClose=document.getElementById('modalClose');
+    const descripciones={
+      "presentacion.html":"Conoce la presentación de Angel Valdes y su propuesta artística.",
+      "kit-emocional.html":"Descubre el Kit Emocional para acompañar tu proceso.",
+      "/blog/":"Explora nuestro blog con artículos y reflexiones.",
+      "musica-podcast.html":"Disfruta música y podcasts creados para ti.",
+      "libros.html":"Accede a los libros disponibles en nuestra colección.",
+      "tienda.html":"Visita la tienda con productos exclusivos.",
+      "crypto.html":"Información sobre proyectos de criptomonedas.",
+      "dimensiones.html":"Explora las dimensiones y universos de Angel Valdes.",
+      "newsletter.html":"Suscríbete a nuestra newsletter y mantente informado."
+    };
 
-  prevBtn.addEventListener("click", ()=>goToSlide(current-1));
-  nextBtn.addEventListener("click", ()=>goToSlide(current+1));
-
-  gsap.Observer.create({
-    target: slidesContainer,
-    type:"wheel,touch,pointer",
-    wheelSpeed:-1,
-    tolerance:10,
-    onUp: ()=>goToSlide(current+1),
-    onDown: ()=>goToSlide(current-1),
-    onDrag: self=>{
-      const percent=(current+self.deltaX/slidesContainer.offsetWidth)/(totalSlides-1)*100;
-      gsap.set(dragIndicator,{width:`${Math.max(0,Math.min(percent,100))}%`});
-    }
-  });
-
-  dragIndicator.style.height="4px";
-  dragIndicator.style.background="#00c8ff";
-  dragIndicator.style.borderRadius="2px";
-  dragIndicator.style.width="0%";
-  updateUI();
-
-  // ===== MODAL =====
-  const modal = document.getElementById('modal');
-  const modalContent = document.querySelector('.modal-content');
-  const modalImg = document.getElementById('modal-img');
-  const modalDesc = document.getElementById('modal-desc');
-  const modalBtn = document.getElementById('modal-btn');
-  const modalClose = document.querySelector('.modal-close');
-
-  const descripciones = {
-    "presentacion.html": "Conóceme y descubre mi proyecto personal.",
-    "kit-emocional.html": "Herramientas y recursos para tu bienestar emocional.",
-    "/blog/": "Artículos y reflexiones para acompañar tu proceso.",
-    "musica-podcast.html": "Escucha mi música y podcast sobre sanación.",
-    "libros.html": "Explora mis libros y escritos emocionales.",
-    "tienda.html": "Encuentra productos que inspiran sanación.",
-    "crypto.html": "Un espacio sobre cripto y proyectos digitales.",
-    "dimensiones.html": "Explora el multiverso y nuevas perspectivas.",
-    "newsletter.html": "Únete a la comunidad y recibe novedades."
-  };
-
-  slides.forEach(slide=>{
-    slide.addEventListener('click',()=>{
-      const url=slide.dataset.url;
-      modal.style.display="flex";
-      modalImg.src=slide.style.backgroundImage.slice(5,-2);
-      modalDesc.textContent=descripciones[url]||"Descubre más en esta sección.";
-      modalBtn.onclick=()=>window.location.href=url;
-      gsap.fromTo(modalContent,{scale:0.8,opacity:0,y:50},{scale:1,opacity:1,y:0,duration:0.5,ease:"power3.out"});
+    slides.forEach(slide=>{
+      slide.addEventListener('click',(e)=>{
+        e.preventDefault();
+        const url=slide.dataset.url;
+        modal.style.display='flex';
+        document.body.classList.add('modal-open');
+        const imgDiv=slide.querySelector('.slide__img');
+        modalImg.src=imgDiv.style.backgroundImage.replace(/^url\(["']?/,'').replace(/["']?\)$/,'');
+        modalDesc.textContent=descripciones[url]||"Descubre más en esta sección.";
+        modalBtn.setAttribute('data-url',url);
+      });
     });
-  });
 
-  function cerrarModal(){
-    gsap.to(modalContent,{scale:0.8,opacity:0,y:50,duration:0.4,ease:"power3.in",onComplete:()=>{modal.style.display="none";}});
-  }
+    modalBtn.addEventListener('click',()=>{
+      const progressBar=document.querySelector('#modalProgress .progress-fill');
+      const progressContainer=document.getElementById('modalProgress');
+      progressContainer.style.display='block';
+      progressBar.style.width='0%';
+      void progressBar.offsetWidth;
+      progressBar.style.width='100%';
+      setTimeout(()=>{
+        const url=modalBtn.getAttribute('data-url');
+        if(url) window.location.href=url;
+      },3000);
+    });
 
-  modalClose.onclick=cerrarModal;
-  window.onclick=e=>{if(e.target===modal) cerrarModal();};
-
-  modalBtn.addEventListener("mouseenter",()=>gsap.to(modalBtn,{duration:0.4,boxShadow:"0 0 20px rgba(0,200,255,0.9),0 0 40px rgba(0,200,255,0.6)",scale:1.05,ease:"power2.out"}));
-  modalBtn.addEventListener("mouseleave",()=>gsap.to(modalBtn,{duration:0.4,boxShadow:"0 0 8px rgba(0,0,0,0.3)",scale:1,ease:"power2.inOut"}));
-});
-</script>
+    modalClose.addEventListener('click',()=>{modal.style.display='none'; document.body.classList.remove('modal-open');});
+    modal.addEventListener('click',(e)=>{if(e.target===modal){modal.style.display='none'; document.body.classList.remove('modal-open');}});
+  </script>
 </body>
 </html>
