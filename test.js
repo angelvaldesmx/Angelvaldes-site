@@ -115,80 +115,96 @@ function updateDragLines(activeIndex, forceUpdate = false) {
   }
 }
 
-class Slideshow {
-  DOM = {
-    el: null,
-    slides: null,
-    slidesInner: null,
-    modal: null,
-    modalImg: null,
-    modalDesc: null,
-    modalBtn: null
-  };
-  current = 0;
-  slidesTotal = 0;
+  // ... (código existente del inicio de tu test.js)
 
-  constructor(DOM_el) {
-    this.DOM.el = DOM_el;
-    this.DOM.slides = [...this.DOM.el.querySelectorAll(".slide")];
-    this.DOM.slidesInner = this.DOM.slides.map((item) => item.querySelector(".slide__img-container img"));
-    this.DOM.slides[this.current].classList.add("slide--current");
-    this.slidesTotal = this.DOM.slides.length;
+  class Slideshow {
+    DOM = {
+      el: null,
+      slides: null,
+      slidesInner: null,
+      modal: null,
+      modalImg: null,
+      modalDesc: null,
+      modalBtn: null,
+      modalClose: null
+    };
+    current = 0;
+    slidesTotal = 0;
 
-    // Initialize modal DOM elements
-    this.DOM.modal = document.getElementById('modal');
-    this.DOM.modalImg = document.getElementById('modalImg');
-    this.DOM.modalDesc = document.getElementById('modalDesc');
-    this.DOM.modalBtn = document.getElementById('modalBtn');
-    this.DOM.modalClose = document.getElementById('modalClose');
+    constructor(DOM_el) {
+      this.DOM.el = DOM_el;
+      this.DOM.slides = [...this.DOM.el.querySelectorAll(".slide")];
+      this.DOM.slidesInner = this.DOM.slides.map((item) => item.querySelector(".slide__img-container img"));
+      this.DOM.slides[this.current].classList.add("slide--current");
+      this.slidesTotal = this.DOM.slides.length;
 
-    this.initEvents();
+      // Initialize modal DOM elements
+      this.DOM.modal = document.getElementById('modal');
+      this.DOM.modalImg = document.getElementById('modalImg');
+      this.DOM.modalDesc = document.getElementById('modalDesc');
+      this.DOM.modalBtn = document.getElementById('modalBtn');
+      this.DOM.modalClose = document.getElementById('modalClose');
+
+      this.initEvents();
+    }
+
+    initEvents() {
+      this.DOM.slides.forEach((slide, index) => {
+        // Usamos 'click' para la navegación y 'dblclick' para el modal
+        // Esto es una mejora para evitar que el modal se abra por accidente
+        slide.addEventListener('dblclick', (e) => this.openModal(e, index));
+        slide.addEventListener('click', (e) => {
+          // En un solo clic, solo navega si no es el slide actual
+          if (index !== this.current) {
+            this.goTo(index);
+          }
+        });
+      });
+      this.DOM.modalClose.addEventListener('click', () => this.closeModal());
+      this.DOM.modal.addEventListener('click', (e) => {
+        if (e.target === this.DOM.modal) {
+          this.closeModal();
+        }
+      });
+      this.DOM.modalBtn.addEventListener('click', () => this.visitSite());
+    }
+
+    openModal(e, index) {
+      e.preventDefault();
+      const slide = this.DOM.slides[index];
+      const url = slide.dataset.url;
+      const desc = slide.dataset.description;
+      const imgSrc = slide.querySelector('.slide__img').src; // Corregido: Ahora busca la clase .slide__img
+
+      this.DOM.modal.style.display = 'flex';
+      document.body.classList.add('modal-open');
+      this.DOM.modalImg.src = imgSrc;
+      this.DOM.modalDesc.textContent = desc || "Descubre más en esta sección.";
+      this.DOM.modalBtn.setAttribute('data-url', url);
+    }
+
+    closeModal() {
+      this.DOM.modal.style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
+
+    visitSite() {
+      const progressBar = document.querySelector('#modalProgress .progress-fill');
+      const progressContainer = document.getElementById('modalProgress');
+      progressContainer.style.display = 'block';
+      progressBar.style.width = '0%';
+      void progressBar.offsetWidth;
+      progressBar.style.width = '100%';
+      setTimeout(() => {
+        const url = this.DOM.modalBtn.getAttribute('data-url');
+        if (url) window.location.href = url;
+      }, 3000);
+    }
+
+    // ... (métodos next, prev, goTo, navigate, animateSlides sin cambios)
   }
 
-  initEvents() {
-    this.DOM.slides.forEach((slide, index) => {
-      slide.addEventListener('click', (e) => this.openModal(e, index));
-    });
-    this.DOM.modalClose.addEventListener('click', () => this.closeModal());
-    this.DOM.modal.addEventListener('click', (e) => {
-      if (e.target === this.DOM.modal) {
-        this.closeModal();
-      }
-    });
-    this.DOM.modalBtn.addEventListener('click', () => this.visitSite());
-  }
-
-  openModal(e, index) {
-    e.preventDefault();
-    const slide = this.DOM.slides[index];
-    const url = slide.dataset.url;
-    const desc = slide.dataset.description;
-    const imgSrc = slide.querySelector('img').src;
-
-    this.DOM.modal.style.display = 'flex';
-    document.body.classList.add('modal-open');
-    this.DOM.modalImg.src = imgSrc;
-    this.DOM.modalDesc.textContent = desc || "Descubre más en esta sección.";
-    this.DOM.modalBtn.setAttribute('data-url', url);
-  }
-
-  closeModal() {
-    this.DOM.modal.style.display = 'none';
-    document.body.classList.remove('modal-open');
-  }
-
-  visitSite() {
-    const progressBar = document.querySelector('#modalProgress .progress-fill');
-    const progressContainer = document.getElementById('modalProgress');
-    progressContainer.style.display = 'block';
-    progressBar.style.width = '0%';
-    void progressBar.offsetWidth;
-    progressBar.style.width = '100%';
-    setTimeout(() => {
-      const url = this.DOM.modalBtn.getAttribute('data-url');
-      if (url) window.location.href = url;
-    }, 3000);
-  }
+  // ... (código existente del resto de tu test.js, sin cambios)
 
   next() {
     this.navigate(NEXT);
