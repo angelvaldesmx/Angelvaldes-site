@@ -22,9 +22,9 @@
 /* ===== BODY ===== */
 body {
   font-family: "TheGoodMonolith", sans-serif;
-  color: var(--color-text);
+  color: var(--color-text); 
   background-color: var(--color-bg);
-  overflow: hidden;
+  overflow: auto;
   height: 100vh;
 }
 

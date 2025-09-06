@@ -270,14 +270,15 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     const ObserverObj = typeof Observer !== "undefined" ? Observer : gsap.Observer;
     if (ObserverObj) {
-      ObserverObj.create({
+      Observer.create({
         target: window,
-        type: "wheel,touch,pointer",
-        onDown: () => !isAnimating && slideshow.prev(),
-        onUp: () => !isAnimating && slideshow.next(),
+        type: "wheel,touch",
+        onWheel: e => {
+          if (!isAnimating) e.deltaY > 0 ? slideshow.next() : slideshow.prev();
+        },
         wheelSpeed: -1,
-        tolerance: 10,
-        preventDefault: true
+        preventDefault: true,
+        tolerance: 10
       });
     }
   } catch {
