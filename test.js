@@ -202,7 +202,7 @@ function updateDragLines(activeIndex, forceUpdate = false) {
     }
 
     // ... (métodos next, prev, goTo, navigate, animateSlides sin cambios)
-  }
+  
 
   // ... (código existente del resto de tu test.js, sin cambios)
 
