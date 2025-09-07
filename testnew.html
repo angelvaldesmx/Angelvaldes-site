@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias Curadas</title>
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/SequenceJS/modern-slide-in/ef79a3005818c71087c6abca2cda48f91ff3eb01/css/sequence-theme.modern-slide-in.css">
+    <style>
+        /* Estilos adicionales para que las imágenes se adapten correctamente */
+        .seq-model img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    </style>
+      <link rel="stylesheet" href="testnew.css" type="text/css">
+    
+</head>
+<body>
+
+    <div id="sequence" class="seq">
+
+        <div class="seq-screen">
+            <ul class="seq-canvas">
+                </ul>
+        </div>
+
+        <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
+            <button type="button" class="seq-prev" aria-label="Anterior">Anterior</button>
+            <button type="button" class="seq-next" aria-label="Siguiente">Siguiente</button>
+        </fieldset>
+
+        <ul role="navigation" aria-label="Paginación" class="seq-pagination">
+            </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/154/imagesloaded.pkgd.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/154/hammer.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/154/sequence.min.js"></script>
+    <script src="testnew.js"></script>
+</body>
+</html>
