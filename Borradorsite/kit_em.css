@@ -1,0 +1,468 @@
+/* =================== FUENTES =================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Turret+Road:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+@font-face {
+    font-family: "PPSupplyMono";
+    src: url("https://assets.codepen.io/7558/PPSupplyMono-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* =================== VARIABLES =================== */
+:root {
+    --hue-color: 330;
+    --accent-color: hsl(210, 90%, 60%);
+    --skin-color: hsl(var(--hue-color), 92%, 46%);
+    --mirage-color: hsl(240, 15%, 15%);
+    --title-color: #f2f2f2;
+    --text-color: #c0c0c0;
+    --body-color: #0f0f1a;
+    --box-color: #1a1a2e;
+    --scroll-box-color: #222240;
+    --scroll-thumb-color: #5555aa;
+
+    --body-font: 'Poppins', sans-serif;
+    --signature-font: 'Turret Road', sans-serif;
+    --mono-font: 'PPSupplyMono', monospace;
+
+    --biggest-font-size: 3rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1.1rem;
+    --small-font-size: .95rem;
+    --smaller-font-size: .9rem;
+
+    --font-medium: 500;
+    --font-bold: 600;
+
+    --mb1: 1rem;
+    --mb2: 2rem;
+    --mb3: 3rem;
+
+    --z-fixed: 10;
+    --z-modal: 100;
+}
+
+/* Modo claro - variables */
+body.light-mode {
+    --body-color: #f2f2f2;
+    --box-color: #ffffff;
+    --title-color: #333333;
+    --text-color: #555555;
+    --skin-color: hsl(330, 92%, 46%);
+    --accent-color: hsl(210, 90%, 60%);
+    --mirage-color: #eeeeee;
+}
+
+/* =================== RESET Y ESTILOS GLOBALES =================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    color: var(--text-color);
+    background: var(--body-color);
+    line-height: 1.6;
+    /* Evita la barra de desplazamiento horizontal en móviles */
+    overflow-x: hidden;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+/* =================== UTILITIES =================== */
+.content {
+    width: 90vmin;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--box-color);
+    border-radius: .5rem;
+    box-shadow: 0 0 20px rgba(255, 0, 150, 0.2), 0 0 35px rgba(0, 200, 255, 0.15);
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    font-family: var(--signature-font);
+    font-size: var(--h2-font-size);
+    color: var(--skin-color);
+    margin-bottom: var(--mb1);
+}
+
+p {
+    text-align: justify;
+    text-align-last: center;
+}
+
+.content ul {
+    padding-left: 1.5rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.content li {
+    margin-bottom: 0.5rem;
+}
+
+/* =================== NAVBAR =================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: var(--box-color);
+    z-index: var(--z-fixed);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 15px rgba(255, 0, 150, 0.2);
+    /* Transición para el efecto de ocultar/mostrar */
+    transition: top 0.3s ease-in-out;
+}
+
+.navbar .logo {
+    font-family: var(--signature-font);
+    font-size: 1.3rem;
+    color: var(--skin-color);
+    font-weight: 700;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.navbar .nav-links li a {
+    font-family: var(--mono-font);
+    color: var(--title-color);
+    font-size: .9rem;
+    font-weight: var(--font-medium);
+    position: relative;
+    transition: 0.3s;
+}
+
+.navbar .nav-links li a:hover {
+    color: var(--skin-color);
+}
+
+.navbar .nav-links li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(135deg, var(--skin-color), var(--accent-color));
+    border-radius: 2px;
+}
+
+/* =================== HERO =================== */
+.hero {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #2a0a3d, #1a1a2e);
+    color: var(--title-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h1 {
+    font-family: var(--signature-font);
+    font-size: var(--biggest-font-size);
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff66ff;
+}
+
+/* =================== MANIFIESTO Y PORTADA =================== */
+.manifiesto-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.manifiesto-left img {
+    max-width: 100%;
+    height: auto;
+    border-radius: .5rem;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.manifiesto-right {
+    text-align: center;
+}
+
+.manifiesto-right p {
+    margin-bottom: 1rem;
+    text-align: justify;
+    text-align-last: center;
+}
+
+/* =================== BOTONES =================== */
+.btn-cta {
+    background: var(--skin-color);
+    color: #fff;
+    padding: .75rem 1.4rem;
+    border-radius: .5rem;
+    transition: .3s;
+    font-family: var(--body-font);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+}
+
+.btn-cta:hover {
+    background: var(--accent-color);
+}
+
+/* =================== MODALES =================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-modal);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: var(--box-color);
+    padding: 2rem;
+    border-radius: .5rem;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(255, 0, 150, 0.4);
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content h3 {
+    font-family: var(--signature-font);
+    color: var(--skin-color);
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-content .btn-cta {
+    margin: 0.5rem;
+}
+
+.modal-iframe-container {
+    position: relative;
+    padding-bottom: 75%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: var(--body-color);
+    border-radius: 5px;
+}
+
+#iframe-donacion {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* =================== ANUNCIOS =================== */
+.anuncio-banner {
+    width: 100%;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.anuncio-banner img {
+    max-width: 100%;
+    height: auto;
+    border-radius: .5rem;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* =================== TESTIMONIOS Y COMENTARIOS =================== */
+.testimonios-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.testimonios-left {
+    width: 100%;
+}
+
+.comentarios-right {
+    width: 100%;
+    text-align: center;
+}
+
+.team {
+    padding: 0;
+    margin: 0;
+}
+
+.member {
+    margin: 1.5em 0;
+    padding: 1.5em;
+    background: linear-gradient(83deg, #ffdd40 0 97%, #fff0 calc(97% + 1px) 100%);
+    position: relative;
+    list-style: none;
+    transform: scale(0.9);
+    transition: all 0.4s ease 0s;
+    border-radius: .5em;
+    text-align: left;
+}
+
+.member:nth-of-type(even) {
+    background: linear-gradient(-83deg, #ffdd40 0 97%, #fff0 calc(97% + 1px) 100%);
+    text-align: right;
+}
+
+.member h3 {
+    color: #333;
+    font-size: var(--h3-font-size);
+}
+
+.member p {
+    color: #555;
+    font-style: italic;
+    font-size: var(--normal-font-size);
+}
+
+/* =================== FOOTER =================== */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: var(--small-font-size);
+    color: var(--text-color);
+}
+
+/* =================== MEDIA QUERIES (RESPONSIVE) =================== */
+/* Estilos para tabletas y computadoras de escritorio */
+@media (min-width: 768px) {
+    .manifiesto-container {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 3rem;
+    }
+
+    .manifiesto-left,
+    .manifiesto-right {
+        flex: 1;
+        text-align: left;
+    }
+
+    .manifiesto-left {
+        order: 1;
+    }
+
+    .manifiesto-right {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .manifiesto-right p {
+        text-align: justify;
+    }
+
+    .testimonios-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .testimonios-left {
+        width: 60%;
+    }
+
+    .comentarios-right {
+        width: 35%;
+        text-align: right;
+    }
+
+    .navbar .nav-links {
+        display: flex; /* Asegura que los enlaces sean visibles en desktop */
+    }
+}
+
+/* Estilos para móviles */
+@media (max-width: 767px) {
+    .navbar .nav-links {
+        display: none; /* Oculta los enlaces en pantallas móviles para un diseño más limpio */
+    }
+
+    .hero {
+        height: 50vh;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .content {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .manifiesto-container,
+    .testimonios-container {
+        flex-direction: column;
+    }
+
+    .manifiesto-left,
+    .manifiesto-right,
+    .testimonios-left,
+    .comentarios-right {
+        width: 100%;
+    }
+  }
