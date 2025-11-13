@@ -1,7 +1,3 @@
-// ================================
-// FUSIÓN TOTAL (INTRO + BLACKHOLE + CURSOR) - v2 FIX
-// ================================
-
 document.addEventListener("DOMContentLoaded", () => {
     
     const body = document.body;
@@ -11,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const blackholeContainer = document.getElementById("blackhole-overlay");
 
     // ================================
-    // 1. LÓGICA DEL BLACK HOLE (Refactorizada y Corregida)
+    // 1. LÓGICA DEL BLACK HOLE (OPTIMIZADA PARA MÓVIL)
     // ================================
     
     if (blackCanvas && blackholeContainer) {
@@ -36,9 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         blackCanvas.width = cw;
         blackCanvas.height = ch;
 
-        // context.globalCompositeOperation = "multiply"; 
-        // ¡¡ESTA ERA LA LÍNEA DEL PROBLEMA!! La comentamos.
-
         function rotate(cx, cy, x, y, angle) {
             const radians = angle;
             const cos = Math.cos(radians);
@@ -49,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const Star = function() {
-            // ... (El resto de la función Star no cambia) ...
             let x, y, orbit, rad, speed, spin, color;
             
             const randomopacity = Math.random();
@@ -65,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.rad = (Math.random() * 180);
             this.speed = (Math.random() * .5) + .1;
             this.spin = (Math.random() * 2) + .1;
-            this.color = '255,255,255'; // Blanco
+            this.color = '255,255,255'; 
 
             this.draw = function() {
                 let x, y, x_relative, y_relative;
@@ -108,36 +100,33 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             
             stars.push(this);
-        } // Fin de la función Star
+        }
 
-        // Event Listeners
         if (startButton) {
             startButton.addEventListener('click', function() {
                 if (expanse === false) {
                     expanse = true;
+                    // FIX: Pausar animación al salir para ahorrar CPU
+                    setTimeout(() => { cancelAnimationFrame(animationFrameId); }, 2000);
                     body.classList.remove("intro-active");
                 }
             });
             
             startButton.addEventListener('mouseover', function() {
-                if (expanse === false) {
-                    collapse = true;
-                }
+                if (expanse === false) { collapse = true; }
             });
             
             startButton.addEventListener('mouseout', function() {
-                if (expanse === false) {
-                    collapse = false;
-                }
+                if (expanse === false) { collapse = false; }
             });
         }
 
-        // Animation loop
+        let animationFrameId;
+
         function loop() {
             const now = new Date().getTime();
             currentTime = (now - startTime) / 50;
 
-            // FIX 2: Usamos negro puro transparente (0,0,0) para los trails
             context.fillStyle = 'rgba(0,0,0,0.2)'; 
             context.fillRect(0, 0, cw, ch);
 
@@ -147,28 +136,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            requestAnimationFrame(loop);
+            animationFrameId = requestAnimationFrame(loop);
         }
 
-        // Init
         function initBlackHole() {
-            // FIX 3: Limpiamos a negro puro (0,0,0)
             context.fillStyle = 'rgba(0,0,0,1)'; 
             context.fillRect(0, 0, cw, ch);
-            for (let i = 0; i < 2500; i++) {
+            
+            // 🔥 OPTIMIZACIÓN MÓVIL 🔥
+            // Si es pantalla chica (< 768px), usamos 600 estrellas. Si no, 2500.
+            const isMobile = window.innerWidth < 768;
+            const starCount = isMobile ? 600 : 2500;
+
+            for (let i = 0; i < starCount; i++) {
                 new Star();
             }
             loop();
         }
         
         initBlackHole();
-        
-    } // Fin del 'if (blackCanvas)'
+    } 
 
     // ================================
-    // 2. LÓGICA DEL CURSOR NEON (Sin cambios)
+    // 2. LÓGICA DEL CURSOR NEON (DESACTIVADO EN MÓVIL)
     // ================================
-    if (cursorCanvas) {
+    // En móvil no hay "mouse", así que esto gasta batería a lo tonto. Lo quitamos.
+    if (cursorCanvas && window.matchMedia("(pointer: fine)").matches) {
       const ctx = cursorCanvas.getContext("2d");
 
       function resizeCanvas() {
@@ -227,4 +220,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-}); // Fin del DOMContentLoaded
+});
