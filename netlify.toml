@@ -2,6 +2,20 @@
   functions = "netlify/functions"
   publish = "."
 
+# ============================
+# 🔗 ALIASES DE VERIFICACIÓN Y MARCA
+# (Esto hace que /oficial redirija al Home)
+# ============================
+[[redirects]]
+  from = "/oficial"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/VerifiedAccounts"
+  to = "/"
+  status = 301
+
 # ----------------------------
 # API genérica
 # ----------------------------

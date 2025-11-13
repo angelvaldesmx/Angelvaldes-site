@@ -179,15 +179,21 @@
   margin-bottom: 30px;
 }
 
+/* =========================================
+   FIX DE CONTRASTE: BOTONES
+========================================= */
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  background-color: var(--brand-color);
-  color: #fff;
+  background-color: var(--brand-color); /* #1DA1F2 */
+  
+  /* CAMBIO CLAVE: Texto negro para contraste perfecto (Ratio 5.8:1) */
+  color: #000; 
+  font-weight: 800; /* Más grueso para que se vea 'Bold' */
+  
   padding: 12px 30px;
   border-radius: 50px;
   text-decoration: none;
-  font-weight: 700;
   font-size: 1rem;
   transition: all 0.3s ease;
   border: none;
@@ -195,13 +201,16 @@
 }
 
 .btn-primary:hover {
-  background-color: #fff;
-  color: var(--brand-color);
+  background-color: #fff; /* Fondo blanco al hover */
+  color: var(--brand-color); /* Texto azul al hover */
   transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(29, 161, 242, 0.6); /* Glow */
 }
 
+/* Aseguramos que el icono dentro del botón herede el color */
 .btn-primary i {
   margin-left: 10px;
+  color: inherit;
 }
 
 /* =========================================
