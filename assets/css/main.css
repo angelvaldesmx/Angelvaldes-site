@@ -1,0 +1,408 @@
+/* =========================================
+   RESET Y FUENTES BÁSICAS
+========================================= */
+:root {
+  --sidebar-width: 260px;
+  --sidebar-width-collapsed: 80px;
+  --mobile-header-height: 60px;
+  --bg-dark: #0a0a0a;
+  --bg-light: #121212;
+  --text-primary: #fff;
+  --text-secondary: #aaa;
+  --brand-color: #1DA1F2; /* Azul Verificado */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   LAYOUT DESKTOP (Estilo Gemini)
+========================================= */
+@media (min-width: 769px) {
+  body {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    transition: grid-template-columns 0.3s ease;
+  }
+
+  body.sidebar-collapsed {
+    grid-template-columns: var(--sidebar-width-collapsed) 1fr;
+  }
+
+  #mobile-header {
+    display: none;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--bg-dark);
+    border-right: 1px solid #222;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+    z-index: 100;
+  }
+
+  body.sidebar-collapsed #sidebar {
+    width: var(--sidebar-width-collapsed);
+  }
+
+  .sidebar-header {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+
+  #sidebar-collapse-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  #sidebar-collapse-btn:hover { color: var(--text-primary); }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .section-title {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  body.sidebar-collapsed .section-title {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+  }
+
+  .sidebar-section ul { list-style: none; }
+
+  .sidebar-section li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap; 
+    overflow: hidden;
+  }
+
+  .sidebar-section li a:hover {
+    background-color: #1a1a1a;
+    color: var(--text-primary);
+  }
+
+  .sidebar-section li a.active {
+    color: var(--brand-color);
+    background-color: rgba(29, 161, 242, 0.1);
+  }
+
+  /* FIX ICONOS SVG DESKTOP */
+  .sidebar-section li a i,
+  .sidebar-section li a svg {
+    font-size: 1.2rem;
+    min-width: 30px; 
+    margin-right: 15px;
+    text-align: center;
+  }
+
+  body.sidebar-collapsed .sidebar-section li a {
+    justify-content: center;
+    padding: 15px 0;
+  }
+  body.sidebar-collapsed .sidebar-section li a i,
+  body.sidebar-collapsed .sidebar-section li a svg {
+    margin-right: 0;
+    font-size: 1.4rem;
+  }
+  body.sidebar-collapsed .sidebar-section li a span {
+    opacity: 0;
+    width: 0;
+    display: none;
+  }
+
+  #content-area {
+    grid-column: 2 / 3;
+    width: 100%;
+    position: relative;
+  }
+}
+
+/* =========================================
+   LAYOUT MÓVIL
+========================================= */
+@media (max-width: 768px) {
+  #sidebar {
+    display: block;
+    position: fixed;
+    top: 0; left: 0;
+    width: 280px;
+    height: 100vh;
+    z-index: 1000;
+    background-color: var(--bg-dark);
+    border-right: 1px solid #222;
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .sidebar-header { display: none; }
+
+  #mobile-header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: var(--mobile-header-height);
+    background-color: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 500;
+    border-bottom: 1px solid #222;
+  }
+
+  #mobile-menu-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    /* FIX TAMAÑO BOTÓN SVG */
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #mobile-navbar {
+    display: flex;
+    gap: 20px;
+  }
+  #mobile-navbar a {
+    color: var(--text-secondary);
+    font-size: 1.4rem;
+  }
+
+  #content-area {
+    width: 100%;
+    padding-top: var(--mobile-header-height);
+  }
+
+  body.mobile-menu-open #sidebar {
+    transform: translateX(0);
+    box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+  }
+  
+  body.mobile-menu-open::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 900;
+    backdrop-filter: blur(2px);
+  }
+  
+  .sidebar-section ul { list-style: none; }
+  .sidebar-section li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    font-size: 1.1rem;
+    color: #ccc;
+    text-decoration: none;
+    border-bottom: 1px solid #222;
+  }
+  
+  /* FIX ICONOS SVG MÓVIL */
+  .sidebar-section li a i,
+  .sidebar-section li a svg { 
+    margin-right: 15px; 
+    width: 25px; 
+    text-align: center; 
+  }
+}
+
+/* =========================================
+   FOOTER GLOBAL
+========================================= */
+#global-footer {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: var(--bg-dark);
+  border-top: 1px solid #222;
+  grid-column: 1 / -1; 
+  position: relative;
+  z-index: 10;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-copyright {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.footer-copyright a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-copyright a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  color: var(--text-secondary);
+  font-size: 1.4rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.footer-socials a:hover {
+  color: var(--brand-color);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* =========================================
+   VENTANAS MODALES (Privacidad/Términos)
+========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 10000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #1a1a1a;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  padding: 40px;
+  border-radius: 15px;
+  border: 1px solid #333;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  position: relative;
+  overflow-y: auto;
+  color: #ccc;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px; right: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.modal-close-btn:hover {
+  color: var(--brand-color);
+  transform: scale(1.1);
+}
+
+/* ESTILOS DE TIPOGRAFÍA PARA MODALES (¡ESTO ES LO QUE FALTABA!) */
+.modal-content h2 {
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+}
+
+.modal-body h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-family: "Playfair Display", serif;
+  border-left: 3px solid var(--brand-color);
+  padding-left: 15px;
+}
+
+.modal-body strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.modal-body p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+/* FIX DE EMERGENCIA PARA ICONOS */
+i.fa-solid, i.fa-brands, i.fa-regular, svg.svg-inline--fa {
+    display: inline-block;
+    min-width: 1em;
+    min-height: 1em;
+}
