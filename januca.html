@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una Pausa para la Luz | Janucá</title>
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="🕯️ Una Pausa para la Luz | En casa de Angel">
+    <meta property="og:description" content="Nota familiar: Esto no es un cambio de religión. Es encender una luz para agradecer que seguimos aquí. El milagro y la fe son universales. Vengan tranquilos.">
+    <meta property="og:image" content="https://media.istockphoto.com/id/1193567679/es/vector/feliz-hanukkah-fondo-de-vacaciones-jud%C3%ADas-ilustraci%C3%B3n-vectorial-hanukkah-es-el-nombre-de-la.jpg?s=612x612&w=0&k=20&c=adIzg6YzM-53MdkYntyvRM1m7DKA50rUro74Qevm1zo=">
+    
+    <meta name="robots" content="noindex, nofollow">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { serif: ['"Playfair Display"', 'serif'], sans: ['"Montserrat"', 'sans-serif'] },
+                    colors: { 'noir-bg': '#050505', 'gold-muted': '#C5A059', 'gold-bright': '#FFD700', 'paper': '#e8e6e1' }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Transición suave de entrada */
+        body { background-color: #050505; color: #e8e6e1; overflow-x: hidden; opacity: 0; transition: opacity 1s ease-in; }
+        body.access-granted { opacity: 1; }
+        
+        /* Dock de navegación */
+        .nav-dock-container { position: fixed; bottom: 30px; width: 100%; display: flex; justify-content: center; z-index: 40; pointer-events: none; }
+        .nav-dock { pointer-events: auto; background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 12px 24px; display: flex; gap: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .nav-item { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; text-decoration: none; transition: all 0.3s; position: relative; }
+        .nav-item:hover { color: #C5A059; transform: translateY(-2px); }
+        .text-justify-pretty { text-align: justify; text-justify: inter-word; }
+
+        /* Estilos del Modal */
+        .modal-overlay { position: fixed; inset: 0; background: #000; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.8s ease, visibility 0.8s; }
+        .modal-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        /* Bloquear scroll cuando el modal está activo */
+        body.modal-open { overflow: hidden; }
+    </style>
+
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('vip') === 'true') {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add('access-granted');
+                    document.body.classList.add('modal-open'); // Bloquear scroll al inicio
+                });
+            } else {
+                window.location.href = "https://www.google.com";
+            }
+        })();
+    </script>
+</head>
+<body class="font-sans antialiased selection:bg-gold-muted selection:text-black">
+
+    <div id="welcome-modal" class="modal-overlay">
+        <div class="bg-[#111] border border-gold-muted/30 p-8 md:p-10 rounded-2xl max-w-lg w-full text-center shadow-[0_0_60px_rgba(197,160,89,0.15)] relative">
+            <div class="text-4xl mb-6">🕯️</div>
+            
+            <h2 class="font-serif text-2xl md:text-3xl text-gold-muted mb-6">Antes de entrar...</h2>
+            
+            <div class="space-y-4 text-gray-300 font-light text-sm md:text-base leading-relaxed text-left">
+                <p><strong class="text-white">Para mi familia y amigos:</strong></p>
+                
+                <p>Quiero ser súper claro: <span class="text-gold-bright font-medium">Esto no es un cambio de sistema operativo.</span> No estoy desinstalando nuestra fe para instalar otra.</p>
+                
+                <p>Janucá significa literalmente <strong>"Dedicación"</strong>. Celebra el milagro de recuperar un Templo, limpiarlo y volver a encender su luz.</p>
+                
+                <p>Nuestra fe nos enseña que nuestros cuerpos y hogares son templos que a veces necesitan ser limpiados y <strong>vueltos a dedicar a la Luz</strong>. Ese es el único propósito de esta reunión.</p>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-white/10">
+                <p class="text-gold-muted italic text-sm mb-6">"Vengan tranquilos. Su fe es bienvenida y honrada en mi mesa."</p>
+                
+                <button id="btn-enter" class="w-full bg-gold-muted hover:bg-gold-bright text-black font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-[1.02] shadow-lg">
+                    Entendido, vamos a celebrar ✨
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-dock-container">
+        <nav class="nav-dock">
+            <a href="#hero" class="nav-item">Inicio</a>
+            <a href="#hook" class="nav-item">Mensaje</a>
+            <a href="#dayenu" class="nav-item">Ritual</a>
+            <a href="#cuento" class="nav-item">Cuento</a>
+            <a href="#logistica" class="nav-item text-gold-muted">Logística</a>
+        </nav>
+    </div>
+
+    <main class="relative z-10">
+
+        <section id="hero" class="min-h-screen flex flex-col items-center justify-center px-6 py-12 relative">
+            
+            <div class="text-center mb-8 animate-fade-in-up z-20">
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-transparent bg-clip-text bg-gradient-to-b from-paper to-gray-400 tracking-tight drop-shadow-2xl">
+                    Una Pausa<br>para la Luz
+                </h1>
+            </div>
+
+            <div class="relative w-full max-w-5xl aspect-video rounded-xl overflow-hidden shadow-[0_0_50px_rgba(197,160,89,0.15)] border border-white/10 z-30 bg-black">
+                <img 
+                    src="https://i.ibb.co/99CkLBsQ/janucanight1-qlvpy0.gif" 
+                    class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-700" 
+                    alt="Janucá Luz"
+                >
+                </div>
+
+            <div class="mt-10 text-center animate-fade-in-up delay-300 z-20">
+                <p class="font-light text-gold-muted tracking-[0.4em] text-xs md:text-sm uppercase border-t border-gold-muted/50 pt-6 inline-block font-semibold">
+                    Invitación de Angel Valdes
+                </p>
+            </div>
+
+            <div class="mt-12 animate-bounce opacity-40">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+            
+            <div class="absolute inset-0 bg-gradient-to-b from-noir-bg via-[#111] to-noir-bg z-0 pointer-events-none"></div>
+        </section>
+
+        <section id="hook" class="py-24 px-6 md:px-12 lg:px-24 border-t border-white/5 bg-noir-bg">
+            <div class="max-w-3xl mx-auto text-center space-y-8">
+                <p class="font-serif text-2xl md:text-4xl italic text-paper leading-relaxed mb-16">
+                    "Mi terapeuta estaría orgullosa..."
+                </p>
+                <div class="font-light text-lg md:text-xl text-gray-300 leading-relaxed space-y-8 text-justify-pretty">
+                    <p>Este año voy a celebrar Janucá. Y quiero ser brutalmente honesto:</p>
+                    <p>No lo hago porque todo esté resuelto, ni porque el pasado ya no duela. Lo hago precisamente porque estoy aprendiendo a sostener la luz, incluso cuando el cuarto sigue estando hecho un desmadre.</p>
+                    <p>Mi terapeuta diría que es un avance. Yo creo que también.</p>
+                    <p>Nuestras historias son complicadas, lo sé. Por eso, esta invitación no es un "borrón y cuenta nueva", ni un intento de "ya supérenlo todo". Es un acto de paz personal.</p>
+                    <p class="text-white font-medium border-l-2 border-gold-muted pl-6">Son ocho noches. Encenderemos velas, habrá calma y un espacio para respirar.</p>
+                    <p>Esta invitación es abierta. No pide nada. No exige nada. No condiciona nada.</p>
+                    <p>Si quieres acompañarme alguna noche, serás bienvenido desde un lugar tranquilo y respetuoso. Si prefieres no hacerlo, también lo entiendo y lo respeto profundamente. Mis procesos no son una carga para nadie.</p>
+                </div>
+                <p class="font-serif text-2xl text-gold-muted mt-16">
+                    La puerta está abierta... y yo también. Pero de una manera sana.
+                </p>
+            </div>
+        </section>
+
+        <section id="dayenu" class="py-32 px-6 border-t border-white/5 bg-[#080808]">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-12 items-start">
+                    <div class="md:w-1/3 md:sticky md:top-32 text-center md:text-right">
+                        <span class="text-8xl font-serif text-gold-muted opacity-10 leading-none">01</span>
+                        <h2 class="text-4xl font-serif text-paper mt-[-40px]">La Regla<br>del Alma</h2>
+                        <p class="text-xs tracking-widest uppercase text-gray-500 mt-4">Anexo Especial</p>
+                    </div>
+                    <div class="md:w-2/3 text-lg text-gray-300 font-light space-y-6 leading-relaxed">
+                        <p class="text-gold-muted font-medium text-xl">Este Janucá no es solo por el milagro del aceite. Para mí, es por el milagro de haber sobrevivido a este año.</p>
+                        <p>Por eso, vamos a integrar un ritual. Se llama <strong class="text-white">"Dayenu"</strong>.</p>
+                        <p><em>"Dayenu"</em> significa "fue suficiente".</p>
+                        <p>La dinámica es simple: cada noche, el que quiera (cero presión), va a compartir una sola cosa que este año "fue suficiente" para no tirar la toalla.</p>
+                        <div class="bg-white/5 p-8 rounded-sm border border-white/10 my-8">
+                            <p class="uppercase tracking-widest text-xs text-gold-muted mb-4 font-bold">Nota Importante</p>
+                            <p class="mb-4 italic text-gray-400">Esto NO es un grupo de terapia para revivir el drama. No buscamos explicaciones, ni el chisme completo, ni la herida abierta.</p>
+                            <p class="text-white">Es un reconocimiento. Es un shot de perspectiva <span class="text-gold-muted font-serif italic">(o de tequila, si hace falta)</span>. Es decir: "esta condenada cosa me salvó".</p>
+                        </div>
+                        <p>Una palabra, una canción, una decisión, un café, un silencio. Lo que sea que te dio luz, aunque fuera un foco de 10 watts.</p>
+                        <p>Si prefieres no hablar, no hablas. El silencio también es resistencia. Se respeta y se honra igual.</p>
+                        <p>El punto es recordarnos que la esperanza y la justicia no siempre llegan como un gran rayo. A veces, llegan en dosis... una vela a la vez.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cuento" class="py-32 px-6 bg-noir-bg border-t border-white/5">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-serif text-4xl text-paper mb-2">Érase una vez...</h2>
+                    <p class="text-sm text-gray-500 uppercase tracking-widest">(Versión Disney ft. Telmex)</p>
+                </div>
+                <div class="space-y-8 font-light text-lg text-gray-400 leading-relaxed text-justify-pretty">
+                    <p>Hace mucho, muchísimo tiempo —o bueno, unos 2,000 años, antes de que existiera el WiFi y antes de que alguien inventara los tacos— un pequeño grupo de personas estaba pasando por una de esas temporadas horribles que parecen guionadas por Netflix.</p>
+                    <p>Un imperio grandote, pesado, y con ganas de controlar hasta el último detalle <span class="text-gray-200">(algo así como cuando Telmex insiste en venderte un paquete que no pediste)</span>, decidió prohibirles sus costumbres, su fe y hasta las cosas más básicas que hacían para sentirse ellos mismos.</p>
+                    <p>Total, que había tensión, opresión, injusticia… Muy “telenovela histórica”, pero sin comerciales.</p>
+                    <p>Entonces aparece un grupo de héroes: <strong class="text-gold-muted">los Macabeos</strong> —que no eran vengadores, pero tenían la misma actitud de “¿sabes qué? ya me cansé”— Y dijeron: “Hasta aquí.”</p>
+                    <p>Y se levantaron para recuperar su templo, su identidad y su forma de vivir.</p>
+                    <div class="py-12 text-center">
+                        <span class="text-5xl">🕯️</span>
+                        <h3 class="font-serif text-2xl text-white mt-4">El Plot Twist del Aceite</h3>
+                    </div>
+                    <p>Cuando por fin lograron recuperar el templo, lo limpiaron, lo ordenaron, lo reconectaron (como cuando tu modem se muere y lo revives desconectando y conectando), y quisieron encender la lámpara del lugar sagrado.</p>
+                    <p>Pero… <span class="text-white font-medium">💀 solo había aceite para encenderla un día. UNO.</span></p>
+                    <p class="italic text-sm opacity-70 text-center">Como cuando revisas tu cartera y encuentras 20 pesos el 27 del mes. Y tú dices “ya valió”.</p>
+                    <p>Pero no… Aquí viene el giro digno de Disney:</p>
+                    <p class="text-xl text-white text-center border-y border-white/10 py-8">
+                        🔮 Ese poquito de aceite duró <strong class="text-gold-bright">ocho días completos</strong>.<br>
+                        <span class="text-sm font-light text-gray-400 mt-2 block">Sin Amazon, sin recargas, sin refacciones, sin Oxxos.</span>
+                    </p>
+                    <p>Y eso les dio tiempo de producir aceite nuevo. Ese momentazo fue tan increíble, tan simbólico y tan necesario, que cada año se celebra para recordar que hasta cuando todo parece mínimo, roto o insuficiente, la luz puede multiplicarse.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="logistica" class="py-32 px-6 bg-paper text-noir-bg relative">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="font-serif text-5xl md:text-6xl mb-6 text-noir-bg">Las Reglas del Juego</h2>
+                    <p class="font-sans text-gray-600 uppercase tracking-widest text-sm font-bold">Logística sin letras chiquitas</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <div class="space-y-10">
+                        <div>
+                            <h3 class="font-bold text-xl mb-2 border-l-4 border-noir-bg pl-4">¿Qué carajos es esto?</h3>
+                            <p class="text-gray-700 font-light">Es Janucá. Una fiesta de 8 noches sobre luz y resistencia. No es un culto raro. Es una pausa para respirar.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl mb-2 border-l-4 border-noir-bg pl-4">¿Qué vamos a hacer?</h3>
+                            <p class="text-gray-700 font-light">Encender velas. Yo echo un mini speech sobre el lore del día. No hay examen al final, no tienes que memorizar nada.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl mb-2 border-l-4 border-gold-muted pl-4 text-gold-muted">¿Tengo que traer regalo?</h3>
+                            <p class="text-gray-700 font-light mb-2"><strong>NO es obligación.</strong> Al contrario. La tradición es dar, y yo les voy a dar <strong class="text-black">8 pequeños detalles simbólicos</strong>. Es mi Janucá, mis reglas.</p>
+                            <p class="text-gray-600 text-sm italic bg-gray-100 p-3 rounded">*Si la tradición te mueve y quieres traer algo voluntariamente, eres bienvenido. Pero la base es compartir, no intercambiar.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl mb-2 border-l-4 border-noir-bg pl-4">¿Comida/alcohol?</h3>
+                            <p class="text-gray-700 font-light">Nada. En serio. Yo me encargo de la comida. Si mueres por traer ese postre que te queda increíble, va, pero no es obligación.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-noir-bg p-12 rounded-xl text-white shadow-2xl h-fit sticky top-10 flex flex-col justify-center text-center border border-white/5">
+                        <h3 class="text-3xl font-serif text-gold-muted mb-6">La puerta está abierta</h3>
+                        
+                        <p class="text-gray-300 font-light mb-8 text-lg">
+                            No necesitas registrarte, ni confirmar, ni llenar formularios. 
+                            <br><br>
+                            Si sientes el llamado de venir una noche, simplemente llega.
+                        </p>
+                        
+                        <div class="border-t border-white/10 pt-8 space-y-8">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Las 8 Noches</p>
+                                <p class="text-2xl md:text-3xl text-gold-bright font-serif">Del 14 al 22 de Diciembre</p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Hora de Encendido</p>
+                                <p class="text-4xl md:text-5xl text-white font-serif">7:30 PM</p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-gray-600 mt-8 italic">Cero presión. Solo buena vibra.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-noir-bg py-20 text-center text-gray-600 text-xs uppercase tracking-widest relative z-10 mb-20">
+        <p>Angel Valdes © 2024</p>
+        <p class="mt-2 opacity-50">Hecho con luz y menos código.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('welcome-modal');
+            const btn = document.getElementById('btn-enter');
+            
+            if (btn && modal) {
+                btn.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                    document.body.classList.remove('modal-open'); // Reactivar scroll
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
