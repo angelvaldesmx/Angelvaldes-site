@@ -317,11 +317,12 @@
         ];
 
         // --- MODO DEBUG (null para tiempo real) ---
-        const DEBUG_DATE = null; 
+        const DEBUG_DATE = null; // Ej: "2025-12-15"
 
         document.addEventListener('DOMContentLoaded', () => {
             const today = DEBUG_DATE ? new Date(DEBUG_DATE) : new Date();
-            today.setHours(0,0,0,0);
+            // Normalizamos al mediodía para evitar bugs de zona horaria (-6h)
+            today.setHours(12, 0, 0, 0);
 
             // Elementos UI
             const carousel = document.getElementById('nights-carousel');
@@ -332,9 +333,12 @@
 
             let activeIndex = 0;
 
+            // Función auxiliar para parsear fechas
+            const parseDate = (dateStr) => new Date(dateStr + "T12:00:00");
+
             // Determinar día activo
             nightsData.forEach((data, index) => {
-                const dDate = new Date(data.date + "T00:00:00");
+                const dDate = parseDate(data.date);
                 if (today.getTime() >= dDate.getTime()) activeIndex = index;
             });
 
