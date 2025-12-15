@@ -338,41 +338,7 @@
         }
         ];
 
-        // --- MODO DEBUG (null para tiempo real) ---
-        const DEBUG_DATE = null; // Ej: "2025-12-15"
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const today = DEBUG_DATE ? new Date(DEBUG_DATE) : new Date();
-            // Normalizamos al mediodía para evitar bugs de zona horaria (-6h)
-            today.setHours(12, 0, 0, 0);
-
-            // Elementos UI
-            const carousel = document.getElementById('nights-carousel');
-            const heroDate = document.getElementById('hero-date-display');
-            
-            // Actualizar Fecha Hero
-            heroDate.textContent = today.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
-
-            let activeIndex = 0;
-
-            // Función auxiliar para parsear fechas
-            const parseDate = (dateStr) => new Date(dateStr + "T12:00:00");
-
-            // Determinar día activo
-            nightsData.forEach((data, index) => {
-                const dDate = parseDate(data.date);
-                if (today.getTime() >= dDate.getTime()) activeIndex = index;
-            });
-
-            // Generar Carrusel
-            nightsData.forEach((data, index) => {
-                const btn = document.createElement('div');
-                const isPastOrToday = index <= activeIndex;
-                btn.className = `night-nav-btn ${index === activeIndex ? 'active' : ''}`;
-                btn.innerHTML = `<span class="text-xl">${isPastOrToday ? '🕯️' : '🌑'}</span><span class="text-[10px] font-bold mt-1">N${data.night}</span>`;
-                btn.onclick = () => renderContent(index);
-                carousel.appendChild(btn);
-            });
+        
             // Renderizar Contenido
             function renderContent(index) {
                 const data = nightsData[index];
@@ -385,7 +351,74 @@
                 const isContentFuture = nightDate.getTime() > today.getTime();
                 const isDayenuFuture = dayenuUnlockDate.getTime() > today.getTime();
 
-                // UI Updates
+                // UI Updates// --- MODO DEBUG (null para tiempo real) ---
+        const DEBUG_DATE = null; // Ej: "2025-12-15"
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                // Configuración de Fechas (Mediodía para evitar bug de zona horaria)
+                const parseDate = (dateStr) => new Date(dateStr + "T12:00:00");
+                
+                const today = DEBUG_DATE ? new Date(DEBUG_DATE) : new Date();
+                today.setHours(12, 0, 0, 0);
+
+                // Referencias DOM
+                const elements = {
+                    carousel: document.getElementById('nights-carousel'),
+                    heroDate: document.getElementById('hero-date-display'),
+                    number: document.getElementById('display-number'),
+                    title: document.getElementById('display-title'),
+                    date: document.getElementById('display-date'),
+                    candles: document.getElementById('candles-count'),
+                    meaning: document.getElementById('display-meaning'),
+                    storyTitle: document.getElementById('display-story-title'),
+                    storyText: document.getElementById('display-story-text'),
+                    dayenu: document.getElementById('display-dayenu'),
+                    lock: document.getElementById('dayenu-lock'),
+                    btnEnter: document.getElementById('btn-enter'),
+                    modal: document.getElementById('welcome-modal')
+                };
+
+                // Verificar que existan los elementos críticos
+                if (!elements.title) throw new Error("No se encontraron los elementos HTML.");
+
+                // Actualizar Fecha Hero
+                if(elements.heroDate) {
+                    elements.heroDate.textContent = today.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+                }
+
+                let activeIndex = 0;
+
+                // Determinar día activo
+                nightsData.forEach((data, index) => {
+                    const dDate = parseDate(data.date);
+                    if (today.getTime() >= dDate.getTime()) activeIndex = index;
+                });
+
+                // Generar Carrusel
+                if(elements.carousel) {
+                    nightsData.forEach((data, index) => {
+                        const btn = document.createElement('div');
+                        const isPastOrToday = index <= activeIndex;
+                        btn.className = `night-nav-btn ${index === activeIndex ? 'active' : ''}`;
+                        btn.innerHTML = `<span class="text-xl">${isPastOrToday ? '🕯️' : '🌑'}</span><span class="text-[10px] font-bold mt-1">N${data.night}</span>`;
+                        btn.onclick = () => renderContent(index);
+                        elements.carousel.appendChild(btn);
+                    });
+                }
+                // Renderizar Contenido
+                function renderContent(index) {
+                    const data = nightsData[index];
+                    const nightDate = parseDate(data.date);
+                    
+                    // Lógica Dayenu (+1 día)
+                    const dayenuUnlockDate = new Date(nightDate);
+                    dayenuUnlockDate.setDate(nightDate.getDate() + 1);
+                    
+                    const isContentFuture = nightDate.getTime() > today.getTime();
+                    const isDayenuFuture = dayenuUnlockDate.getTime() > today.getTime();
+
+                    // UI Updates
                 document.querySelectorAll('.night-nav-btn').forEach((b, i) => b.classList.toggle('active', i === index));
                 
                 document.getElementById('display-number').textContent = `0${data.night}`;
