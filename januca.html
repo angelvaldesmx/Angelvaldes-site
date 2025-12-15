@@ -51,13 +51,20 @@
         /* Modal */
         .modal-overlay { position: fixed; inset: 0; background: #000; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.8s ease, visibility 0.8s; }
         .modal-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        body.modal-open { overflow: hidden; }
     </style>
 
     <script>
         (function() {
             const params = new URLSearchParams(window.location.search);
             if (params.get('vip') === 'true') {
-                document.addEventListener("DOMContentLoaded", () => document.body.classList.add('access-granted'));
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add('access-granted');
+                    // Bloquear scroll si el modal está visible
+                    if(!document.getElementById('welcome-modal').classList.contains('hidden')) {
+                        document.body.classList.add('modal-open');
+                    }
+                });
             } else {
                 window.location.href = "https://www.google.com";
             }
@@ -73,7 +80,7 @@
             <p class="text-gray-300 font-light text-sm mb-6">
                 Actualización diaria: Descubre la historia de la noche y mi reflexión del día anterior.
             </p>
-            <button id="btn-enter" class="w-full bg-gold-muted hover:bg-gold-bright text-black font-bold py-3 rounded-full transition-all">
+            <button id="btn-enter" class="w-full bg-gold-muted hover:bg-gold-bright text-black font-bold py-3 rounded-full transition-all cursor-pointer">
                 Ver Noche de Hoy ✨
             </button>
         </div>
@@ -147,7 +154,11 @@
                     
                     <div id="dayenu-container" class="relative">
                         <p id="display-dayenu" class="text-paper font-serif italic text-lg leading-relaxed">---</p>
-                        <p class="text-[10px] text-gray-600 mt-4 uppercase tracking-widest border-t border-white/5 pt-4">Reflexión personal para Dios</p>
+                        
+                        <p class="text-[10px] text-gray-600 mt-4 uppercase tracking-widest border-t border-white/5 pt-4">
+                            Reflexión personal para Dios
+                        </p>
+
                         <div id="dayenu-lock" class="hidden absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center rounded-lg">
                             <span class="text-xs uppercase tracking-widest text-gold-muted border border-gold-muted px-4 py-2 rounded-full">Se revela mañana</span>
                         </div>
@@ -195,13 +206,11 @@
                     <p class="text-gray-300 text-sm font-light mb-6 leading-relaxed">
                         Cada noche abriremos un espacio breve para el <strong>Dayenu</strong>.
                     </p>
-                    
                     <div class="border-l-2 border-gold-muted pl-4 mb-6">
                         <p class="text-white italic text-sm">
                             "Si te sientes cómodo, compártenos qué 'fue suficiente' para ti hoy."
                         </p>
                     </div>
-                    
                     <p class="text-gray-500 text-xs tracking-wide">
                         *Cero presión. El silencio también se respeta y se honra.
                     </p>
@@ -228,6 +237,19 @@
     <footer class="bg-noir-bg py-10 text-center text-gray-600 text-xs uppercase tracking-widest relative z-10">
         <p>Angel Valdes © 2025</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('btn-enter');
+            const modal = document.getElementById('welcome-modal');
+            if(btn && modal) {
+                btn.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                    document.body.classList.remove('modal-open');
+                });
+            }
+        });
+    </script>
 
     <script>
         // =========================================================
@@ -311,9 +333,9 @@
                 title: "La Luz Infinita",
                 meaning: "El candelabro está lleno. Lo natural se encuentra con lo sobrenatural. La luz que llevamos dentro para siempre.",
                 storyTitle: "Capítulo 8: El Relevo",
-                storyText: "Llegó el aceite nuevo. El milagro 'técnico' terminó, la llama sobrenatural se apagó y encendieron la natural. ¿Triste? No. Porque entendieron que la verdadera luz no estaba en la lámpara, estaba en ellos. El fuego físico se puede apagar, pero lo que vivieron esos 8 días los cambió para siempre.",
+                storyText: "Llegó el aceite nuevo. El milagro 'técnico' terminó, la llama sobrenatural se apagó y encendieron la natural. ¿Triste? No. Porque entendieron que la verdadera luz no estaba en la lámpara, estaba en ellos. El fuego físico se puede apagar, pero lo que vivieron esos 8 días los cambió para s
                 dayenu: "[ESCRIBE TU DAYENU NOCHE 8 AQUÍ]"
-            }
+        }
         ];
 
         // --- MODO DEBUG (null para tiempo real) ---
@@ -351,15 +373,14 @@
                 btn.onclick = () => renderContent(index);
                 carousel.appendChild(btn);
             });
-
             // Renderizar Contenido
             function renderContent(index) {
                 const data = nightsData[index];
-                const nightDate = new Date(data.date + "T00:00:00");
+                const nightDate = parseDate(data.date);
                 
-                // LÓGICA DE DESBLOQUEO DAYENU (+1 DÍA)
+                // LÓGICA DAYENU: Se desbloquea al día siguiente (noche + 1)
                 const dayenuUnlockDate = new Date(nightDate);
-                dayenuUnlockDate.setDate(nightDate.getDate() + 1); // Sumar 1 día
+                dayenuUnlockDate.setDate(nightDate.getDate() + 1);
                 
                 const isContentFuture = nightDate.getTime() > today.getTime();
                 const isDayenuFuture = dayenuUnlockDate.getTime() > today.getTime();
@@ -369,7 +390,7 @@
                 
                 document.getElementById('display-number').textContent = `0${data.night}`;
                 document.getElementById('display-title').textContent = data.title;
-                document.getElementById('display-date').textContent = new Date(data.date).toLocaleDateString('es-ES', {weekday:'long', day:'numeric'});
+                document.getElementById('display-date').textContent = nightDate.toLocaleDateString('es-ES', {weekday:'long', day:'numeric'});
                 document.getElementById('candles-count').innerHTML = `🕯️ ${data.candles}`;
                 
                 // Contenido (Historia/Significado) - Se libera el mismo día
@@ -395,26 +416,22 @@
                     dayenuEl.textContent = "Reflexión en proceso...";
                     dayenuEl.classList.add('spoiler-blur');
                     lockEl.classList.remove('hidden');
+                    
                     const isTodayTheNight = nightDate.getTime() === today.getTime();
-                    lockEl.querySelector('span').textContent = isTodayTheNight ? "Se revela mañana" : `Disponible el ${dayenuUnlockDate.toLocaleDateString('es-ES', {day:'numeric', month:'numeric'})}`;
+                    lockEl.querySelector('span').textContent = isTodayTheNight ? "Se revela mañana" : `Disponible el ${dayenuUnlockDate.toLocaleDateString('es-ES', {day:'numeric'})}`;
                 } else {
                     dayenuEl.textContent = `"${data.dayenu}"`;
                     dayenuEl.classList.remove('spoiler-blur');
                     lockEl.classList.add('hidden');
-        }
+                }
             }
+
             // Init
             renderContent(activeIndex);
             setTimeout(() => {
                 const activeBtn = carousel.children[activeIndex];
                 if(activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
             }, 500);
-
-            // Modal
-            document.getElementById('btn-enter').onclick = () => {
-                document.getElementById('welcome-modal').classList.add('hidden');
-                document.body.classList.remove('modal-open');
-            };
         });
     </script>
 
