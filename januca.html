@@ -250,7 +250,6 @@
             }
         });
     </script>
-
     <script>
         // =========================================================
         // DATA CENTER: HISTORIA EVOLUTIVA + DAYENUS (2025)
@@ -264,7 +263,7 @@
                 meaning: "Encendemos la primera luz en la oscuridad total. Es el paso más valiente: atreverse a creer cuando no hay evidencia.",
                 storyTitle: "Capítulo 1: La Versión Disney ft. Telmex",
                 storyText: "Hace 2,000 años, un imperio controlador (piensa en Telmex forzándote un contrato eterno) decidió prohibir la identidad de un pueblo. 'Sean como nosotros o nada'. Pero los Macabeos, que no eran Avengers sino gente común harta, dijeron: 'Hasta aquí'. Recuperaron su Templo, pero solo encontraron aceite para un día. Estaban en números rojos espirituales.",
-                dayenu: "Dios Si tan solo con  cuidar de mi familia este año, dando salud y estabilidad. Sin a mi haberme sostenido, habria sido suficiente."
+                dayenu: "Dios, si tan solo con cuidar de mi familia este año, dando salud y estabilidad. Sin a mi haberme sostenido, habría sido suficiente."
             },
             {
                 night: 2,
@@ -333,138 +332,127 @@
                 title: "La Luz Infinita",
                 meaning: "El candelabro está lleno. Lo natural se encuentra con lo sobrenatural. La luz que llevamos dentro para siempre.",
                 storyTitle: "Capítulo 8: El Relevo",
-                storyText: "Llegó el aceite nuevo. El milagro 'técnico' terminó, la llama sobrenatural se apagó y encendieron la natural. ¿Triste? No. Porque entendieron que la verdadera luz no estaba en la lámpara, estaba en ellos. El fuego físico se puede apagar, pero lo que vivieron esos 8 días los cambió para s
+                storyText: "Llegó el aceite nuevo. El milagro 'técnico' terminó, la llama sobrenatural se apagó y encendieron la natural. ¿Triste? No. Porque entendieron que la verdadera luz no estaba en la lámpara, estaba en ellos. El fuego físico se puede apagar, pero lo que vivieron esos 8 días los cambió para siempre.",
                 dayenu: "[ESCRIBE TU DAYENU NOCHE 8 AQUÍ]"
-        }
+            }
         ];
 
-        
+        // --- MOTOR LÓGICO ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Función para evitar bugs de zona horaria (Mediodía)
+            const parseDate = (dateStr) => new Date(dateStr + "T12:00:00");
+
+            const today = new Date();
+            today.setHours(12, 0, 0, 0);
+
+            // Elementos UI
+            const carousel = document.getElementById('nights-carousel');
+            const heroDate = document.getElementById('hero-date-display');
+            
+            // Actualizar Fecha Hero
+            if(heroDate) {
+                heroDate.textContent = today.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+            }
+
+            let activeIndex = 0;
+
+            // Determinar día activo
+            nightsData.forEach((data, index) => {
+                const dDate = parseDate(data.date);
+                // Si hoy es igual o después de la fecha de la noche, esa es la activa (hasta que llegue la siguiente)
+                if (today.getTime() >= dDate.getTime()) activeIndex = index;
+            });
+
+            // Generar Carrusel
+            if(carousel) {
+                nightsData.forEach((data, index) => {
+                    const btn = document.createElement('div');
+                    const isPastOrToday = index <= activeIndex;
+                    btn.className = `night-nav-btn ${index === activeIndex ? 'active' : ''}`;
+                    btn.innerHTML = `<span class="text-xl">${isPastOrToday ? '🕯️' : '🌑'}</span><span class="text-[10px] font-bold mt-1">N${data.night}</span>`;
+                    btn.onclick = () => renderContent(index);
+                    carousel.appendChild(btn);
+                });
+            }
+
             // Renderizar Contenido
             function renderContent(index) {
                 const data = nightsData[index];
                 const nightDate = parseDate(data.date);
                 
-                // LÓGICA DAYENU: Se desbloquea al día siguiente (noche + 1)
+                // LÓGICA DE DESBLOQUEO DAYENU (+1 DÍA)
                 const dayenuUnlockDate = new Date(nightDate);
                 dayenuUnlockDate.setDate(nightDate.getDate() + 1);
                 
                 const isContentFuture = nightDate.getTime() > today.getTime();
                 const isDayenuFuture = dayenuUnlockDate.getTime() > today.getTime();
 
-                // UI Updates// --- MODO DEBUG (null para tiempo real) ---
-        const DEBUG_DATE = null; // Ej: "2025-12-15"
-
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                // Configuración de Fechas (Mediodía para evitar bug de zona horaria)
-                const parseDate = (dateStr) => new Date(dateStr + "T12:00:00");
-                
-                const today = DEBUG_DATE ? new Date(DEBUG_DATE) : new Date();
-                today.setHours(12, 0, 0, 0);
-
-                // Referencias DOM
-                const elements = {
-                    carousel: document.getElementById('nights-carousel'),
-                    heroDate: document.getElementById('hero-date-display'),
-                    number: document.getElementById('display-number'),
-                    title: document.getElementById('display-title'),
-                    date: document.getElementById('display-date'),
-                    candles: document.getElementById('candles-count'),
-                    meaning: document.getElementById('display-meaning'),
-                    storyTitle: document.getElementById('display-story-title'),
-                    storyText: document.getElementById('display-story-text'),
-                    dayenu: document.getElementById('display-dayenu'),
-                    lock: document.getElementById('dayenu-lock'),
-                    btnEnter: document.getElementById('btn-enter'),
-                    modal: document.getElementById('welcome-modal')
-                };
-
-                // Verificar que existan los elementos críticos
-                if (!elements.title) throw new Error("No se encontraron los elementos HTML.");
-
-                // Actualizar Fecha Hero
-                if(elements.heroDate) {
-                    elements.heroDate.textContent = today.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
-                }
-
-                let activeIndex = 0;
-
-                // Determinar día activo
-                nightsData.forEach((data, index) => {
-                    const dDate = parseDate(data.date);
-                    if (today.getTime() >= dDate.getTime()) activeIndex = index;
-                });
-
-                // Generar Carrusel
-                if(elements.carousel) {
-                    nightsData.forEach((data, index) => {
-                        const btn = document.createElement('div');
-                        const isPastOrToday = index <= activeIndex;
-                        btn.className = `night-nav-btn ${index === activeIndex ? 'active' : ''}`;
-                        btn.innerHTML = `<span class="text-xl">${isPastOrToday ? '🕯️' : '🌑'}</span><span class="text-[10px] font-bold mt-1">N${data.night}</span>`;
-                        btn.onclick = () => renderContent(index);
-                        elements.carousel.appendChild(btn);
-                    });
-                }
-                // Renderizar Contenido
-                function renderContent(index) {
-                    const data = nightsData[index];
-                    const nightDate = parseDate(data.date);
-                    
-                    // Lógica Dayenu (+1 día)
-                    const dayenuUnlockDate = new Date(nightDate);
-                    dayenuUnlockDate.setDate(nightDate.getDate() + 1);
-                    
-                    const isContentFuture = nightDate.getTime() > today.getTime();
-                    const isDayenuFuture = dayenuUnlockDate.getTime() > today.getTime();
-
-                    // UI Updates
+                // UI Updates
                 document.querySelectorAll('.night-nav-btn').forEach((b, i) => b.classList.toggle('active', i === index));
                 
-                document.getElementById('display-number').textContent = `0${data.night}`;
-                document.getElementById('display-title').textContent = data.title;
-                document.getElementById('display-date').textContent = nightDate.toLocaleDateString('es-ES', {weekday:'long', day:'numeric'});
-                document.getElementById('candles-count').innerHTML = `🕯️ ${data.candles}`;
-                
-                // Contenido (Historia/Significado) - Se libera el mismo día
-                if (isContentFuture) {
-                    document.getElementById('display-meaning').textContent = "Se revela el día del evento.";
-                    document.getElementById('display-meaning').classList.add('spoiler-blur');
-                    document.getElementById('display-story-title').textContent = "Bloqueado";
-                    document.getElementById('display-story-text').textContent = "Vuelve en la fecha correspondiente.";
-                    document.getElementById('display-story-text').classList.add('spoiler-blur');
-                } else {
-                    document.getElementById('display-meaning').textContent = data.meaning;
-                    document.getElementById('display-meaning').classList.remove('spoiler-blur');
-                    document.getElementById('display-story-title').textContent = data.storyTitle;
-                    document.getElementById('display-story-text').textContent = data.storyText;
-                    document.getElementById('display-story-text').classList.remove('spoiler-blur');
-                }
-
-                // Dayenu Logic (Se libera AL DÍA SIGUIENTE)
-                const dayenuEl = document.getElementById('display-dayenu');
-                const lockEl = document.getElementById('dayenu-lock');
-                
-                if (isDayenuFuture) {
-                    dayenuEl.textContent = "Reflexión en proceso...";
-                    dayenuEl.classList.add('spoiler-blur');
-                    lockEl.classList.remove('hidden');
+                // Usamos Try-Catch para que si falta un elemento HTML, el resto siga funcionando
+                try {
+                    document.getElementById('display-number').textContent = `0${data.night}`;
+                    document.getElementById('display-title').textContent = data.title;
+                    document.getElementById('display-date').textContent = nightDate.toLocaleDateString('es-ES', {weekday:'long', day:'numeric'});
+                    document.getElementById('candles-count').innerHTML = `🕯️ ${data.candles}`;
                     
-                    const isTodayTheNight = nightDate.getTime() === today.getTime();
-                    lockEl.querySelector('span').textContent = isTodayTheNight ? "Se revela mañana" : `Disponible el ${dayenuUnlockDate.toLocaleDateString('es-ES', {day:'numeric'})}`;
-                } else {
-                    dayenuEl.textContent = `"${data.dayenu}"`;
-                    dayenuEl.classList.remove('spoiler-blur');
-                    lockEl.classList.add('hidden');
+                    // Contenido (Historia/Significado)
+                    if (isContentFuture) {
+                        document.getElementById('display-meaning').textContent = "Se revela el día del evento.";
+                        document.getElementById('display-meaning').classList.add('spoiler-blur');
+                        document.getElementById('display-story-title').textContent = "Bloqueado";
+                        document.getElementById('display-story-text').textContent = "Vuelve en la fecha correspondiente.";
+                        document.getElementById('display-story-text').classList.add('spoiler-blur');
+                    } else {
+                        document.getElementById('display-meaning').textContent = data.meaning;
+                        document.getElementById('display-meaning').classList.remove('spoiler-blur');
+                        document.getElementById('display-story-title').textContent = data.storyTitle;
+                        document.getElementById('display-story-text').textContent = data.storyText;
+                        document.getElementById('display-story-text').classList.remove('spoiler-blur');
+                    }
+
+                    // Dayenu
+                    const dayenuEl = document.getElementById('display-dayenu');
+                    const lockEl = document.getElementById('dayenu-lock');
+                    
+                    if (isDayenuFuture) {
+                        dayenuEl.textContent = "Reflexión en proceso...";
+                        dayenuEl.classList.add('spoiler-blur');
+                        lockEl.classList.remove('hidden');
+                        
+                        const isTodayTheNight = nightDate.getTime() === today.getTime();
+                        lockEl.querySelector('span').textContent = isTodayTheNight ? "Se revela mañana" : `Disponible el ${dayenuUnlockDate.toLocaleDateString('es-ES', {day:'numeric'})}`;
+                    } else {
+                        dayenuEl.textContent = `"${data.dayenu}"`;
+                        dayenuEl.classList.remove('spoiler-blur');
+                        lockEl.classList.add('hidden');
+                    }
+                } catch(e) {
+                    console.error("Error UI:", e);
                 }
             }
 
             // Init
-            renderContent(activeIndex);
-            setTimeout(() => {
-                const activeBtn = carousel.children[activeIndex];
-                if(activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-            }, 500);
+            if(document.getElementById('content-display')) {
+                renderContent(activeIndex);
+                setTimeout(() => {
+                    if(carousel && carousel.children[activeIndex]) {
+                        carousel.children[activeIndex].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                    }
+                }, 500);
+            }
+
+            // Modal Listener (Blindado)
+            const btnEnter = document.getElementById('btn-enter');
+            const modal = document.getElementById('welcome-modal');
+            if(btnEnter && modal) {
+                btnEnter.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                    document.body.classList.remove('modal-open');
+                });
+            }
         });
     </script>
 
