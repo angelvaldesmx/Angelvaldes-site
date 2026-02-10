@@ -14,8 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. EL GLITCH (Texto)
     .to("#phase-old", { display: "none", duration: 0 })
-    .to("#glitch-overlay", { display: "flex", opacity: 1, duration: 0 })
-    .from(".glitch-message", { scale: 1.5, opacity: 0, duration: 0.1, ease: "power4.out" }) // Menos scale para que no se salga
+    .to("#glitch-overlay", { display: "flex", opacity: 1, duration: 0 }) // Forzamos visibilidad inmediata
+    
+    // Animación de entrada del texto (Aseguramos que opacity llegue a 1)
+    .fromTo(".glitch-message", 
+        { scale: 3, opacity: 0 }, 
+        { scale: 1, opacity: 1, duration: 0.2, ease: "elastic.out(1, 0.3)" }
+    )
     .to(".glitch-message", { x: 5, yoyo: true, repeat: 10, duration: 0.05 }) // Vibración
     .to({}, { duration: 2.5 }) // Tiempo de lectura
 
@@ -73,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scene.fog = new THREE.FogExp2(0x050505, 0.035); 
 
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 25); // Cámara ajustada
+        camera.position.set(0, 0, 25); 
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -91,18 +96,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
         scene.add(particlesMesh);
 
-        // -- IMÁGENES (RUTAS CORREGIDAS) --
+        // -- IMÁGENES (RUTAS ABSOLUTAS /images/...) --
         const textureLoader = new THREE.TextureLoader();
         const images = [
-            '../images/antiheroe-cover.jpg', 
-            '../images/old-cover.jpg'
+            '/images/antiheroe-cover.jpg',  // <-- RUTA ABSOLUTA
+            '/images/old-cover.jpg'         // <-- RUTA ABSOLUTA
         ];
         
         images.forEach((url, i) => {
             const group = new THREE.Group();
             group.position.x = i * 40; 
             
-            // Carga de textura con callback de error
+            // Carga segura de texturas
             textureLoader.load(url, (texture) => {
                 const geo = new THREE.PlaneGeometry(12, 18);
                 const mat = new THREE.MeshBasicMaterial({ map: texture });
@@ -118,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 group.add(mesh);
                 scene.add(group);
             }, undefined, (err) => {
-                console.error("Error cargando imagen:", url, err);
+                console.error("Error cargando imagen (Revisa la carpeta /images/ en la raíz):", url);
             });
         });
 
@@ -185,4 +190,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
-                                          
+                                         
