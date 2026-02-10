@@ -2,37 +2,38 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // --- CONFIGURACIÓN ---
     const releaseDate = new Date("2026-03-18T00:00:00").getTime(); 
+    // ENLACE API RESTAURADO
+    const API_URL = "https://black-fire-dc65.angelmills982.workers.dev";
     
-    // Inicializamos ThreeJS oculto al principio para precargar
+    // Inicialización de componentes
     const galleryManager = init3DGallery(); 
+    setupSubscriptionForm(); // <-- Lógica del formulario activada
 
-    // --- SECUENCIA MAESTRA ---
+    // --- SECUENCIA DE ANIMACIÓN (GSAP) ---
     const tl = gsap.timeline();
 
-    // 1. FASE INGENUA (Visible por defecto)
+    // 1. Fase Ingenua
     tl.to(".old-cover", { rotation: 3, duration: 0.1, yoyo: true, repeat: 5, ease: "linear", delay: 1 })
       .to("#phase-old", { filter: "invert(100%) hue-rotate(90deg)", duration: 0.1, yoyo: true, repeat: 3 })
       
-    // 2. EL GLITCH (Transición Crítica)
-      .to("#phase-old", { autoAlpha: 0, duration: 0.1 }) // autoAlpha maneja opacity + visibility
-      .to("#glitch-overlay", { autoAlpha: 1, duration: 0.1 }, "<") // "<" inicia al mismo tiempo que el anterior
+    // 2. Transición Glitch
+      .to("#phase-old", { autoAlpha: 0, duration: 0.1 }) 
+      .to("#glitch-overlay", { autoAlpha: 1, duration: 0.1 }, "<")
       
       .fromTo(".glitch-message", 
           { scale: 3, opacity: 0 }, 
           { scale: 1, opacity: 1, duration: 0.3, ease: "elastic.out(1, 0.3)" }
       )
       .to(".glitch-message", { x: 5, yoyo: true, repeat: 10, duration: 0.05 })
-      .to({}, { duration: 2 }) // Pausa para leer
+      .to({}, { duration: 2.5 }) // Espera de lectura
 
-    // 3. EL RELOJ
+    // 3. Reloj
       .to("#glitch-overlay", { autoAlpha: 0, duration: 0.5 })
       .to("#countdown-layer", { 
           autoAlpha: 1, 
           duration: 0.5, 
-          onStart: () => {
-              startCountdown(); // Inicia el contador visualmente
-          }
-      }, "-=0.2"); // Solapamiento ligero
+          onStart: () => startCountdown()
+      }, "-=0.2");
 
     // --- LÓGICA DEL RELOJ ---
     function startCountdown() {
@@ -55,27 +56,96 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 1000);
 
-        // Revelar botón de acceso
         setTimeout(() => {
-            gsap.to(btn, { autoAlpha: 1, scale: 1, rotation: -2, duration: 0.5, ease: "back.out(1.7)" });
+            btn.classList.remove('hidden-start');
+            gsap.fromTo(btn, 
+                { autoAlpha: 0, scale: 0, rotation: -10 },
+                { autoAlpha: 1, scale: 1, rotation: -2, duration: 0.5, ease: "back.out(1.7)" }
+            );
         }, 1500);
 
         btn.addEventListener('click', () => {
-            // TRANSICIÓN FINAL: Reloj -> Galería
             gsap.to("#countdown-layer", { autoAlpha: 0, duration: 1 });
             gsap.to("#gallery-layer", { 
                 autoAlpha: 1, 
                 duration: 1,
-                onComplete: () => {
-                    galleryManager.startAnimation(); // Empezar loop de renderizado 3D aquí para ahorrar recursos antes
-                }
+                onComplete: () => galleryManager.startAnimation()
             });
+        });
+    }
+
+    // --- LÓGICA DEL FORMULARIO (RESTAURADA) ---
+    function setupSubscriptionForm() {
+        const form = document.getElementById('gallery-form');
+        if (!form) return;
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const input = document.getElementById('email-input');
+            const originalText = btn.innerText;
+
+            // UI de carga
+            btn.innerText = "ENCRIPTANDO...";
+            btn.disabled = true;
+            btn.style.backgroundColor = "#555";
+
+            try {
+                // Fetch al Worker de Cloudflare
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        email: input.value, 
+                        name: "Agente Antihéroe",
+                        timestamp: new Date().toISOString()
+                    })
+                });
+
+                if (response.ok) {
+                    // Éxito
+                    btn.innerText = "ACCESO CONCEDIDO";
+                    btn.style.backgroundColor = "#00ff41"; 
+                    btn.style.color = "black";
+                    btn.style.borderColor = "#00ff41";
+                    btn.style.boxShadow = "0 0 15px #00ff41";
+                    
+                    input.value = "";
+                    input.placeholder = "REGISTRO COMPLETADO";
+                    input.disabled = true;
+
+                    // Mensaje extra en la descripción
+                    const desc = form.closest('.slide-content').querySelector('.description');
+                    if(desc) {
+                        desc.insertAdjacentHTML('beforeend', 
+                            `<br><br><span style="color:#00ff41; font-weight:800; font-family:'Courier Prime'">>> DATOS ENVIADOS A LA RESISTENCIA.</span>`
+                        );
+                    }
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (error) {
+                console.error(error);
+                btn.innerText = "ERROR DE RED";
+                btn.style.backgroundColor = "var(--hero-red)";
+                
+                // Resetear botón después de 3 segundos
+                setTimeout(() => { 
+                    btn.innerText = originalText; 
+                    btn.disabled = false; 
+                    btn.style.backgroundColor = "";
+                    btn.style.color = "white";
+                    btn.style.boxShadow = "5px 5px 0 white";
+                }, 3000);
+            }
         });
     }
 
     // --- MOTOR 3D (THREE.JS) ---
     function init3DGallery() {
         const container = document.getElementById('canvas-container');
+        if (!container) return;
+
         const scene = new THREE.Scene();
         scene.fog = new THREE.FogExp2(0x050505, 0.035); 
 
@@ -84,10 +154,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimización móvil
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // -- PARTÍCULAS --
+        // Partículas
         const particlesCount = 800;
         const particlesGeo = new THREE.BufferGeometry();
         const posArray = new Float32Array(particlesCount * 3);
@@ -96,83 +166,51 @@ document.addEventListener("DOMContentLoaded", () => {
         const particlesMat = new THREE.PointsMaterial({
             size: 0.15, color: 0xFF4500, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending
         });
-        const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
-        scene.add(particlesMesh);
+        scene.add(new THREE.Points(particlesGeo, particlesMat));
 
-        // -- CARGA DE TEXTURAS (CON FALLBACK) --
+        // Imágenes
         const textureLoader = new THREE.TextureLoader();
+        const imageUrls = ['/images/antiheroe-cover.jpg', '/images/old-cover.jpg'];
         
-        // Define tus imágenes aquí
-        const imageUrls = [
-            '/images/antiheroe-cover.jpg', // Asegúrate que esta ruta exista
-            '/images/old-cover.jpg'
-        ];
-        
-        // Grupo para scroll
-        const galleryGroup = new THREE.Group();
-        scene.add(galleryGroup);
-
         imageUrls.forEach((url, i) => {
             const group = new THREE.Group();
-            group.position.x = i * 40; // Distancia entre slides
-
-            // Cargador con manejo de error
-            textureLoader.load(
-                url, 
-                (texture) => {
-                    const geo = new THREE.PlaneGeometry(12, 18);
-                    const mat = new THREE.MeshBasicMaterial({ map: texture });
-                    const mesh = new THREE.Mesh(geo, mat);
-                    
-                    const border = new THREE.Mesh(
-                        new THREE.PlaneGeometry(12.5, 18.5), 
-                        new THREE.MeshBasicMaterial({ color: 0x000000 })
-                    );
-                    border.position.z = -0.1;
-                    group.add(border);
-                    group.add(mesh);
-                },
-                undefined,
-                (err) => {
-                    console.warn(`Error cargando ${url}. Usando placeholder.`);
-                    // Fallback visual si falla la imagen
-                    const geo = new THREE.PlaneGeometry(12, 18);
-                    const mat = new THREE.MeshBasicMaterial({ color: i === 0 ? 0xFFD700 : 0xFF4500 }); // Amarillo o Rojo
-                    const mesh = new THREE.Mesh(geo, mat);
-                    group.add(mesh);
-                }
-            );
-            galleryGroup.add(group);
+            group.position.x = i * 40; 
+            textureLoader.load(url, (texture) => {
+                const mesh = new THREE.Mesh(new THREE.PlaneGeometry(12, 18), new THREE.MeshBasicMaterial({ map: texture }));
+                const border = new THREE.Mesh(new THREE.PlaneGeometry(12.5, 18.5), new THREE.MeshBasicMaterial({ color: 0x000000 }));
+                border.position.z = -0.1;
+                group.add(border); group.add(mesh);
+            }, undefined, () => {
+                // Fallback si falla imagen
+                const mesh = new THREE.Mesh(new THREE.PlaneGeometry(12, 18), new THREE.MeshBasicMaterial({ color: 0x222 }));
+                group.add(mesh);
+            });
+            scene.add(group);
         });
 
-        // -- SCROLL LOGIC --
+        // Scroll
         let scrollTarget = 0, scrollCurrent = 0;
-        
-        // Soporte Wheel y Touch
         window.addEventListener('wheel', (e) => {
             scrollTarget += e.deltaY * 0.05;
             scrollTarget = Math.max(0, Math.min(scrollTarget, (imageUrls.length - 1) * 40));
         });
         
-        // Touch básico para móvil
+        // Touch
         let touchStart = 0;
         window.addEventListener('touchstart', (e) => touchStart = e.touches[0].clientX);
         window.addEventListener('touchmove', (e) => {
-            const touchEnd = e.touches[0].clientX;
-            const diff = touchStart - touchEnd;
+            const diff = touchStart - e.touches[0].clientX;
             scrollTarget += diff * 0.1;
             scrollTarget = Math.max(0, Math.min(scrollTarget, (imageUrls.length - 1) * 40));
-            touchStart = touchEnd;
+            touchStart = e.touches[0].clientX;
         });
 
-        // -- RENDER LOOP --
         let isAnimating = false;
-        
         function animate() {
             if(!isAnimating) return;
             requestAnimationFrame(animate);
-
-            // Partículas movimiento
+            
+            // Animación Partículas
             const positions = particlesGeo.attributes.position.array;
             for(let i=1; i < particlesCount*3; i+=3) {
                 positions[i] += 0.03; 
@@ -180,11 +218,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             particlesGeo.attributes.position.needsUpdate = true;
 
-            // Cámara movimiento suave
             scrollCurrent += (scrollTarget - scrollCurrent) * 0.1;
             camera.position.x = scrollCurrent;
 
-            // Detección de slide activo
+            // Update UI activa
             const idx = Math.round(scrollCurrent / 40);
             document.querySelectorAll('.slide-content').forEach((el, i) => {
                 if(i === idx) el.classList.add('active');
@@ -194,19 +231,13 @@ document.addEventListener("DOMContentLoaded", () => {
             renderer.render(scene, camera);
         }
 
-        // Resize handler
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        return {
-            startAnimation: () => {
-                isAnimating = true;
-                animate();
-            }
-        };
+        return { startAnimation: () => { isAnimating = true; animate(); } };
     }
 });
-                                                
+                                     
