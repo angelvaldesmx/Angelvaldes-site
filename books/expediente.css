@@ -1,3 +1,6 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
 :root {
     --bg-color: #050505;
     --hero-yellow: #FFD700; 
@@ -5,41 +8,106 @@
     --text-white: #ffffff;
     --naive-bg: #f3e5f5;      
     --naive-text: #880e4f;    
+    --comic-border: 3px solid #000;
+    --comic-shadow: 6px 6px 0px #000;
 }
 
-body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--bg-color); font-family: 'Montserrat', sans-serif; overflow: hidden; }
+body, html { 
+    margin: 0; padding: 0; width: 100%; height: 100%; 
+    background-color: var(--bg-color);
+    color: var(--text-white);
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden; 
+}
 
-/* UTILIDADES */
-.fullscreen-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-/* Usamos visibility:hidden + opacity:0 para que GSAP autoAlpha funcione bien */
+/* =========================================
+   2. UTILIDADES
+   ========================================= */
+.fullscreen-layer { 
+    position: fixed; top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    display: flex; flex-direction: column; 
+    justify-content: center; align-items: center; 
+}
+
+/* GSAP autoAlpha usa visibility:hidden + opacity:0 */
 .hidden-start { visibility: hidden; opacity: 0; }
 
-/* CAPA 1: OLD */
-#phase-old { background: var(--naive-bg); color: var(--naive-text); z-index: 10; }
-.old-cover { max-width: 280px; border: 10px solid white; box-shadow: 0 10px 30px rgba(136,14,79,0.2); }
-.naive-caption { font-family: 'Dancing Script', cursive; font-size: 2rem; margin-top: 1.5rem; }
+.halftone-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(circle, #222 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+}
 
-/* CAPA 2: GLITCH */
+/* =========================================
+   3. FASES
+   ========================================= */
+/* FASE 1: OLD */
+#phase-old { background: var(--naive-bg); color: var(--naive-text); z-index: 10; }
+.naive-container { text-align: center; }
+.old-cover { max-width: 280px; border: 10px solid white; box-shadow: 0 10px 30px rgba(136, 14, 79, 0.2); }
+.naive-caption { font-family: 'Dancing Script', cursive; font-size: 2rem; margin-top: 1.5rem; color: var(--naive-text); }
+
+/* FASE 2: GLITCH */
 #glitch-overlay { background: black; z-index: 20; }
-.glitch-message { font-family: 'Bangers'; font-size: 8vw; color: var(--hero-yellow); text-align: center; line-height: 1; text-shadow: 4px 4px 0 var(--hero-red); position: relative; }
+.glitch-message { 
+    font-family: 'Bangers', cursive; font-size: 8vw; line-height: 1; text-align: center; 
+    color: var(--hero-yellow); text-shadow: 4px 4px 0px var(--hero-red); letter-spacing: 2px;
+}
 .strike { color: var(--hero-red); text-decoration: line-through; }
 
-/* CAPA 3: RELOJ */
+/* FASE 3: RELOJ */
 #countdown-layer { background: var(--bg-color); z-index: 30; }
-.time { font-family: 'Bangers'; font-size: 12vw; color: white; -webkit-text-stroke: 2px black; text-shadow: 8px 8px 0 var(--hero-red); }
-.subtitle { font-family: 'Montserrat'; font-weight: 800; color: var(--hero-yellow); letter-spacing: 2px; margin-top: 20px; }
-#enter-gallery-btn { margin-top: 3rem; padding: 15px 40px; background: var(--hero-yellow); font-family: 'Bangers'; font-size: 1.8rem; cursor: pointer; border: 3px solid black; box-shadow: 6px 6px 0 black; transform: rotate(-2deg); transition: 0.2s; }
-#enter-gallery-btn:hover { background: white; transform: rotate(0deg) translate(2px, 2px); box-shadow: 2px 2px 0 black; }
+.time { font-family: 'Bangers'; font-size: 12vw; color: white; -webkit-text-stroke: 2px black; text-shadow: 8px 8px 0px var(--hero-red); }
+.subtitle { font-family: 'Montserrat'; font-weight: 800; color: var(--hero-yellow); margin-top: 20px; letter-spacing: 2px; }
+#enter-gallery-btn {
+    margin-top: 3rem; padding: 15px 40px; 
+    background: var(--hero-yellow); color: black; border: var(--comic-border); box-shadow: var(--comic-shadow);
+    font-family: 'Bangers'; font-size: 1.8rem; cursor: pointer; transform: rotate(-2deg); transition: 0.2s;
+}
+#enter-gallery-btn:hover { background: white; transform: rotate(0deg) translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
 
-/* CAPA 4: GALERÍA */
+/* FASE 4: GALERÍA */
 #gallery-layer { z-index: 40; width: 100%; height: 100%; position: absolute; top: 0; left: 0; pointer-events: none; }
 #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
-.slide-content { position: absolute; top: 20%; left: 10%; width: 80%; opacity: 0; transform: translateY(30px); transition: all 0.5s ease; pointer-events: auto; }
+.logo { position: fixed; top: 30px; left: 30px; font-family: 'Bangers'; font-size: 1.5rem; color: var(--hero-yellow); background: black; padding: 5px 15px; border: 2px solid white; z-index: 50; transform: skew(-10deg); }
+
+.slide-content { 
+    position: absolute; top: 15%; left: 10%; width: 80%; max-width: 450px; 
+    opacity: 0; transform: translateY(30px); transition: all 0.5s ease; pointer-events: auto; 
+}
 .slide-content.active { opacity: 1; transform: translateY(0); }
-.slide-content h1 { font-family: 'Bangers'; font-size: 5rem; color: var(--hero-yellow); text-shadow: 5px 5px 0 black; -webkit-text-stroke: 1px black; line-height: 0.9; margin: 0 0 20px 0; }
-.catalogue-number { background: var(--hero-red); color: white; padding: 2px 8px; font-family: 'Courier Prime'; font-weight: bold; box-shadow: 3px 3px 0 black; display: inline-block; margin-bottom: 10px; }
-.description { background: white; color: black; padding: 20px; border: 3px solid black; box-shadow: 8px 8px 0 black; font-weight: 600; max-width: 400px; }
-.logo { position: fixed; top: 30px; left: 30px; font-family: 'Bangers'; color: var(--hero-yellow); background: black; padding: 5px 15px; border: 2px solid white; z-index: 50; transform: skew(-10deg); }
+
+.catalogue-number { background: var(--hero-red); color: white; padding: 2px 8px; font-family: 'Courier Prime'; font-weight: bold; margin-bottom: 10px; display: inline-block; box-shadow: 3px 3px 0 black; }
+.slide-content h1 { font-family: 'Bangers'; font-size: 4.5rem; line-height: 0.9; margin-bottom: 1rem; color: var(--hero-yellow); text-shadow: 5px 5px 0 black; -webkit-text-stroke: 1px black; }
+.description { background: white; color: black; padding: 20px; border: var(--comic-border); box-shadow: 8px 8px 0 black; font-weight: 600; }
+
+/* =========================================
+   ESTILOS DEL FORMULARIO
+   ========================================= */
+#gallery-form { margin-top: 20px; }
+#gallery-form label { display: block; font-family: 'Courier Prime'; font-size: 0.8rem; color: #aaa; margin-bottom: 5px; letter-spacing: 1px; }
+#gallery-form input { 
+    background: black; border: 2px solid var(--hero-yellow); color: var(--hero-yellow); 
+    padding: 15px; width: 100%; font-family: 'Courier Prime'; font-size: 1.1rem; 
+    box-sizing: border-box; outline: none; transition: 0.3s;
+}
+#gallery-form input:focus { box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+#gallery-form button { 
+    margin-top: 10px; background: var(--hero-red); color: white; border: 3px solid black; 
+    padding: 15px; font-family: 'Bangers'; font-size: 1.5rem; cursor: pointer; width: 100%; 
+    box-shadow: 5px 5px 0 white; transition: 0.2s;
+}
+#gallery-form button:hover:not(:disabled) { background: white; color: black; box-shadow: 5px 5px 0 var(--hero-red); transform: translate(-2px, -2px); }
+#gallery-form button:disabled { opacity: 0.7; cursor: wait; }
+
 .scroll-hint { position: fixed; bottom: 30px; left: 40px; color: #555; font-family: 'Courier Prime'; font-size: 0.8rem; }
 
+@media (max-width: 768px) {
+    .glitch-message { font-size: 12vw; }
+    .slide-content h1 { font-size: 3.5rem; }
+}
