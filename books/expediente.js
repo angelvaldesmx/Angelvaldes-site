@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // --- CONFIGURACIÓN ---
-    const releaseDate = new Date("2026-10-31T00:00:00").getTime(); 
+    // FECHA DE LANZAMIENTO: 18 de Marzo de 2026
+    const releaseDate = new Date("2026-03-18T00:00:00").getTime(); 
     
-    // --- URL DE LA API (CORREGIDA) ---
+    // --- URL DE LA API REAL ---
     const API_URL = "https://black-fire-dc65.angelmills982.workers.dev";
 
     // --- SECUENCIA DE TRANSICIÓN CINEMÁTICA ---
@@ -87,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.to(galleryLayer, { opacity: 1, duration: 1 });
 
         const scene = new THREE.Scene();
+        // Niebla oscura para dar profundidad
         scene.fog = new THREE.FogExp2(0x050505, 0.035); 
 
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -96,20 +98,20 @@ document.addEventListener("DOMContentLoaded", () => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // --- SISTEMA DE PARTÍCULAS (CENIZAS) ---
+        // --- SISTEMA DE PARTÍCULAS (CENIZAS/FUEGO) ---
         const particlesCount = 800;
         const particlesGeo = new THREE.BufferGeometry();
         const posArray = new Float32Array(particlesCount * 3);
         
         for(let i=0; i<particlesCount*3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 60; 
+            posArray[i] = (Math.random() - 0.5) * 60; // Dispersión amplia
         }
         
         particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
         
         const particlesMat = new THREE.PointsMaterial({
             size: 0.15,
-            color: 0xFF4500, 
+            color: 0xFF4500, // Rojo brasa
             transparent: true,
             opacity: 0.8,
             blending: THREE.AdditiveBlending
@@ -118,56 +120,61 @@ document.addEventListener("DOMContentLoaded", () => {
         const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
         scene.add(particlesMesh);
 
-        // --- CUADROS ---
+        // --- CUADROS (PORTADAS) ---
         const textureLoader = new THREE.TextureLoader();
+        // NOTA: Usamos '../images/' porque el script está en /books/
         const images = [
-            'images/antiheroe-cover.jpg',  // Slide 0: Nueva
-            'images/old-cover.jpg'         // Slide 1: Vieja
+            '../images/antiheroe-cover.jpg',  // Slide 0: Nueva
+            '../images/old-cover.jpg'         // Slide 1: Vieja
         ];
         
         images.forEach((url, i) => {
             const group = new THREE.Group();
-            group.position.x = i * 40; 
+            group.position.x = i * 40; // Separación entre cuadros
 
             // Imagen
             const geo = new THREE.PlaneGeometry(12, 18);
             const mat = new THREE.MeshBasicMaterial({ map: textureLoader.load(url) });
             const mesh = new THREE.Mesh(geo, mat);
 
-            // Borde Cómic
+            // Borde Cómic (Grueso y Negro)
             const borderGeo = new THREE.PlaneGeometry(12.5, 18.5);
             const borderMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
             const border = new THREE.Mesh(borderGeo, borderMat);
-            border.position.z = -0.1; 
+            border.position.z = -0.1; // Justo detrás
 
             group.add(border);
             group.add(mesh);
             scene.add(group);
         });
 
-        // --- SCROLL & RENDER ---
+        // --- INTERACCIÓN Y ANIMACIÓN ---
         let scrollTarget = 0;
         let scrollCurrent = 0;
 
         window.addEventListener('wheel', (e) => {
             scrollTarget += e.deltaY * 0.05;
+            // Limitar scroll
             scrollTarget = Math.max(0, Math.min(scrollTarget, (images.length - 1) * 40));
         });
 
+        // Loop de Renderizado
         function animate() {
             requestAnimationFrame(animate);
 
-            // Animar cenizas
+            // Animar cenizas (Flotar hacia arriba)
             const positions = particlesGeo.attributes.position.array;
             for(let i=1; i < particlesCount*3; i+=3) {
                 positions[i] += 0.03; 
-                if(positions[i] > 20) positions[i] = -20; 
+                if(positions[i] > 20) positions[i] = -20; // Reset abajo
             }
             particlesGeo.attributes.position.needsUpdate = true;
 
+            // Suavizar scroll
             scrollCurrent += (scrollTarget - scrollCurrent) * 0.1;
             camera.position.x = scrollCurrent;
 
+            // Sincronizar UI (Textos)
             const idx = Math.round(scrollCurrent / 40);
             document.querySelectorAll('.slide-content').forEach((el, i) => {
                 if(i === idx) el.classList.add('active');
@@ -178,13 +185,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         animate();
         
+        // Responsive Resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // --- ENVÍO DE FORMULARIO A LA API ---
+        // --- MANEJO DEL FORMULARIO (WORKER) ---
         const form = document.getElementById('gallery-form');
         if(form) {
             form.addEventListener('submit', async (e) => {
@@ -231,4 +239,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
-      
+                                         
