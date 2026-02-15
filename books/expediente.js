@@ -1,17 +1,17 @@
 /**
- * ANTIHEROE: MANUAL DE RESISTENCIA - SISTEMA OPERATIVO v3.0
+ * ANTIHEROE: MANUAL DE RESISTENCIA - SISTEMA OPERATIVO v4.0 (FINAL)
  * Desarrollado por: Angel Valdes & The Syndicate
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     
     // =========================================================
-    // 1. CONFIGURACIÓN Y ESTADO
+    // 1. CONFIGURACIÓN MAESTRA
     // =========================================================
     const CONFIG = {
         releaseDate: new Date("2026-03-18T00:00:00").getTime(),
-        apiUrl: "https://black-fire-dc65.angelmills982.workers.dev",
-        spacing3D: 40, // Espacio entre cuadros en Three.js
+        apiUrl: "https://black-fire-dc65.angelmills982.workers.dev", // Tu Worker
+        spacing3D: 40, 
         pdfUrl: "/assets/files/evidence_x99_secure_v2.pdf"
     };
 
@@ -33,8 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. MODO VIP (ZONA SEGURA)
     // =========================================================
     async function initSecureMode(token) {
-        // Limpieza de interfaz
-        document.getElementById('public-interface').style.display = 'none';
+        // Limpieza de interfaz pública
+        const pubInterface = document.getElementById('public-interface');
+        if(pubInterface) pubInterface.style.display = 'none';
+        
         const loader = document.getElementById('security-check');
         loader.classList.remove('hidden-start');
 
@@ -48,60 +50,126 @@ document.addEventListener("DOMContentLoaded", () => {
                 const secureZone = document.getElementById('secure-zone');
                 secureZone.classList.remove('hidden-start');
                 
-                // Personalización de Interfaz
+                // Personalización
                 document.getElementById('agent-welcome').innerText = `HOLA, ${data.agentName.toUpperCase()}`;
                 
-                // Renderizar Ticket y Alertas
-                renderTicket(data.agentName, token);
-                setupDownloadLogic();
+                // 1. Configurar Descarga del Manual (Siempre disponible)
+                setupDownloadLogic(); 
+
+                // 2. Lógica del Evento Físico (Ticket vs Invitación)
+                const ticketArea = document.getElementById('download-container');
                 
+                if (data.confirmado) {
+                    // CASO A: YA CONFIRMÓ -> MOSTRAR TICKET QR
+                    renderTicket(data.agentName, token);
+                } else {
+                    // CASO B: NO HA CONFIRMADO -> MOSTRAR INVITACIÓN ("Call to Action")
+                    showEventInvitation(ticketArea);
+                }
+
                 console.log(">> Acceso Nivel Agente Concedido.");
+
             } else {
                 throw new Error("Token Corrupto");
             }
         } catch (error) {
-            console.error("Critical Security Error:", error);
+            console.error("Security Error:", error);
             loader.innerHTML = `
-                <h2 style="color:var(--hero-red); font-family:'Bangers'; font-size:3rem;">ACCESO DENEGADO</h2>
-                <p style="color:white; font-family:'Courier Prime';">Credenciales no encontradas en la base de datos.</p>
-                <a href="/books/index.html" style="color:var(--hero-yellow); margin-top:20px; display:block;">REINTENTAR REGISTRO</a>
+                <div style="text-align:center; padding:20px;">
+                    <h2 style="color:var(--hero-red); font-family:'Bangers'; font-size:3rem;">ACCESO DENEGADO</h2>
+                    <p style="color:white; font-family:'Courier Prime';">Credenciales expiradas o inexistentes.</p>
+                    <a href="/books/index.html" style="color:var(--hero-yellow); margin-top:20px; display:block; text-decoration:underline;">REINTENTAR ACCESO</a>
+                </div>
             `;
         }
     }
 
-    function renderTicket(name, token) {
-        const ticketName = document.getElementById('ticket-guest-name');
-        const ticketId = document.getElementById('ticket-id');
-        if(ticketName) ticketName.innerText = name.toUpperCase();
-        if(ticketId) ticketId.innerText = token;
+    function showEventInvitation(container) {
+        // Ocultamos el contenedor del ticket original
+        const ticketWrapper = document.getElementById('ticket-scale-wrapper');
+        if(ticketWrapper) ticketWrapper.style.display = 'none';
+        
+        const btnSave = document.getElementById('btn-download-ticket');
+        if(btnSave) btnSave.style.display = 'none';
 
-        // Generar QR dinámico
-        const qrContainer = document.getElementById("ticket-qr");
-        if (qrContainer) {
-            qrContainer.innerHTML = '';
-            new QRCode(qrContainer, {
+        // Inyectamos la Invitación
+        const inviteHTML = `
+            <div style="border: 2px solid var(--hero-yellow); padding: 25px; margin-bottom: 30px; background: rgba(255, 215, 0, 0.05); position: relative; overflow: hidden; text-align: left;">
+                <div style="position: absolute; top:0; right:0; background:var(--hero-yellow); color:black; padding:5px 10px; font-family:'Bangers'; font-size:0.8rem;">
+                    NUEVA MISIÓN
+                </div>
+                
+                <h2 style="color:var(--hero-yellow); font-family:'Bangers'; font-size:2rem; margin-top:10px;">OPERACIÓN ARCOIRIS</h2>
+                <p style="font-family:'Courier Prime'; color:#ccc; font-size:0.9rem; margin: 15px 0; line-height: 1.4;">
+                    El <strong>18 de Marzo</strong> abriremos el búnker físico para la presentación del manifiesto.
+                    <br><br>
+                    No es una fiesta. Es un punto de extracción.
+                </p>
+                
+                <div style="background: #111; padding: 15px; border-left: 3px solid var(--hero-red);">
+                    <p style="color:white; font-family:'Courier Prime'; font-size:0.85rem; margin:0;">
+                        <strong>⚠️ INSTRUCCIÓN DE ACCESO:</strong><br>
+                        Para generar tu <strong>BOLETO QR</strong>, regresa a tu correo y responde a nuestro mensaje con la palabra:
+                        <br><br>
+                        <span style="font-size:1.5rem; color:var(--hero-red); font-weight:bold; letter-spacing:2px;">"PRESENTE"</span>
+                    </p>
+                </div>
+                
+                <p style="font-size:0.7rem; color:#666; margin-top:15px;">
+                    Al hacerlo, el sistema desbloqueará tu QR en esta pantalla y recibirás las coordenadas exactas.
+                </p>
+            </div>
+        `;
+        
+        // Insertamos ANTES del contenido existente
+        container.insertAdjacentHTML('afterbegin', inviteHTML);
+    }
+
+    function renderTicket(name, token) {
+        // Aseguramos que el ticket sea visible
+        const ticketWrapper = document.getElementById('ticket-scale-wrapper');
+        if(ticketWrapper) ticketWrapper.style.display = 'block';
+        
+        const btnSave = document.getElementById('btn-download-ticket');
+        if(btnSave) btnSave.style.display = 'block';
+
+        // Llenar datos
+        const nameEl = document.getElementById('ticket-guest-name');
+        if(nameEl) nameEl.innerText = name.toUpperCase();
+        
+        const idEl = document.getElementById('ticket-id');
+        if(idEl) idEl.innerText = token;
+
+        // Generar QR
+        const qrBox = document.getElementById("ticket-qr");
+        if(qrBox) {
+            qrBox.innerHTML = '';
+            new QRCode(qrBox, {
                 text: `ANT-HERO|${token}`,
-                width: 120,
-                height: 120,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
+                width: 120, height: 120,
+                colorDark: "#000000", colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
             });
         }
 
-        // Botón de Captura de Imagen (html-to-image)
-        const btnSave = document.getElementById('btn-download-ticket');
-        if (btnSave) {
+        // Configurar botón de descarga
+        setupTicketDownload(token);
+    }
+
+    function setupTicketDownload(token) {
+         const btnSave = document.getElementById('btn-download-ticket');
+         if (btnSave) {
             btnSave.addEventListener('click', async () => {
                 const node = document.getElementById('ticket-card');
+                const originalText = btnSave.innerText;
                 btnSave.innerText = "CAPTURANDO EVIDENCIA...";
                 btnSave.disabled = true;
 
                 try {
                     const dataUrl = await htmlToImage.toPng(node, { 
                         quality: 1, 
-                        pixelRatio: 3,
-                        backgroundColor: '#050505'
+                        pixelRatio: 3, 
+                        backgroundColor:'#000' 
                     });
                     const link = document.createElement('a');
                     link.download = `PASE_ANTIHEROE_${token}.png`;
@@ -115,20 +183,20 @@ document.addEventListener("DOMContentLoaded", () => {
                         background: '#000', color: '#fff', confirmButtonColor: '#00ff41'
                     });
                 } catch (err) {
+                    console.error(err);
                     Swal.fire('ERROR', 'No se pudo generar la imagen. Toma un screenshot.', 'error');
                 } finally {
-                    btnSave.innerText = "📸 GUARDAR PASE EN GALERÍA";
+                    btnSave.innerText = originalText;
                     btnSave.disabled = false;
                 }
             });
-        }
+         }
     }
 
     function setupDownloadLogic() {
         const manualLink = document.getElementById('manual-link');
         if (manualLink) {
             manualLink.addEventListener('click', (e) => {
-                // Alerta SweetAlert personalizada
                 Swal.fire({
                     title: 'INICIANDO DESCARGA...',
                     text: 'Recuerda que el archivo requiere tu Llave de Agente para abrirse. Revisa tu correo o esta pantalla.',
@@ -152,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const tl = gsap.timeline();
 
-        // Secuencia Cinematográfica
+        // Secuencia Intro
         tl.to(".old-cover", { rotation: 3, duration: 0.1, yoyo: true, repeat: 5, ease: "linear", delay: 1 })
           .to("#phase-old", { filter: "invert(100%) hue-rotate(90deg)", duration: 0.1, yoyo: true, repeat: 3 })
           .to("#phase-old", { autoAlpha: 0, duration: 0.1 }) 
@@ -167,44 +235,46 @@ document.addEventListener("DOMContentLoaded", () => {
           .to("#countdown-layer", { 
               autoAlpha: 1, 
               duration: 0.5, 
-              onStart: () => startCountdown() 
+              onStart: () => startCountdown(galleryManager) 
           }, "-=0.2");
+    }
 
-        function startCountdown() {
-            const timeEl = document.querySelector('.time');
-            const btn = document.getElementById('enter-gallery-btn');
-            
-            const timer = setInterval(() => {
-                const now = new Date().getTime();
-                const dist = CONFIG.releaseDate - now;
+    function startCountdown(galleryManager) {
+        const timeEl = document.querySelector('.time');
+        const btn = document.getElementById('enter-gallery-btn');
+        
+        const updateClock = () => {
+            const now = new Date().getTime();
+            const dist = CONFIG.releaseDate - now;
 
-                if (dist < 0) {
-                    timeEl.innerHTML = "YA DISPONIBLE";
-                    clearInterval(timer);
-                    return;
-                }
-                const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-                const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                timeEl.innerHTML = `${d}d:${h<10?'0'+h:h}:${m<10?'0'+m:m}`;
-            }, 1000);
+            if (dist < 0) {
+                timeEl.innerHTML = "YA DISPONIBLE";
+                return;
+            }
+            const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+            const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+            timeEl.innerHTML = `${d}d:${h<10?'0'+h:h}:${m<10?'0'+m:m}`;
+        };
+        
+        setInterval(updateClock, 1000);
+        updateClock();
 
-            setTimeout(() => {
-                btn.classList.remove('hidden-start');
-                gsap.fromTo(btn, 
-                    { autoAlpha: 0, scale: 0, rotation: -10 },
-                    { autoAlpha: 1, scale: 1, rotation: -2, duration: 0.5, ease: "back.out(1.7)" }
-                );
-            }, 1500);
+        setTimeout(() => {
+            btn.classList.remove('hidden-start');
+            gsap.fromTo(btn, 
+                { autoAlpha: 0, scale: 0, rotation: -10 },
+                { autoAlpha: 1, scale: 1, rotation: -2, duration: 0.5, ease: "back.out(1.7)" }
+            );
+        }, 1500);
 
-            btn.addEventListener('click', () => {
-                gsap.to("#countdown-layer", { autoAlpha: 0, duration: 1 });
-                gsap.to("#gallery-layer", { 
-                    autoAlpha: 1, duration: 1,
-                    onComplete: () => galleryManager.startAnimation()
-                });
+        btn.addEventListener('click', () => {
+            gsap.to("#countdown-layer", { autoAlpha: 0, duration: 1 });
+            gsap.to("#gallery-layer", { 
+                autoAlpha: 1, duration: 1,
+                onComplete: () => galleryManager.startAnimation()
             });
-        }
+        });
     }
 
     // =========================================================
@@ -219,6 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const btn = document.getElementById('submit-btn');
             const emailIn = document.getElementById('email-input');
             const nameIn = document.getElementById('name-input');
+            const originalText = btn.innerText;
 
             btn.innerText = "CONTACTANDO AL SINDICATO...";
             btn.disabled = true;
@@ -229,8 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 
                         email: emailIn.value, 
-                        name: nameIn.value,
-                        timestamp: new Date().toISOString()
+                        name: nameIn.value
                     })
                 });
 
@@ -241,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     const desc = form.closest('.slide-content').querySelector('.description');
                     desc.insertAdjacentHTML('beforeend', 
-                        `<br><br><span style="color:#00ff41; font-family:'Courier Prime'; font-weight:bold;">>> PROTOCOLO INICIADO. REVISA TU SPAM.</span>`
+                        `<br><br><span style="color:#00ff41; font-family:'Courier Prime'; font-weight:bold;">>> ENLACE ENVIADO A TU CORREO. REVISA SPAM.</span>`
                     );
                     
                     emailIn.value = ""; nameIn.value = "";
@@ -249,7 +319,11 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (err) {
                 btn.innerText = "ERROR DE SISTEMA";
                 btn.style.background = "var(--hero-red)";
-                setTimeout(() => { btn.innerText = "SOLICITAR ACCESO"; btn.disabled = false; }, 3000);
+                setTimeout(() => { 
+                    btn.innerText = originalText; 
+                    btn.disabled = false; 
+                    btn.style.background = "";
+                }, 3000);
             }
         });
     }
@@ -272,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // Sistema de Partículas (Cenizas)
+        // Partículas
         const particlesGeo = new THREE.BufferGeometry();
         const posArray = new Float32Array(1800 * 3);
         for(let i=0; i<1800*3; i++) posArray[i] = (Math.random() - 0.5) * 60;
@@ -307,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
             scene.add(group);
         });
 
-        // Eventos de Navegación
+        // Eventos Scroll/Touch
         window.addEventListener('wheel', (e) => {
             state.scrollTarget += e.deltaY * 0.04;
             state.scrollTarget = Math.max(0, Math.min(state.scrollTarget, (imageUrls.length - 1) * CONFIG.spacing3D));
@@ -332,23 +406,22 @@ document.addEventListener("DOMContentLoaded", () => {
             if(!isAnimating) return;
             requestAnimationFrame(animate);
 
-            // 1. Efecto Imán (Snapping)
+            // Snapping
             if (!state.isDragging) {
                 const snapPoint = Math.round(state.scrollTarget / CONFIG.spacing3D) * CONFIG.spacing3D;
                 state.scrollTarget += (snapPoint - state.scrollTarget) * 0.05;
             }
 
-            // 2. Lerp Camera
+            // Lerp & Sync
             state.scrollCurrent += (state.scrollTarget - state.scrollCurrent) * 0.1;
             camera.position.x = state.scrollCurrent;
 
-            // 3. Sincronizar UI HTML
             const activeIdx = Math.round(state.scrollCurrent / CONFIG.spacing3D);
             document.querySelectorAll('.slide-content').forEach((el, i) => {
                 el.classList.toggle('active', i === activeIdx);
             });
 
-            // 4. Animar Partículas
+            // Particles Move
             const positions = particlesGeo.attributes.position.array;
             for(let i=1; i < 1800*3; i+=3) {
                 positions[i] += 0.02;
@@ -368,4 +441,4 @@ document.addEventListener("DOMContentLoaded", () => {
         return { startAnimation: () => { isAnimating = true; animate(); } };
     }
 });
-                              
+                    
