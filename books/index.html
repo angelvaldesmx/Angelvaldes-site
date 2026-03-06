@@ -42,10 +42,6 @@
     <meta property="og:site_name" content="Angel Valdes">
     <meta property="fb:app_id" content="966242223397117">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ANTIHEROE: El libro que tuve que quemar">
-    <meta name="twitter:image" content="https://angelvaldesmx.qzz.io/images/antiheroe-cover-horizontal.jpg">
-
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -54,44 +50,20 @@
           "@type": "WebPage",
           "@id": "https://angelvaldesmx.qzz.io/books/index.html",
           "url": "https://angelvaldesmx.qzz.io/books/index.html",
-          "name": "Antiheroe: Manual de Resistencia",
-          "breadcrumb": { "@id": "https://angelvaldesmx.qzz.io/books/index.html#breadcrumb" }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": "https://angelvaldesmx.qzz.io/books/index.html#breadcrumb",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://angelvaldesmx.qzz.io/" },
-            { "@type": "ListItem", "position": 2, "name": "Libros" }
-          ]
-        },
-        {
-          "@type": "Person",
-          "@id": "https://angelvaldesmx.qzz.io/#angelvaldes",
-          "name": "Angel Valdes",
-          "jobTitle": ["Artista Musical", "Escritor"],
-          "image": "https://angelvaldesmx.qzz.io/assets/img/artist-photo.jpg",
-          "sameAs": [
-            "https://www.instagram.com/angelvaldesmxx",
-            "https://www.facebook.com/angelvaldesmx",
-            "https://x.com/angelvaldesmx",
-            "https://www.tiktok.com/@angelvaldesmx"
-          ]
+          "name": "Antiheroe: Manual de Resistencia"
         }
       ]
     }
     </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <link rel="stylesheet" href="expediente.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
-<body>
+<body style="background: #050505; margin: 0; padding: 0;">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3HBXBX5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="security-check" class="fullscreen-layer hidden-start" style="background:black; z-index:999;">
@@ -107,39 +79,16 @@
             
             <div class="description" style="border-color:var(--hero-green); box-shadow:0 0 20px rgba(0,255,65,0.2);">
                 <p>La resistencia te saluda. Has hackeado el sistema.</p>
-                <p>Aquí tienes tu pase oficial para el <strong>18 de Marzo</strong> y la llave del manual.</p>
+                <p>Aquí tienes tu identificación oficial y la llave del manual.</p>
             </div>
 
             <div id="download-container" style="margin-top:40px;">
-                <div id="ticket-scale-wrapper" style="margin-bottom: 30px;">
-                    <div id="ticket-card" class="ticket-design">
-                        <img src="/images/ticket-texture.jpg" class="ticket-bg-texture" alt="texture">
-                        
-                        <div class="ticket-header">
-                            <span>OFFICIAL PASS</span>
-                            <span>18 MARZO</span>
-                        </div>
-
-                        <div class="ticket-content">
-                            <h1 class="ticket-title">ANTI<br>HEROE</h1>
-                            <p style="font-family:'Courier Prime'; font-size:0.7rem; letter-spacing:2px; margin-bottom:5px;">INVITADO ESPECIAL</p>
-                            <div id="ticket-guest-name">CARGANDO...</div>
-                            
-                            <div style="margin-top:20px; border-top:1px solid #333; padding-top:10px; font-family:'Courier Prime'; font-size:0.8rem;">
-                                ACCESO: <b id="ticket-seats-val">1</b> AGENTE(S)
-                            </div>
-                        </div>
-
-                        <div class="ticket-footer">
-                            <div id="ticket-qr" class="qr-box"></div>
-                            <p style="font-family:monospace; font-size:0.7rem; color:#888; margin-top:10px;">ID: <span id="ticket-id">---</span></p>
-                        </div>
-                    </div>
+                
+                <div style="border: 2px solid var(--hero-green); padding: 20px; text-align: left; background: rgba(0,255,65,0.05); margin-bottom: 30px;">
+                    <h3 style="color: var(--hero-green); font-family: 'Courier Prime'; margin-top: 0;">> IDENTIFICACIÓN CONFIRMADA</h3>
+                    <p style="font-family: 'Courier Prime'; color: white; font-size: 1.1rem;">AGENTE: <strong id="agent-welcome-name">CARGANDO...</strong></p>
+                    <p style="font-family: 'Courier Prime'; color: #888; font-size: 0.85rem; margin-bottom: 0;">MISIÓN ACTUAL: LECTURA DEL MANIFIESTO Y DIFUSIÓN GLOBAL.</p>
                 </div>
-
-                <button id="btn-download-ticket" class="cta-button" style="background:#fff; color:#000; width:100%; max-width:350px; font-family:'Bangers';">
-                    📸 GUARDAR PASE EN GALERÍA
-                </button>
                 
                 <div id="manual-access" style="margin-top:30px; padding:20px; border:2px dashed #333; background: rgba(0,255,65,0.05); border-radius: 8px;">
                     <p style="font-family:'Courier Prime'; font-size:0.8rem; color:var(--hero-green); margin:0; font-weight: bold;">
@@ -159,70 +108,73 @@
         </div>
     </div>
 
-    <div id="public-interface">
-        <div class="halftone-overlay"></div>
+    <div id="public-interface" style="overflow-y: auto; height: 100vh; padding: 20px; box-sizing: border-box; display: none;">
 
-        <section id="phase-old" class="fullscreen-layer">
-            <div class="naive-container">
-                <img src="/images/old-cover.jpg" onerror="this.src='https://via.placeholder.com/300x450/pink/880e4f?text=OLD+VERSION'" alt="Version Anterior" class="book-cover old-cover">
-                <p class="naive-caption">Una historia de amor y superacion...</p>
-            </div>
+        <section style="max-width: 600px; margin: 0 auto 50px auto; padding-top: 40px; text-align: center;">
+            <p style="font-family: 'Courier Prime'; color: var(--hero-red); font-size: 0.9rem; margin-bottom: 5px;">> ACCESO NO AUTORIZADO DETECTADO...</p>
+            <h1 style="font-family: 'Bangers'; font-size: 3rem; color: var(--hero-yellow); margin-top: 10px; line-height: 1.1;">EL SISTEMA FUNCIONA PERFECTAMENTE. <br><span style="color: white;">POR ESO ESTÁS ASFIXIADO.</span></h1>
+            
+            <p style="font-family: 'Montserrat', sans-serif; color: #ccc; font-size: 0.95rem; text-align: justify; margin-bottom: 30px; line-height: 1.5;">
+                El mundo corporativo y social está diseñado para los protagonistas. Si sientes que la neurodivergencia o el cansancio te han convertido en un "Extra", no estás roto. Estás mal programado. Este es el parche.
+            </p>
+
+            <form id="gallery-form" style="background: #111; padding: 20px; border-left: 4px solid var(--hero-red); text-align: left;">
+                <p style="font-family: 'Courier Prime'; font-size: 0.9rem; color: var(--hero-yellow); margin-top: 0; margin-bottom: 15px;">> DESCARGAR EXPEDIENTE INICIAL - GRATIS:</p>
+                <input type="text" id="name-input" placeholder="NOMBRE CLAVE" required style="width: 100%; margin-bottom: 10px; padding: 15px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; font-family: 'Courier Prime';">
+                <input type="email" id="email-input" placeholder="CORREO ENCRIPTADO" required style="width: 100%; margin-bottom: 15px; padding: 15px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; font-family: 'Courier Prime';">
+                <button type="submit" id="submit-btn" style="width: 100%; padding: 15px; background: var(--hero-red); color: white; font-family: 'Bangers'; font-size: 1.5rem; border: none; cursor: pointer; transition: 0.2s;">RECIBIR PRÓLOGO CLASIFICADO</button>
+            </form>
         </section>
 
-        <div id="glitch-overlay" class="fullscreen-layer hidden-start">
-            <div class="glitch-message">
-                TUVE QUE <span class="strike">MATAR</span><br>
-                A MI VERSION INGENUA
-            </div>
-        </div>
-
-        <div id="countdown-layer" class="fullscreen-layer hidden-start">
-            <div class="clock-container">
-                <span class="time">00:00:00</span>
-            </div>
-            <p class="subtitle">TIEMPO PARA LA PURGA</p>
-            <button id="enter-gallery-btn" class="hidden-start">UNIRSE A LA RESISTENCIA</button>
-        </div>
-
-        <div id="gallery-layer" class="hidden-start">
-            <div class="logo">EXPEDIENTE: ANTIHEROE</div>
-            <div id="canvas-container"></div> 
+        <section style="max-width: 600px; margin: 0 auto 50px auto; border: 1px dashed #555; padding: 25px; text-align: center; background: rgba(0, 255, 65, 0.05);">
+            <h2 style="font-family: 'Courier Prime'; color: var(--hero-green); font-size: 1.2rem; margin-top: 0;">> ACTUALIZACIÓN DE ESTADO</h2>
             
-            <div id="ui-layer">
-                <div class="slide-content active" id="slide-0">
-                    <span class="catalogue-number">EVIDENCIA #001</span>
-                    <h1>Anti<br>heroe</h1>
-                    <div class="description">
-                        <strong>MANUAL DE RESISTENCIA.</strong><br>
-                        La inocencia era una trampa. Ahora solo queda el fuego.
-                        <ul class="features-list">
-                            <li>Deconstrucción de mitos corporativos.</li>
-                            <li>Estrategias neurodivergentes.</li>
-                            <li>Acceso anticipado a material clasificado.</li>
-                        </ul>
-                    </div>
-                    <form id="gallery-form">
-                        <label>CREDENCIALES DE AGENTE:</label>
-                        <input type="text" id="name-input" placeholder="TU NOMBRE CLAVE" required>
-                        <input type="email" id="email-input" placeholder="CORREO ENCRIPTADO" required>
-                        <button type="submit" id="submit-btn">SOLICITAR ACCESO</button>
-                        <p style="font-size:0.7rem; color:#666; margin-top:10px; font-family:'Courier Prime'; line-height:1.4;">
-                            ⚠️ <strong>ADVERTENCIA:</strong> Revisa tu carpeta de <strong>SPAM</strong> si no recibes el código en 2 min.
-                        </p>
-                    </form>
-                </div>
+            <p style="font-family: 'Montserrat', sans-serif; color: #ccc; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
+                El sistema intentó apagarnos. Nos cerraron las puertas del evento físico. Creían que sin un salón, el mensaje moriría. Se equivocaron. El Búnker ahora es digital y es global. Quizá nos veas en el Zócalo, quizá en las sombras.
+            </p>
+            
+            <p style="font-family: 'Courier Prime'; color: white; font-size: 1.1rem; margin-top: 20px; margin-bottom: 5px;">DESCLASIFICACIÓN GLOBAL: <strong>23 DE ABRIL</strong></p>
+            <div class="time" style="font-family: 'Bangers'; font-size: 3.5rem; color: white; text-shadow: 4px 4px 0px var(--hero-red);">00:00:00</div>
+        </section>
+
+        <section style="max-width: 600px; margin: 0 auto 50px auto; text-align: left;">
+            <div style="text-align: center;">
+                <img src="/images/antiheroe-cover.jpg" style="max-width: 250px; border: 4px solid #222; margin-bottom: 20px;" alt="Libro Antiheroe">
+                <h2 style="font-family: 'Bangers'; color: white; font-size: 2.2rem; margin-bottom: 5px;">ANTIHÉROE: MANUAL DE RESISTENCIA</h2>
+                <p style="font-family: 'Montserrat', sans-serif; color: #aaa; font-size: 0.95rem; margin-bottom: 25px;">300 páginas de tácticas para desertores.</p>
+            </div>
+            
+            <ul style="list-style: none; padding: 0; font-family: 'Courier Prime'; color: #ddd; font-size: 0.95rem; line-height: 1.8;">
+                <li style="margin-bottom: 10px;"><span style="color: var(--hero-red); font-weight: bold;">></span> Técnicas de invisibilidad corporativa.</li>
+                <li style="margin-bottom: 10px;"><span style="color: var(--hero-red); font-weight: bold;">></span> Desprogramación de la positividad tóxica.</li>
+                <li style="margin-bottom: 10px;"><span style="color: var(--hero-red); font-weight: bold;">></span> Uso táctico de la ansiedad.</li>
+            </ul>
+        </section>
+
+        <section style="max-width: 600px; margin: 0 auto 80px auto;">
+            
+            <div style="background: rgba(255, 215, 0, 0.05); border: 2px solid var(--hero-yellow); padding: 25px; margin-bottom: 30px; text-align: center;">
+                <h3 style="font-family: 'Bangers'; color: var(--hero-yellow); font-size: 2rem; margin-top: 0; margin-bottom: 5px;">OPERACIÓN: EXTRACCIÓN <br><span style="font-size: 1.2rem; color: white;">(10 PLAZAS DISPONIBLES)</span></h3>
                 
-                <div class="slide-content" id="slide-1">
-                    <span class="catalogue-number" style="background:#555;">ARCHIVO ELIMINADO</span>
-                    <h1 style="color:#aaa; text-shadow:none;">Versión<br>Ingenua</h1>
-                    <div class="description" style="background:#ddd; border-color:#555;">
-                        <p>Demasiado suave. Demasiado rosa. Tuve que quemarla para que la verdad pudiera nacer.</p>
-                    </div>
-                </div>
+                <p style="font-family: 'Montserrat', sans-serif; color: #ccc; font-size: 0.85rem; text-align: justify; margin: 15px 0; line-height: 1.5;">
+                    Para imprimir este manifiesto a gran escala e infiltrarlo en los algoritmos, abrimos 10 lugares de Agentes Fundadores. Al adquirir esta edición, no solo compras un libro, financias la red de The Syndicate.
+                </p>
+                <p style="font-family: 'Courier Prime'; color: white; font-size: 0.85rem; margin-bottom: 20px; background: #000; padding: 10px; border: 1px dashed #555;">
+                    INCLUYE: Libro físico a domicilio + Firma clasificada + Mención en el Muro de los Héroes.
+                </p>
+                <a href="TU_LINK_STRIPE_449" style="display: block; background: var(--hero-yellow); color: black; padding: 15px; font-family: 'Bangers'; font-size: 1.5rem; text-decoration: none; transition: 0.2s;">[ RECLAMAR COPIA DE FUNDADOR - $449 MXN ]</a>
             </div>
-            
-            <div class="scroll-hint">DESLIZA O USA SCROLL PARA INVESTIGAR</div>
-        </div>
+
+            <div style="border: 2px solid #333; padding: 25px; text-align: center; background: #080808;">
+                <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; color: white; font-size: 1.2rem; margin-top: 0; margin-bottom: 10px;">PREVENTA GENERAL ILIMITADA</h3>
+                <p style="font-family: 'Montserrat', sans-serif; color: #888; font-size: 0.85rem; margin-bottom: 20px;">Asegura tu copia física o digital para la fecha de desclasificación global.</p>
+                
+                <a href="TU_LINK_STRIPE_FISICO" style="display: inline-block; border: 1px solid white; color: white; padding: 12px 20px; font-family: 'Courier Prime'; font-weight: bold; text-decoration: none; margin: 5px; background: #111;">> PREVENTA FÍSICA</a>
+                <a href="TU_LINK_STRIPE_DIGITAL" style="display: inline-block; border: 1px solid #555; color: #aaa; padding: 12px 20px; font-family: 'Courier Prime'; text-decoration: none; margin: 5px;">> EDICIÓN DIGITAL (E-BOOK)</a>
+            </div>
+
+        </section>
+
     </div>
 
     <script src="expediente.js"></script>
