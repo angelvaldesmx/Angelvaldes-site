@@ -77,13 +77,52 @@
     
     <link rel="stylesheet" href="expediente.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <style>
+        /* Ajustes críticos en línea para el Búnker Digital */
+        .input-brutal {
+            width: 100%; margin-bottom: 10px; padding: 15px; background: #000; 
+            color: white; border: 1px solid #333; box-sizing: border-box; 
+            font-family: 'Courier Prime', monospace;
+        }
+        .btn-brutal {
+            width: 100%; padding: 15px; background: var(--hero-red); color: white; 
+            font-family: 'Bangers', sans-serif; font-size: 1.5rem; border: none; cursor: pointer; 
+            transition: 0.2s; display: block; text-align: center; text-decoration: none;
+        }
+        .btn-brutal:hover { background: #e6002e; transform: translateY(-2px); }
+        .btn-pulse { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 80, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 80, 0); }
+        }
+        .reveal-item { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal-item.active { opacity: 1; transform: translateY(0); }
+        .sticky-cta-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.95);
+            border-top: 2px solid var(--hero-red); padding: 15px; z-index: 1000;
+            box-sizing: border-box; text-align: center; display: none;
+        }
+        .btn-sticky {
+            display: block; background: var(--hero-red); color: white; font-family: 'Bangers';
+            font-size: 1.5rem; padding: 10px; text-decoration: none; border-radius: 4px; letter-spacing: 1px;
+        }
+        @media (max-width: 768px) {
+            .sticky-cta-container { display: block; }
+            #public-interface { padding-bottom: 80px !important; }
+        }
+        /* Parpadeo del cursor para el escáner */
+        .cursor-blink { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
 </head>
 
 <body style="background: #050505; margin: 0; padding: 0;">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3HBXBX5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="sticky-cta" class="sticky-cta-container">
-        <a href="#seccion-extraccion" class="btn-sticky" style="font-family:'Bangers'; letter-spacing: 1px;">RECLAMAR ACCESO AL MANIFIESTO</a>
+        <a href="#seccion-extraccion" class="btn-sticky">RECLAMAR ACCESO AL MANIFIESTO</a>
     </div>
 
     <div id="security-check" class="fullscreen-layer hidden-start" style="background:black; z-index:999;">
@@ -128,26 +167,58 @@
 
     <main id="public-interface" style="overflow-y: auto; height: 100vh; padding: 20px; box-sizing: border-box; display: none;">
 
-        <header class="reveal-item" style="max-width: 600px; margin: 0 auto 50px auto; padding-top: 40px; text-align: center;">
+        <header class="reveal-item" style="max-width: 600px; margin: 0 auto 30px auto; padding-top: 40px; text-align: center;">
             <p style="font-family: 'Courier Prime'; color: var(--hero-red); font-size: 0.9rem; margin-bottom: 5px;">> ACCESO NO AUTORIZADO DETECTADO...</p>
             <h1 style="font-family: 'Bangers'; font-size: 3rem; color: var(--hero-yellow); margin-top: 10px; line-height: 1.1;">EL SISTEMA FUNCIONA PERFECTAMENTE. <br><span style="color: white;">POR ESO ESTÁS ASFIXIADO.</span></h1>
             
             <p style="font-family: 'Montserrat', sans-serif; color: #ccc; font-size: 0.95rem; text-align: justify; margin-bottom: 30px; line-height: 1.5;">
-                El mundo corporativo y social está diseñado para los protagonistas. Si sientes que la neurodivergencia o el cansancio te han convertido en un "Extra" en tu propia vida, no estás roto. Estás mal programado. Este es el parche.
+                El mundo corporativo y social está diseñado para los protagonistas. Si sientes que la neurodivergencia o el cansancio te han convertido en un "Extra", no estás roto. Estás mal programado. Este es el parche.
             </p>
-
-            <form id="gallery-form" style="background: #111; padding: 20px; border-left: 4px solid var(--hero-red); text-align: left;">
-                <p style="font-family: 'Courier Prime'; font-size: 0.9rem; color: var(--hero-yellow); margin-top: 0; margin-bottom: 15px;">> DESCARGAR PRÓLOGO CLASIFICADO - GRATIS:</p>
-                <input type="text" id="name-input" placeholder="NOMBRE CLAVE" required class="input-brutal" style="width: 100%; margin-bottom: 10px; padding: 15px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; font-family: 'Courier Prime';">
-                <input type="email" id="email-input" placeholder="CORREO ENCRIPTADO" required class="input-brutal" style="width: 100%; margin-bottom: 15px; padding: 15px; background: #000; color: white; border: 1px solid #333; box-sizing: border-box; font-family: 'Courier Prime';">
-                <button type="submit" id="submit-btn" class="btn-brutal btn-pulse" style="width: 100%; padding: 15px; background: var(--hero-red); color: white; font-family: 'Bangers'; font-size: 1.5rem; border: none; cursor: pointer; transition: 0.2s;">RECIBIR ACCESO</button>
-            </form>
         </header>
+
+        <section class="reveal-item" id="scan-module" style="max-width: 600px; margin: 0 auto 50px auto; padding: 25px; background: #0a0a0a; border: 1px solid #222; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+            <h3 style="font-family: 'Courier Prime'; color: #00ff41; margin-top: 0; font-size: 1.1rem;">> ESCÁNER DE PERFIL ACTIVADO</h3>
+            <p style="font-family: 'Courier Prime'; color: #888; font-size: 0.8rem; margin-bottom: 20px;">Identificando anomalías en el sistema del visitante...</p>
+
+            <div id="scan-inputs">
+                <label style="font-family: 'Courier Prime'; color: var(--hero-yellow); font-size: 0.85rem; display: block; margin-bottom: 5px;">¿Dónde opera el sistema que te drena?</label>
+                <select id="scan-system" class="input-brutal" style="cursor: pointer;">
+                    <option value="Corporativo Tradicional">Mundo Corporativo</option>
+                    <option value="Academia o Universidad">Universidad / Academia</option>
+                    <option value="Trabajo Freelance o Creativo">Freelance / Independiente</option>
+                    <option value="Gobierno o Burocracia">Gobierno / Burocracia</option>
+                </select>
+
+                <label style="font-family: 'Courier Prime'; color: var(--hero-yellow); font-size: 0.85rem; display: block; margin-bottom: 5px; margin-top: 10px;">Síntoma principal detectado:</label>
+                <select id="scan-symptom" class="input-brutal" style="cursor: pointer;">
+                    <option value="Ansiedad y Burnout">Ansiedad constante / Burnout</option>
+                    <option value="Cansancio mental extremo">Cansancio mental extremo</option>
+                    <option value="Sensación de absurdo y falta de sentido">Sensación de absurdo absoluto</option>
+                    <option value="Invisibilidad social y aislamiento">Querer desaparecer del radar</option>
+                </select>
+
+                <button id="scan-btn" class="btn-brutal btn-pulse" style="margin-top: 15px;">INICIAR ESCANEO</button>
+            </div>
+
+            <div id="scan-result" style="display: none; margin-top: 20px; border: 1px solid #333; padding: 20px; background: #000; font-family: 'Courier Prime'; font-size: 0.9rem; line-height: 1.5;">
+                <div id="typewriter-text" style="color: #00ff41; min-height: 60px;"></div>
+                
+                <div id="gated-form-container" style="display: none; margin-top: 25px; border-top: 1px dashed #555; padding-top: 20px;">
+                    <p style="color: var(--hero-red); font-weight: bold; margin-top: 0; margin-bottom: 10px;">> ALERTA: RESTO DEL REPORTE ENCRIPTADO.</p>
+                    <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 15px;">INGRESE SU CORREO EN LA TERMINAL PARA RECIBIR SU DIAGNÓSTICO COMPLETO Y EL PRÓLOGO DEL MANUAL.</p>
+                    <form id="gallery-form">
+                        <input type="text" id="name-input" placeholder="NOMBRE CLAVE" required class="input-brutal">
+                        <input type="email" id="email-input" placeholder="CORREO ENCRIPTADO" required class="input-brutal">
+                        <button type="submit" id="submit-btn" class="btn-brutal" style="background: var(--hero-red);">DESBLOQUEAR EXPEDIENTE</button>
+                    </form>
+                </div>
+            </div>
+        </section>
 
         <section class="reveal-item" style="max-width: 600px; margin: 0 auto 50px auto; border: 1px dashed #555; padding: 25px; text-align: center; background: rgba(0, 255, 65, 0.05);">
             <h2 style="font-family: 'Courier Prime'; color: var(--hero-green); font-size: 1.2rem; margin-top: 0;">> ACTUALIZACIÓN DE ESTADO</h2>
             <p style="font-family: 'Montserrat', sans-serif; color: #ccc; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
-                El sistema intentó apagarnos. Nos cerraron las puertas del evento físico. Creían que sin un salón, el mensaje moriría. Se equivocaron. El Búnker ahora es digital y es global. Quizá nos veas en el Zócalo, quizá en las sombras.
+                El sistema intentó apagarnos. Creían que sin un salón de eventos, el mensaje moriría. Se equivocaron. El Búnker ahora es digital y global. 
             </p>
             <p style="font-family: 'Courier Prime'; color: white; font-size: 1.1rem; margin-top: 20px; margin-bottom: 5px;">DESCLASIFICACIÓN GLOBAL: <strong>23 DE ABRIL</strong></p>
             <div class="time" style="font-family: 'Bangers'; font-size: 3.5rem; color: white; text-shadow: 4px 4px 0px var(--hero-red);">00:00:00</div>
@@ -221,13 +292,13 @@
         <section class="reveal-item" style="max-width: 600px; margin: 0 auto 80px auto;">
             <h2 style="font-family: 'Courier Prime'; color: #888; font-size: 1.2rem; border-bottom: 1px solid #333; padding-bottom: 10px;">> PROTOCOLOS DE SEGURIDAD (FAQ)</h2>
             
-            <div class="faq-item" onclick="this.classList.toggle('open')" style="cursor: pointer; border-bottom: 1px solid #222; padding: 10px 0;">
-                <h4 style="font-family: 'Montserrat', sans-serif; color: white; margin: 0; display: flex; justify-content: space-between;">¿La transferencia financiera es segura? <span style="color: var(--hero-yellow);">+</span></h4>
-                <div class="faq-content" style="display: none; padding-top: 10px;"><p style="font-family: 'Montserrat', sans-serif; color: #aaa; font-size: 0.85rem; margin: 0;">Positivo. Utilizamos encriptación de grado militar (Stripe / PayPal) para proteger tu identidad. El Sindicato no almacena tus datos bancarios.</p></div>
+            <div style="border-bottom: 1px solid #222; padding: 10px 0;">
+                <h4 onclick="toggleFaq(this)" style="font-family: 'Montserrat', sans-serif; color: white; margin: 0; display: flex; justify-content: space-between; cursor: pointer;">¿La transferencia financiera es segura? <span style="color: var(--hero-yellow);">+</span></h4>
+                <div style="display: none; padding-top: 10px;"><p style="font-family: 'Montserrat', sans-serif; color: #aaa; font-size: 0.85rem; margin: 0;">Positivo. Utilizamos encriptación de grado militar (Stripe / PayPal) para proteger tu identidad. El Sindicato no almacena tus datos bancarios.</p></div>
             </div>
-            <div class="faq-item" onclick="this.classList.toggle('open')" style="cursor: pointer; border-bottom: 1px solid #222; padding: 10px 0;">
-                <h4 style="font-family: 'Montserrat', sans-serif; color: white; margin: 0; display: flex; justify-content: space-between;">¿Cuándo recibo el expediente físico? <span style="color: var(--hero-yellow);">+</span></h4>
-                <div class="faq-content" style="display: none; padding-top: 10px;"><p style="font-family: 'Montserrat', sans-serif; color: #aaa; font-size: 0.85rem; margin: 0;">La desclasificación global es el 23 de Abril. Los envíos físicos comenzarán a despacharse esa misma semana a tu ubicación segura.</p></div>
+            <div style="border-bottom: 1px solid #222; padding: 10px 0;">
+                <h4 onclick="toggleFaq(this)" style="font-family: 'Montserrat', sans-serif; color: white; margin: 0; display: flex; justify-content: space-between; cursor: pointer;">¿Cuándo recibo el expediente físico? <span style="color: var(--hero-yellow);">+</span></h4>
+                <div style="display: none; padding-top: 10px;"><p style="font-family: 'Montserrat', sans-serif; color: #aaa; font-size: 0.85rem; margin: 0;">La desclasificación global es el 23 de Abril. Los envíos físicos comenzarán a despacharse esa misma semana a tu ubicación segura.</p></div>
             </div>
         </section>
 
@@ -248,15 +319,112 @@
                 <p style="font-family: 'Courier Prime'; color: white; font-size: 0.9rem; margin-bottom: 5px;">CLABE: <strong style="color: var(--hero-yellow); cursor: pointer;" onclick="navigator.clipboard.writeText('000000000000000000'); alert('CLABE copiada al portapapeles');">000000000000000000 📋</strong></p>
                 <p style="font-family: 'Montserrat', sans-serif; color: #888; font-size: 0.8rem; margin: 5px 0 0 0;">Envía el comprobante a tu contacto seguro por DM o Correo.</p>
             </div>
+            
+            <div style="background: #111; padding: 15px; border-left: 4px solid #f7931a;">
+                <h3 style="font-family: 'Courier Prime'; color: #f7931a; font-size: 1rem; margin-top:0;">> MÉTODO 3: RED DESCENTRALIZADA (CRYPTO)</h3>
+                <p style="font-family: 'Courier Prime'; color: white; font-size: 0.8rem; word-break: break-all; margin-bottom: 5px;"><strong>USDT (TRC20):</strong> <br>Txxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            </div>
         </div>
     </div>
 
     <script src="expediente.js"></script>
+    
     <script>
-        // Funciones básicas para que el HTML funcione sin errores si falta parte del JS
+        // 1. MANEJO DEL MODAL DE PAGO
         function openPaymentModal() {
             document.getElementById('payment-modal').style.display = 'flex';
         }
+
+        // 2. TOGGLE FAQ (Acordeón)
+        function toggleFaq(element) {
+            const content = element.nextElementSibling;
+            const symbol = element.querySelector('span');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                symbol.textContent = '-';
+            } else {
+                content.style.display = 'none';
+                symbol.textContent = '+';
+            }
+        }
+
+        // 3. LÓGICA DEL ESCÁNER DE IA
+        document.addEventListener("DOMContentLoaded", () => {
+            const scanBtn = document.getElementById("scan-btn");
+            const resultBox = document.getElementById("scan-result");
+            const typeWriterDiv = document.getElementById("typewriter-text");
+            const gatedForm = document.getElementById("gated-form-container");
+            const scanInputs = document.getElementById("scan-inputs");
+            
+            // Reemplaza esto con la URL exacta de tu Cloudflare Worker
+            const WORKER_URL = "https://black-fire-dc65.angelmills982.workers.dev/api/scan"; 
+            
+            let hasScanned = false;
+
+            if(scanBtn) {
+                scanBtn.addEventListener("click", async () => {
+                    if (hasScanned) return; // Previene múltiples clics
+
+                    const systemVal = document.getElementById("scan-system").value;
+                    const symptomVal = document.getElementById("scan-symptom").value;
+
+                    // Ocultar inputs y mostrar consola de carga
+                    scanInputs.style.display = "none";
+                    resultBox.style.display = "block";
+                    typeWriterDiv.innerHTML = "> ESTABLECIENDO CONEXIÓN SEGURA...<span class='cursor-blink'>█</span>";
+                    
+                    try {
+                        hasScanned = true;
+                        
+                        const response = await fetch(WORKER_URL, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ system: systemVal, symptom: symptomVal })
+                        });
+
+                        const data = await response.json();
+                        let analysis = data.analysis || "> ERROR: RASTREO BLOQUEADO POR EL SISTEMA.";
+                        
+                        // Efecto Máquina de Escribir (Typewriter)
+                        typeWriterDiv.innerHTML = "";
+                        let i = 0;
+                        const speed = 25; // milisegundos por letra
+
+                        function typeWriter() {
+                            if (i < analysis.length) {
+                                // Soporte básico para saltos de línea de la IA
+                                if(analysis.charAt(i) === '\n') {
+                                    typeWriterDiv.innerHTML += "<br>";
+                                } else {
+                                    typeWriterDiv.innerHTML += analysis.charAt(i);
+                                }
+                                i++;
+                                setTimeout(typeWriter, speed);
+                            } else {
+                                // Termina de escribir, revela el formulario trampa
+                                typeWriterDiv.innerHTML += "<span class='cursor-blink'>█</span>";
+                                setTimeout(() => {
+                                    gatedForm.style.display = "block";
+                                    // Scroll suave hacia el formulario
+                                    gatedForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }, 500);
+                            }
+                        }
+                        
+                        // Pequeña pausa dramática antes de imprimir
+                        setTimeout(typeWriter, 1500);
+
+                    } catch (error) {
+                        typeWriterDiv.innerHTML = "> ERROR DE CONEXIÓN CON EL SINDICATO. INTENTA DE NUEVO.";
+                        hasScanned = false;
+                        setTimeout(() => {
+                            scanInputs.style.display = "block";
+                            resultBox.style.display = "none";
+                        }, 3000);
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
