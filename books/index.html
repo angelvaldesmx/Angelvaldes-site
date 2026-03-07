@@ -305,28 +305,54 @@
     </main>
 
     <div id="payment-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
-        <div style="background: #050505; border: 2px solid var(--hero-yellow); max-width: 500px; width: 100%; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);">
-            <button onclick="document.getElementById('payment-modal').style.display='none'" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; font-family: 'Courier Prime';">X</button>
-            <h2 style="font-family: 'Bangers'; color: var(--hero-yellow); font-size: 2.2rem; margin-top: 0;">ADQUISICIÓN DE FUNDADOR</h2>
-            
-            <div style="margin-bottom: 25px;">
-                <h3 style="font-family: 'Courier Prime'; color: white; font-size: 1rem;">> MÉTODO 1: PAYPAL / TARJETA</h3>
-                <div id="paypal-button-container" style="margin-top: 10px; background: white; padding: 10px; border-radius: 5px;"></div>
-            </div>
-
-            <div style="margin-bottom: 25px; background: #111; padding: 15px; border-left: 4px solid #00ff41;">
-                <h3 style="font-family: 'Courier Prime'; color: #00ff41; font-size: 1rem; margin-top:0;">> MÉTODO 2: TRANSFERENCIA SPEI</h3>
-                <p style="font-family: 'Courier Prime'; color: white; font-size: 0.9rem; margin-bottom: 5px;">CLABE: <strong style="color: var(--hero-yellow); cursor: pointer;" onclick="navigator.clipboard.writeText('000000000000000000'); alert('CLABE copiada al portapapeles');">000000000000000000 📋</strong></p>
-                <p style="font-family: 'Montserrat', sans-serif; color: #888; font-size: 0.8rem; margin: 5px 0 0 0;">Envía el comprobante a tu contacto seguro por DM o Correo.</p>
-            </div>
-            
-            <div style="background: #111; padding: 15px; border-left: 4px solid #f7931a;">
-                <h3 style="font-family: 'Courier Prime'; color: #f7931a; font-size: 1rem; margin-top:0;">> MÉTODO 3: RED DESCENTRALIZADA (CRYPTO)</h3>
-                <p style="font-family: 'Courier Prime'; color: white; font-size: 0.8rem; word-break: break-all; margin-bottom: 5px;"><strong>USDT (TRC20):</strong> <br>Txxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
-            </div>
+    <div style="background: #050505; border: 2px solid var(--hero-yellow); max-width: 500px; width: 100%; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);">
+        <button onclick="document.getElementById('payment-modal').style.display='none'" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; font-family: 'Courier Prime';">X</button>
+        <h2 style="font-family: 'Bangers'; color: var(--hero-yellow); font-size: 2.2rem; margin-top: 0;">ADQUISICIÓN DE FUNDADOR</h2>
+        
+        <div style="margin-bottom: 25px;">
+            <h3 style="font-family: 'Courier Prime'; color: white; font-size: 1rem;">> MÉTODO 1: PAYPAL / TARJETA</h3>
+            <div id="paypal-button-container" style="margin-top: 10px; background: white; padding: 10px; border-radius: 5px;"></div>
         </div>
-    </div>
 
+        <div style="margin-bottom: 25px; background: #111; padding: 15px; border-left: 4px solid #00ff41;">
+            <h3 style="font-family: 'Courier Prime'; color: #00ff41; font-size: 1rem; margin-top:0;">> MÉTODO 2: TRANSFERENCIA SPEI</h3>
+            <p style="font-family: 'Courier Prime'; color: white; font-size: 0.9rem; margin-bottom: 5px;">CLABE: <strong style="color: var(--hero-yellow); cursor: pointer;" onclick="navigator.clipboard.writeText('000000000000000000'); alert('CLABE copiada al portapapeles');">000000000000000000 📋</strong></p>
+        </div>
+        
+        <div style="background: #111; padding: 15px; border-left: 4px solid #8247e5;">
+            <h3 style="font-family: 'Courier Prime'; color: #8247e5; font-size: 1rem; margin-top:0;">> MÉTODO 3: RED DESCENTRALIZADA (CRYPTO)</h3>
+            
+            <p style="font-family: 'Courier Prime'; color: #ccc; font-size: 0.85rem; margin-bottom: 10px;">
+                MONTO DE EXTRACCIÓN: <strong style="color: white; font-size: 1rem;">25.22 USDC</strong>
+            </p>
+            
+            <p style="font-family: 'Courier Prime'; color: white; font-size: 0.8rem; word-break: break-all; margin-bottom: 5px;">
+                <strong style="color: #2775ca;">USDC (EXCLUSIVO RED POLYGON):</strong><br>
+                <span style="color: var(--hero-yellow); cursor: pointer;" onclick="navigator.clipboard.writeText('0xTuDireccionDeWalletAqui'); alert('Wallet copiada al portapapeles');">0xTuDireccionDeWalletAqui 📋</span>
+            </p>
+            
+            <p style="font-family: 'Montserrat', sans-serif; color: #ff4444; font-size: 0.7rem; margin-top: 10px; font-weight: bold;">
+                ⚠️ IMPORTANTE: Selecciona estrictamente la red POLYGON. Si usas Ethereum (ERC20) u otra red, los fondos se destruirán.
+            </p>
+        </div>
+
+        <div style="margin-top: 25px; background: rgba(255, 0, 80, 0.1); border: 1px dashed var(--hero-red); padding: 20px; text-align: center;">
+            <h4 style="font-family: 'Bangers'; color: var(--hero-red); font-size: 1.5rem; margin-top: 0; margin-bottom: 10px; letter-spacing: 1px;">⚠️ PASO FINAL OBLIGATORIO</h4>
+            <p style="font-family: 'Montserrat', sans-serif; color: #ccc; font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px;">
+                Una vez completado el pago por cualquiera de los 3 métodos, envía tus coordenadas para asegurar tu ejemplar físico.
+            </p>
+            <p style="font-family: 'Courier Prime'; color: white; font-size: 0.9rem; margin-bottom: 5px;">
+                > CONTACTO DEL SINDICATO: <br>
+                <a href="mailto:agentelibro@angelvaldesmx.qzz.io" style="color: var(--hero-yellow); text-decoration: none; font-weight: bold; word-break: break-all;">agentelibro@angelvaldesmx.qzz.io</a>
+            </p>
+            <p style="font-family: 'Courier Prime'; color: #aaa; font-size: 0.8rem; margin-top: 10px; background: #000; padding: 10px;">
+                Debes incluir:<br> <strong style="color: white;">COMPROBANTE + NOMBRE COMPLETO + DIRECCIÓN DE ENVÍO</strong>
+            </p>
+        </div>
+
+    </div>
+    </div>
+    
     <script src="expediente.js"></script>
     
     <script>
