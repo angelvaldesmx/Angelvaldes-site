@@ -29,18 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. MODO VIP (ZONA SEGURA DIGITAL)
     // =========================================================
     async function initSecureMode(token) {
-        // Limpieza de elementos públicos
         const pubInterface = document.getElementById('public-interface');
         const stickyCta = document.getElementById('sticky-cta');
         
         if(pubInterface) pubInterface.style.display = 'none';
-        if(stickyCta) stickyCta.style.display = 'none'; // Ocultamos el botón inferior en la zona segura
+        if(stickyCta) stickyCta.style.display = 'none'; 
         
         const loader = document.getElementById('security-check');
         loader.classList.remove('hidden-start');
 
         try {
-            // Validación con Worker de Cloudflare
             const response = await fetch(`${CONFIG.apiUrl}?verify=${token}`);
             const data = await response.json();
 
@@ -49,18 +47,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const secureZone = document.getElementById('secure-zone');
                 secureZone.classList.remove('hidden-start');
                 
-                // Personalización de la Credencial Digital
                 document.getElementById('agent-welcome').innerText = `HOLA, ${data.agentName.toUpperCase()}`;
                 const agentNameEl = document.getElementById('agent-welcome-name');
                 if (agentNameEl) {
                     agentNameEl.innerText = data.agentName.toUpperCase();
                 }
                 
-                // Configurar Descarga del Manual
                 setupDownloadLogic(); 
-
                 console.log(">> Acceso Nivel Agente Concedido. Modalidad Digital.");
-
             } else {
                 throw new Error("Token Corrupto");
             }
@@ -101,9 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
         setupSubscriptionForm();
         startCountdown();
         setupScrollAnimations();
-        setupExitIntent(); // Activamos el rescate de abandono solo aquí
+        setupExitIntent(); 
         
-        // Muestra la nueva terminal brutalista inmediatamente
         gsap.to("#public-interface", { autoAlpha: 1, duration: 0.5, display: 'block' });
     }
 
@@ -121,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const d = Math.floor(dist / (1000 * 60 * 60 * 24));
             const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((dist % (1000 * 60)) / 1000); // Segundos para dinamismo
+            const s = Math.floor((dist % (1000 * 60)) / 1000); 
             
             timeEls.forEach(el => {
                 el.innerHTML = `${d}d:${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
@@ -133,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================
-    // 4. FORMULARIO DE CAPTACIÓN (CONECTADO AL WORKER)
+    // 4. FORMULARIO DE CAPTACIÓN
     // =========================================================
     function setupSubscriptionForm() {
         const form = document.getElementById('gallery-form');
@@ -150,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.disabled = true;
 
             try {
-                // Comunicación con tu Worker de Cloudflare
                 const response = await fetch(CONFIG.apiUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -165,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     btn.style.background = "#00ff41";
                     btn.style.color = "black";
                     
-                    // Mensaje de éxito visual limpio
                     if(!document.getElementById('success-msg')) {
                         form.insertAdjacentHTML('beforeend', 
                             `<div id="success-msg" style="color:#00ff41; font-family:'Courier Prime'; font-weight:bold; margin-top: 15px; text-align: center;">>> ENLACE ENVIADO A TU CORREO. REVISA SPAM.</div>`
@@ -187,10 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================
-    // 5. TÁCTICAS CRO (CONVERSION RATE OPTIMIZATION)
+    // 5. ANIMACIONES Y RETENCIÓN
     // =========================================================
-    
-    // A. Animaciones al hacer Scroll
     function setupScrollAnimations() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -200,18 +189,15 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }, { threshold: 0.1 });
         
-        // Pequeño delay para no interferir con la carga inicial
         setTimeout(() => {
             document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
         }, 800);
     }
 
-    // B. Exit-Intent Popup (Rescate de abandono)
     function setupExitIntent() {
         let exitIntentFired = false;
         
         document.addEventListener('mouseleave', (e) => {
-            // Solo se activa si el mouse sale por arriba (hacia la "X" o nueva pestaña)
             if (e.clientY < 0 && !exitIntentFired) {
                 exitIntentFired = true;
                 
@@ -228,7 +214,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     cancelButtonColor: '#333'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Navega suavemente al escáner/formulario
                         const targetForm = document.getElementById('scan-module') || document.getElementById('gallery-form');
                         if (targetForm) {
                             targetForm.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -239,3 +224,50 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// =========================================================
+// 6. FUNCIONES GLOBALES DE PAGO (PAYPAL)
+// =========================================================
+window.openPaymentModal = function() {
+    const modal = document.getElementById('payment-modal');
+    if(modal) modal.style.display = 'flex';
+    
+    const container = document.getElementById('paypal-button-container');
+    
+    // Validar si el SDK de PayPal cargó y si el contenedor está vacío
+    if (window.paypal && container && container.innerHTML === '') {
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({ 
+                    purchase_units: [{ 
+                        amount: { value: '449.00' }, // PRECIO EXACTO
+                        description: 'Antiheroe: Manual de Resistencia (Edición Fundador)'
+                    }] 
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    
+                    document.getElementById('payment-modal').style.display = 'none';
+                    
+                    Swal.fire({
+                        title: '¡PAGO INTERCEPTADO!', 
+                        text: 'Bienvenido a The Syndicate, ' + details.payer.name.given_name + '. Tu lugar está asegurado.', 
+                        icon: 'success', 
+                        background: '#050505', 
+                        color: '#00ff41',
+                        confirmButtonColor: '#FF0050'
+                    });
+                });
+            }
+        }).render('#paypal-button-container');
+    } else if (!window.paypal) {
+        console.error("El SDK de PayPal no ha cargado correctamente.");
+    }
+};
+
+window.closePaymentModal = function() {
+    const modal = document.getElementById('payment-modal');
+    if(modal) modal.style.display = 'none';
+};
+                    
